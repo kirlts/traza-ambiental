@@ -1,0 +1,192 @@
+import React from 'react'
+import { render, screen, waitFor } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import SistemaGestionDashboard from '@/app/dashboard/sistema-gestion/page'
+
+// Mock de componentes lazy
+jest.mock('@/components/dashboard/VelocimetroMeta', () => ({
+  VelocimetroMeta: ({ titulo }: any) => (
+    <div data-testid="velocimetro-meta">{titulo}</div>
+  ),
+}))
+
+jest.mock('@/components/dashboard/GraficoBarrasMeses', () => ({
+  GraficoBarrasMeses: () => <div data-testid="grafico-barras">Gráfico de Barras</div>,
+}))
+
+jest.mock('@/components/dashboard/GraficoCircularTratamientos', () => ({
+  GraficoCircularTratamientos: () => <div data-testid="grafico-circular">Gráfico Circular</div>,
+}))
+
+jest.mock('@/components/dashboard/MapaChileRegiones', () => ({
+  MapaChileRegiones: () => <div data-testid="mapa-regiones">Mapa de Chile</div>,
+}))
+
+jest.mock('@/components/dashboard/TablaUltimosCertificados', () => ({
+  TablaUltimosCertificados: () => <div data-testid="tabla-certificados">Tabla de Certificados</div>,
+}))
+
+jest.mock('@/components/dashboard/FiltrosDashboard', () => ({
+  FiltrosDashboard: ({ onChange }: { onChange: (filters: any) => void }) => (
+    <button
+      data-testid="filtros-button"
+      onClick={() => onChange({ anio: 2025, periodo: 'anio', region: 'todas' })}
+    >
+      Aplicar Filtros
+    </button>
+  ),
+}))
+
+jest.mock('@/components/layout/DashboardLayout', () => ({
+  DashboardLayout: ({ children, title }: { children: React.ReactNode; title: string }) => (
+    <div data-testid="dashboard-layout">
+      <h1>{title}</h1>
+      {children}
+    </div>
+  ),
+}))
+
+// Mock fetch para simular respuestas de API
+const mockFetch = jest.fn()
+global.fetch = mockFetch
+
+describe('SistemaGestionDashboard Integration', () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
+
+    // Mock exitoso de la API
+    mockFetch.mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({
+        kpis: {
+          metaRecoleccion: 1000,
+          avanceRecoleccion: 750,
+          porcentajeRecoleccion: 75,
+          metaValorizacion: 800,
+          avanceValorizacion: 600,
+          porcentajeValorizacion: 75,
+          totalCertificados: 150,
+          gestoresActivos: 25,
+          generadoresAtendidos: 45,
+          promedioMensual: 50,
+        },
+        proyeccion: {
+          cumpliraAtiempo: true,
+          fechaEstimada: '2025-12-31T00:00:00.000Z',
+          toneladasMensualNecesarias: 25,
+          deficit: 0,
+        },
+        comparacion: {
+          periodoActual: { toneladas: 600, porcentaje: 75 },
+          periodoAnterior: { toneladas: 550, porcentaje: 68.75 },
+          variacion: 50,
+          mejora: true,
+        },
+      }),
+    })
+  })
+
+  it('renders dashboard with all components', async () => {
+    render(<SistemaGestionDashboard />)
+
+    // Verificar que se muestra el loading inicialmente
+    expect(screen.getByText('Cargando datos del dashboard...')).toBeInTheDocument()
+
+    // Esperar a que cargue
+    await waitFor(() => {
+      expect(screen.getByText('Dashboard de Cumplimiento Global')).toBeInTheDocument()
+    })
+
+    // Verificar KPIs principales
+    expect(screen.getByText('Meta Global')).toBeInTheDocument()
+    expect(screen.getByText('Gestores Activos')).toBeInTheDocument()
+    expect(screen.getByText('Generadores')).toBeInTheDocument()
+    expect(screen.getByText('Certificados')).toBeInTheDocument()
+
+    // Verificar componentes gráficos (lazy loaded)
+    await waitFor(() => {
+      expect(screen.getByTestId('velocimetro-meta')).toBeInTheDocument()
+      expect(screen.getByTestId('grafico-barras')).toBeInTheDocument()
+      expect(screen.getByTestId('grafico-circular')).toBeInTheDocument()
+      expect(screen.getByTestId('mapa-regiones')).toBeInTheDocument()
+      expect(screen.getByTestId('tabla-certificados')).toBeInTheDocument()
+    })
+  })
+
+  it('handles filter changes', async () => {
+    render(<SistemaGestionDashboard />)
+
+    await waitFor(() => {
+      expect(screen.getByText('Dashboard de Cumplimiento Global')).toBeInTheDocument()
+    })
+
+    // Mock nueva llamada a la API después del cambio de filtros
+    mockFetch.mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({
+        kpis: {
+          metaRecoleccion: 1000,
+          avanceRecoleccion: 800,
+          porcentajeRecoleccion: 80,
+          metaValorizacion: 800,
+          avanceValorizacion: 650,
+          porcentajeValorizacion: 81.25,
+          totalCertificados: 160,
+          gestoresActivos: 26,
+          generadoresAtendidos: 48,
+          promedioMensual: 53.33,
+        },
+        proyeccion: {
+          cumpliraAtiempo: true,
+          fechaEstimada: '2025-12-31T00:00:00.000Z',
+          toneladasMensualNecesarias: 21.67,
+          deficit: 0,
+        },
+        comparacion: {
+          periodoActual: { toneladas: 650, porcentaje: 81.25 },
+          periodoAnterior: { toneladas: 600, porcentaje: 75 },
+          variacion: 50,
+          mejora: true,
+        },
+      }),
+    })
+
+    // Hacer clic en el botón de filtros
+    const filtrosButton = screen.getByTestId('filtros-button')
+    await userEvent.click(filtrosButton)
+
+    // Verificar que se hizo la llamada a la API con debounce
+    await waitFor(() => {
+      expect(mockFetch).toHaveBeenCalledTimes(2) // Primera carga + cambio de filtros
+    })
+  })
+
+  it('handles API errors gracefully', async () => {
+    // Mock error en la API
+    mockFetch.mockRejectedValueOnce(new Error('Network error'))
+
+    render(<SistemaGestionDashboard />)
+
+    // Verificar que se muestra el error
+    await waitFor(() => {
+      expect(screen.getByText('Error al cargar datos')).toBeInTheDocument()
+    })
+
+    // Verificar botón de reintentar
+    expect(screen.getByText('Reintentar')).toBeInTheDocument()
+  })
+
+  it('shows loading states for lazy components', async () => {
+    render(<SistemaGestionDashboard />)
+
+    await waitFor(() => {
+      expect(screen.getByText('Dashboard de Cumplimiento Global')).toBeInTheDocument()
+    })
+
+    // Los componentes lazy deberían mostrar skeletons inicialmente
+    // Esto es difícil de testear directamente, pero podemos verificar que se renderizan eventualmente
+    await waitFor(() => {
+      expect(screen.getByTestId('velocimetro-meta')).toBeInTheDocument()
+    })
+  })
+})

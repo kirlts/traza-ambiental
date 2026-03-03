@@ -1,0 +1,975 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                            String                      @id @default(cuid())
+  name                          String?
+  rut                           String?                     @unique
+  email                         String                      @unique
+  emailVerified                 DateTime?
+  image                         String?
+  password                      String?
+  active                        Boolean                     @default(true)
+  createdAt                     DateTime                    @default(now())
+  updatedAt                     DateTime                    @updatedAt
+  cuentaAprobada                Boolean                     @default(false)
+  capacidadProcesamiento        Float?
+  documentosCausantesSuspension String[]
+  estadoSuspension              Boolean                     @default(false)
+  estadoVerificacion            EstadoVerificacionUsuario   @default(PENDIENTE_VERIFICACION)
+  fechaSuspension               DateTime?
+  fechaVerificacion             DateTime?
+  motivoRechazo                 String?
+  motivoSuspension              String?
+  tipoEmpresa                   String?
+  tipoPlanta                    String?
+  verificadoPorId               String?
+  comuna                        String?
+  direccion                     String?
+  direccionCasaMatriz           String?
+  direccionComercial            String?
+  idRETC                        String?
+  region                        String?
+  telefono                      String?
+  tipoProductorREP              String?
+  tiposResiduos                 String[]
+  accounts                      Account[]
+  alertasVencimiento            AlertaVencimiento[]         @relation("AlertasUsuario")
+  auditLogs                     AuditLog[]
+  auditorias                    AuditoriaConfiguracion[]
+  autorizacionesSanitarias      AutorizacionSanitaria[]
+  registrosAutorizaciones       AutorizacionSanitaria[]     @relation("RegistradoPor")
+  cambiosRealizados             CambioEstado[]              @relation("RealizadoPor")
+  capacidadesUtilizadas         CapacidadUtilizada[]
+  perfilLegal                   CarrierLegalProfile?
+  certificadosEmitidos          Certificado[]               @relation("CertificadosEmitidos")
+  certificadosSistema           Certificado[]               @relation("CertificadosSistema")
+  declaraciones                 DeclaracionAnual[]          @relation("ProductorDeclaraciones")
+  declaracionesSinader          DeclaracionSinader[]
+  documentos                    DocumentoVerificacion[]     @relation("DocumentosUsuario")
+  documentosValidados           DocumentoVerificacion[]     @relation("DocumentosValidados")
+  guiasDespachoGeneradas        GuiaDespacho[]              @relation("GuiaGeneradaPor")
+  inventarios                   Inventario[]                @relation("GeneradorInventarios")
+  validacionesRealizadas        LogValidacion[]             @relation("ValidacionesRealizadas")
+  perfilLegalGestor             ManagerLegalProfile?
+  metasProductor                Meta[]                      @relation("ProductorMetas")
+  metasSistema                  Meta[]                      @relation("SistemaMetas")
+  notificaciones                Notificacion[]
+  rutas                         Ruta[]                      @relation("TransportistaRutas")
+  sessions                      Session[]
+  solicitudesRegistro           SolicitudRegistroGenerador?
+  solicitudesGenerador          SolicitudRetiro[]           @relation("GeneradorSolicitudes")
+  solicitudesGestor             SolicitudRetiro[]           @relation("GestorSolicitudes")
+  solicitudesTransportista      SolicitudRetiro[]           @relation("TransportistaSolicitudes")
+  roles                         UserRole[]
+  verificadoPor                 User?                       @relation("VerificacionesRealizadas", fields: [verificadoPorId], references: [id])
+  verificacionesOtrosUsuarios   User[]                      @relation("VerificacionesRealizadas")
+  vehiculos                     Vehiculo[]                  @relation("TransportistaVehiculos")
+  
+  // Modelos dinámicos detectados
+  reportesAnuales               ReporteAnual[]              @relation("UsuarioReportes")
+  reportesGenerados             ReporteAnual[]              @relation("ReportesGenerados")
+  pushSubscriptions             PushSubscription[]
+
+  @@map("users")
+}
+
+model ReporteAnual {
+  id                   String   @id @default(cuid())
+  sistemaGestionId    String
+  anio                 Int
+  folio                String   @unique
+  codigoVerificacion   String   @default(cuid())
+  datosReporte         Json
+  estado               String   @default("generado")
+  creadoPor            String?
+  generadoPorId        String?
+  observaciones        String?
+  documentosAdjuntos   Json     @default("[]")
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+  
+  usuario              User     @relation("UsuarioReportes", fields: [sistemaGestionId], references: [id])
+  generadoPor          User?    @relation("ReportesGenerados", fields: [generadoPorId], references: [id])
+
+  @@unique([sistemaGestionId, anio])
+  @@map("reportes_anuales")
+}
+
+model PushSubscription {
+  id        String   @id @default(cuid())
+  userId    String
+  endpoint  String   @unique
+  keys      Json
+  userAgent String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, endpoint])
+  @@map("push_subscriptions")
+}
+
+model CarrierLegalProfile {
+  id                   String      @id @default(cuid())
+  carrierId            String      @unique
+  retcId               String?
+  sanitaryResolution   String?
+  resolutionDate       DateTime?
+  baseOperations       String?
+  retcFileUrl          String?
+  resolutionFileUrl    String?
+  sinaderFileUrl       String?
+  isRetcVerified       Boolean     @default(false)
+  isResolutionVerified Boolean     @default(false)
+  isSinaderVerified    Boolean     @default(false)
+  status               LegalStatus @default(PENDIENTE)
+  rejectionReason      String?
+  verifiedAt           DateTime?
+  verifiedBy           String?
+  createdAt            DateTime    @default(now())
+  updatedAt            DateTime    @updatedAt
+  carrier              User        @relation(fields: [carrierId], references: [id], onDelete: Cascade)
+
+  @@map("carrier_legal_profiles")
+}
+
+model ManagerLegalProfile {
+  id                   String      @id @default(cuid())
+  managerId            String      @unique
+  retcId               String?
+  retcFileUrl          String?
+  isRetcVerified       Boolean     @default(false)
+  resolutionNumber     String?
+  resolutionFileUrl    String?
+  authorizedCapacity   Float?
+  isResolutionVerified Boolean     @default(false)
+  hasRepModule         Boolean     @default(false)
+  gransicPartner       String?
+  status               LegalStatus @default(PENDIENTE)
+  rejectionReason      String?
+  verifiedAt           DateTime?
+  verifiedBy           String?
+  createdAt            DateTime    @default(now())
+  updatedAt            DateTime    @updatedAt
+  manager              User        @relation(fields: [managerId], references: [id], onDelete: Cascade)
+
+  @@map("manager_legal_profiles")
+}
+
+model AutorizacionSanitaria {
+  id                      String             @id @default(cuid())
+  gestorId                String
+  numeroResolucion        String             @unique
+  autoridadEmisora        String
+  fechaEmision            DateTime
+  fechaVencimiento        DateTime
+  tratamientosAutorizados TratamientoTipo[]
+  capacidadAnualTn        Float
+  categoriasResiduos      String[]
+  estado                  EstadoAutorizacion @default(VIGENTE)
+  observaciones           String?
+  registradoPor           String?
+  fechaRegistro           DateTime           @default(now())
+  createdAt               DateTime           @default(now())
+  updatedAt               DateTime           @updatedAt
+  gestor                  User               @relation(fields: [gestorId], references: [id], onDelete: Cascade)
+  registradoPorUsuario    User?              @relation("RegistradoPor", fields: [registradoPor], references: [id])
+
+  @@index([gestorId])
+  @@index([fechaVencimiento])
+  @@index([estado])
+  @@map("autorizaciones_sanitarias")
+}
+
+model CapacidadUtilizada {
+  id                  String          @id @default(cuid())
+  gestorId            String
+  anio                Int
+  tratamiento         TratamientoTipo
+  toneladasUtilizadas Float           @default(0)
+  ultimaActualizacion DateTime        @default(now())
+  gestor              User            @relation(fields: [gestorId], references: [id], onDelete: Cascade)
+
+  @@unique([gestorId, anio, tratamiento])
+  @@index([gestorId])
+  @@index([anio])
+  @@map("capacidad_utilizada")
+}
+
+model DeclaracionSinader {
+  id           String   @id @default(cuid())
+  gestorId     String
+  mes          Int
+  anio         Int
+  archivoUrl   String
+  folioSinader String?
+  fechaCarga   DateTime @default(now())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  gestor       User     @relation(fields: [gestorId], references: [id], onDelete: Cascade)
+
+  @@unique([gestorId, anio, mes])
+  @@map("declaraciones_sinader")
+}
+
+model Role {
+  id          String     @id @default(cuid())
+  name        String     @unique
+  description String?
+  active      Boolean    @default(true)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  users       UserRole[]
+
+  @@map("roles")
+}
+
+model UserRole {
+  id        String   @id @default(cuid())
+  userId    String
+  roleId    String
+  createdAt DateTime @default(now())
+  role      Role     @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, roleId])
+  @@map("user_roles")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+model DeclaracionAnual {
+  id               String               @id @default(cuid())
+  productorId      String
+  anio             Int
+  folio            String?              @unique
+  totalUnidades    Int                  @default(0)
+  totalToneladas   Float                @default(0)
+  estado           String               @default("borrador")
+  observaciones    String?
+  fechaDeclaracion DateTime?
+  fechaLimite      DateTime
+  createdAt        DateTime             @default(now())
+  updatedAt        DateTime             @updatedAt
+  categorias       CategoriaDeclarada[]
+  productor        User                 @relation("ProductorDeclaraciones", fields: [productorId], references: [id])
+  metas            Meta[]
+
+  @@unique([productorId, anio])
+  @@index([productorId])
+  @@index([anio])
+  @@index([estado])
+  @@map("declaraciones_anuales")
+}
+
+model CategoriaDeclarada {
+  id               String           @id @default(cuid())
+  declaracionId    String
+  tipo             String
+  nombre           String
+  descripcion      String?
+  cantidadUnidades Int
+  pesoToneladas    Float
+  createdAt        DateTime         @default(now())
+  declaracion      DeclaracionAnual @relation(fields: [declaracionId], references: [id], onDelete: Cascade)
+
+  @@index([declaracionId])
+  @@map("categorias_declaradas")
+}
+
+model Meta {
+  id                  String            @id @default(cuid())
+  declaracionId       String?
+  productorId         String?
+  sistemaGestionId    String?
+  anio                Int
+  tipo                String
+  metaToneladas       Float
+  avanceToneladas     Float             @default(0)
+  porcentajeAvance    Float             @default(0)
+  origen              String            @default("manual")
+  justificacionCambio String?
+  modificadoPor       String?
+  cumplida            Boolean           @default(false)
+  fechaCumplimiento   DateTime?
+  estado              String            @default("activa")
+  createdAt           DateTime          @default(now())
+  updatedAt           DateTime          @updatedAt
+  desgloses           DesgloseMeta[]
+  declaracion         DeclaracionAnual? @relation(fields: [declaracionId], references: [id])
+  productor           User?             @relation("ProductorMetas", fields: [productorId], references: [id])
+  sistemaGestion      User?             @relation("SistemaMetas", fields: [sistemaGestionId], references: [id])
+
+  @@index([productorId])
+  @@index([sistemaGestionId])
+  @@index([anio])
+  @@index([estado])
+  @@map("metas")
+}
+
+model ConfiguracionMetasREP {
+  id                  String   @id @default("config-metas-rep")
+  porcentajes         String
+  ultimaActualizacion DateTime
+  actualizadoPor      String?
+
+  @@map("configuracion_metas_rep")
+}
+
+model Notificacion {
+  id         String   @id @default(cuid())
+  userId     String
+  tipo       String
+  titulo     String
+  mensaje    String
+  referencia String?
+  leida      Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  user       User     @relation(fields: [userId], references: [id])
+
+  @@index([userId, leida])
+  @@index([createdAt])
+  @@map("notificaciones")
+}
+
+model DesgloseMeta {
+  id               String   @id @default(cuid())
+  metaId           String
+  criterio         String
+  valor            String
+  metaToneladas    Float
+  avanceToneladas  Float    @default(0)
+  porcentajeAvance Float    @default(0)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  meta             Meta     @relation(fields: [metaId], references: [id], onDelete: Cascade)
+
+  @@index([metaId])
+  @@map("desgloses_meta")
+}
+
+model AuditoriaConfiguracion {
+  id            String   @id @default(cuid())
+  usuarioId     String
+  accion        String
+  entidad       String
+  entidadId     String
+  valorAnterior String?
+  valorNuevo    String
+  justificacion String?
+  createdAt     DateTime @default(now())
+  usuario       User     @relation(fields: [usuarioId], references: [id])
+
+  @@index([usuarioId])
+  @@index([entidad, entidadId])
+  @@index([createdAt])
+  @@map("auditorias_configuracion")
+}
+
+model AuditLog {
+  id          String   @id @default(cuid())
+  userId      String
+  action      String
+  entityType  String
+  entityId    String?
+  description String
+  metadata    String?
+  ipAddress   String?
+  userAgent   String?
+  createdAt   DateTime @default(now())
+  user        User     @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([action])
+  @@index([entityType, entityId])
+  @@index([createdAt])
+  @@map("audit_logs")
+}
+
+model SolicitudRegistroGenerador {
+  id                     String    @id @default(cuid())
+  rutEmpresa             String    @unique
+  razonSocial            String
+  direccion              String
+  comuna                 String?
+  region                 String?
+  telefono               String?
+  rutRepresentante       String
+  nombresRepresentante   String
+  apellidosRepresentante String
+  cargoRepresentante     String?
+  emailRepresentante     String
+  telefonoRepresentante  String?
+  email                  String    @unique
+  password               String
+  estado                 String    @default("pendiente")
+  motivoRechazo          String?
+  fechaSolicitud         DateTime  @default(now())
+  fechaRevision          DateTime?
+  revisadoPor            String?
+  usuarioId              String?   @unique
+  createdAt              DateTime  @default(now())
+  updatedAt              DateTime  @updatedAt
+  tipoProductorREP       String?
+  tiposResiduos          String[]
+  direccionCasaMatriz    String?
+  idRETC                 String?
+  usuario                User?     @relation(fields: [usuarioId], references: [id])
+
+  @@index([estado])
+  @@index([fechaSolicitud])
+  @@map("solicitudes_registro_generador")
+}
+
+model SolicitudRetiro {
+  id                   String          @id @default(cuid())
+  folio                String          @unique
+  generadorId          String
+  direccionRetiro      String
+  region               String
+  comuna               String
+  fechaPreferida       DateTime
+  horarioPreferido     String
+  categoriaA_cantidad  Int             @default(0)
+  categoriaA_pesoEst   Float           @default(0)
+  categoriaB_cantidad  Int             @default(0)
+  categoriaB_pesoEst   Float           @default(0)
+  pesoTotalEstimado    Float
+  cantidadTotal        Int
+  nombreContacto       String
+  telefonoContacto     String
+  instrucciones        String?
+  fotos                String[]
+  estado               EstadoSolicitud @default(PENDIENTE)
+  esBorrador           Boolean         @default(false)
+  transportistaId      String?
+  vehiculoId           String?
+  gestorId             String?
+  pesoReal             Float?
+  cantidadReal         Int?
+  fechaAceptacion      DateTime?
+  fechaRecoleccion     DateTime?
+  fechaEntregaGestor   DateTime?
+  fechaRecepcionPlanta DateTime?
+  createdAt            DateTime        @default(now())
+  updatedAt            DateTime        @updatedAt
+  detallesRechazo      String?
+  fechaRechazo         DateTime?
+  motivoRechazo        MotivoRechazo?
+  cambiosEstado        CambioEstado[]
+  certificado          Certificado?
+  guiaDespacho         GuiaDespacho?
+  rutas                RutaSolicitud[]
+  generador            User            @relation("GeneradorSolicitudes", fields: [generadorId], references: [id])
+  gestor               User?           @relation("GestorSolicitudes", fields: [gestorId], references: [id])
+  transportista        User?           @relation("TransportistaSolicitudes", fields: [transportistaId], references: [id])
+  vehiculo             Vehiculo?       @relation(fields: [vehiculoId], references: [id])
+
+  @@index([generadorId])
+  @@index([estado])
+  @@index([transportistaId])
+  @@index([gestorId])
+  @@index([fechaPreferida])
+  @@map("solicitudes_retiro")
+}
+
+model CambioEstado {
+  id             String           @id @default(cuid())
+  solicitudId    String
+  estadoAnterior EstadoSolicitud?
+  estadoNuevo    EstadoSolicitud
+  fecha          DateTime         @default(now())
+  realizadoPor   String
+  notas          String?
+  usuario        User             @relation("RealizadoPor", fields: [realizadoPor], references: [id])
+  solicitud      SolicitudRetiro  @relation(fields: [solicitudId], references: [id], onDelete: Cascade)
+
+  @@index([solicitudId])
+  @@map("cambios_estado")
+}
+
+model Region {
+  id        String   @id @default(cuid())
+  codigo    String   @unique
+  nombre    String
+  createdAt DateTime @default(now())
+  comunas   Comuna[]
+
+  @@map("regiones")
+}
+
+model Comuna {
+  id        String   @id @default(cuid())
+  codigo    String   @unique
+  nombre    String
+  regionId  String
+  createdAt DateTime @default(now())
+  region    Region   @relation(fields: [regionId], references: [id])
+
+  @@index([regionId])
+  @@map("comunas")
+}
+
+model Vehiculo {
+  id              String                  @id @default(cuid())
+  transportistaId String
+  patente         String                  @unique
+  tipo            String
+  capacidadKg     Float
+  estado          String                  @default("activo")
+  createdAt       DateTime                @default(now())
+  updatedAt       DateTime                @updatedAt
+  documentos      DocumentoVerificacion[] @relation("DocumentosVehiculo")
+  rutas           Ruta[]                  @relation("VehiculoRutas")
+  solicitudes     SolicitudRetiro[]
+  transportista   User                    @relation("TransportistaVehiculos", fields: [transportistaId], references: [id])
+
+  @@index([transportistaId])
+  @@map("vehiculos")
+}
+
+model AnalyticsDailySummary {
+  id                      String   @id @default(cuid())
+  fecha                   DateTime @unique @db.Date
+  totalSolicitudes        Int      @default(0)
+  totalPesoRecolectado    Float    @default(0)
+  totalPesoValorizado     Float    @default(0)
+  totalCertificados       Int      @default(0)
+  metaRecoleccionAnual    Float    @default(0)
+  avanceRecoleccionAnual  Float    @default(0)
+  metaValorizacionAnual   Float    @default(0)
+  avanceValorizacionAnual Float    @default(0)
+  desglosePorRegion       Json?
+  desglosePorTratamiento  Json?
+  desglosePorGestor       Json?
+  updatedAt               DateTime @updatedAt
+
+  @@index([fecha])
+  @@map("analytics_daily_summary")
+}
+
+model CategoriaProducto {
+  id          String     @id @default(cuid())
+  nombre      String     @unique
+  descripcion String?
+  activa      Boolean    @default(true)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  productos   Producto[]
+
+  @@map("categorias_producto")
+}
+
+model Producto {
+  id          String            @id @default(cuid())
+  categoriaId String
+  nombre      String
+  marca       String
+  modelo      String
+  medidas     String
+  descripcion String?
+  activo      Boolean           @default(true)
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  inventarios Inventario[]
+  categoria   CategoriaProducto @relation(fields: [categoriaId], references: [id])
+
+  @@unique([marca, modelo, medidas])
+  @@index([categoriaId])
+  @@index([activo])
+  @@map("productos")
+}
+
+model Inventario {
+  id          String                 @id @default(cuid())
+  productoId  String
+  stockActual Int                    @default(0)
+  stockMinimo Int                    @default(5)
+  ubicacion   String?
+  createdAt   DateTime               @default(now())
+  updatedAt   DateTime               @updatedAt
+  generadorId String
+  generador   User                   @relation("GeneradorInventarios", fields: [generadorId], references: [id], onDelete: Cascade)
+  producto    Producto               @relation(fields: [productoId], references: [id], onDelete: Cascade)
+  movimientos MovimientoInventario[]
+
+  @@unique([generadorId, productoId])
+  @@index([generadorId])
+  @@index([productoId])
+  @@map("inventarios")
+}
+
+model MovimientoInventario {
+  id              String     @id @default(cuid())
+  inventarioId    String
+  tipo            String
+  cantidad        Int
+  motivo          String?
+  fechaMovimiento DateTime   @default(now())
+  usuarioId       String?
+  cantidadPrevia  Int
+  cantidadNueva   Int
+  referencia      String?
+  notas           String?
+  inventario      Inventario @relation(fields: [inventarioId], references: [id], onDelete: Cascade)
+
+  @@index([inventarioId])
+  @@index([fechaMovimiento])
+  @@map("movimientos_inventario")
+}
+
+model DocumentoVerificacion {
+  id                      String                  @id @default(cuid())
+  usuarioId               String
+  tipoDocumento           TipoDocumento
+  categoria               String?
+  numeroFolio             String?
+  fechaEmision            DateTime?
+  fechaVencimiento        DateTime
+  archivoUrl              String
+  archivoNombre           String
+  archivoTamano           Int
+  archivoTipo             String
+  estadoValidacion        EstadoValidacion        @default(PENDIENTE)
+  validadoPorId           String?
+  fechaValidacion         DateTime?
+  notasValidacion         String?
+  validadoContraPortal    Boolean                 @default(false)
+  portalVerificado        String?
+  fechaVerificacionPortal DateTime?
+  nivelAlerta             NivelAlertaVencimiento  @default(VIGENTE)
+  alertaEnviada30d        Boolean                 @default(false)
+  fechaAlerta30d          DateTime?
+  alertaEnviada15d        Boolean                 @default(false)
+  fechaAlerta15d          DateTime?
+  alertaVencido           Boolean                 @default(false)
+  fechaAlertaVencido      DateTime?
+  vehiculoPatente         String?
+  vehiculoId              String?
+  version                 Int                     @default(1)
+  documentoAnteriorId     String?
+  createdAt               DateTime                @default(now())
+  updatedAt               DateTime                @updatedAt
+  creadoPor               String?
+  alertasVencimiento      AlertaVencimiento[]
+  documentoAnterior       DocumentoVerificacion?  @relation("VersionesDocumento", fields: [documentoAnteriorId], references: [id])
+  versionesPosterior      DocumentoVerificacion[] @relation("VersionesDocumento")
+  usuario                 User                    @relation("DocumentosUsuario", fields: [usuarioId], references: [id], onDelete: Cascade)
+  validadoPor             User?                   @relation("DocumentosValidados", fields: [validadoPorId], references: [id])
+  vehiculo                Vehiculo?               @relation("DocumentosVehiculo", fields: [vehiculoId], references: [id])
+  logsValidacion          LogValidacion[]
+
+  @@index([usuarioId])
+  @@index([tipoDocumento])
+  @@index([estadoValidacion])
+  @@index([fechaVencimiento])
+  @@index([nivelAlerta])
+  @@index([vehiculoPatente])
+  @@map("documentos_verificacion")
+}
+
+model LogValidacion {
+  id                 String                @id @default(cuid())
+  documentoId        String
+  usuarioValidadorId String
+  accion             String
+  motivo             String?
+  estadoAnterior     EstadoValidacion
+  estadoNuevo        EstadoValidacion
+  ipAdministrador    String?
+  navegador          String?
+  createdAt          DateTime              @default(now())
+  documento          DocumentoVerificacion @relation(fields: [documentoId], references: [id], onDelete: Cascade)
+  usuarioValidador   User                  @relation("ValidacionesRealizadas", fields: [usuarioValidadorId], references: [id])
+
+  @@index([documentoId])
+  @@index([usuarioValidadorId])
+  @@index([createdAt])
+  @@map("logs_validacion")
+}
+
+model AlertaVencimiento {
+  id              String                @id @default(cuid())
+  documentoId     String
+  usuarioId       String
+  tipoAlerta      String
+  fechaEnvio      DateTime              @default(now())
+  emailEnviado    Boolean               @default(false)
+  emailLeido      Boolean               @default(false)
+  usuarioResponde Boolean               @default(false)
+  fechaRespuesta  DateTime?
+  createdAt       DateTime              @default(now())
+  documento       DocumentoVerificacion @relation(fields: [documentoId], references: [id], onDelete: Cascade)
+  usuario         User                  @relation("AlertasUsuario", fields: [usuarioId], references: [id])
+
+  @@index([documentoId])
+  @@index([usuarioId])
+  @@index([fechaEnvio])
+  @@map("alertas_vencimiento")
+}
+
+model Ruta {
+  id               String          @id @default(cuid())
+  transportistaId  String
+  vehiculoId       String?
+  nombre           String
+  fechaPlanificada DateTime
+  estado           EstadoRuta      @default(PLANIFICADA)
+  distanciaTotal   Float?
+  tiempoEstimado   Int?
+  optimizada       Boolean         @default(false)
+  notas            String?
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+  solicitudes      RutaSolicitud[]
+  transportista    User            @relation("TransportistaRutas", fields: [transportistaId], references: [id], onDelete: Cascade)
+  vehiculo         Vehiculo?       @relation("VehiculoRutas", fields: [vehiculoId], references: [id])
+
+  @@index([transportistaId])
+  @@index([vehiculoId])
+  @@index([estado])
+  @@index([fechaPlanificada])
+  @@map("rutas")
+}
+
+model RutaSolicitud {
+  id           String          @id @default(cuid())
+  rutaId       String
+  solicitudId  String
+  orden        Int
+  completada   Boolean         @default(false)
+  horaEstimada DateTime?
+  ruta         Ruta            @relation(fields: [rutaId], references: [id], onDelete: Cascade)
+  solicitud    SolicitudRetiro @relation(fields: [solicitudId], references: [id], onDelete: Cascade)
+
+  @@unique([rutaId, solicitudId])
+  @@index([rutaId])
+  @@index([solicitudId])
+  @@map("ruta_solicitudes")
+}
+
+model Certificado {
+  id                String          @id @default(cuid())
+  folio             String          @unique
+  solicitudId       String          @unique
+  gestorId          String
+  sistemaGestionId  String?
+  pesoValorizado    Float
+  cantidadUnidades  Int
+  categorias        String[]
+  tratamientos      Json
+  fechaEmision      DateTime        @default(now())
+  pdfUrl            String
+  qrCode            String
+  tokenVerificacion String          @unique
+  estado            String          @default("emitido")
+  motivoAnulacion   String?
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+  gestor            User            @relation("CertificadosEmitidos", fields: [gestorId], references: [id], onDelete: Cascade)
+  sistemaGestion    User?           @relation("CertificadosSistema", fields: [sistemaGestionId], references: [id])
+  solicitud         SolicitudRetiro @relation(fields: [solicitudId], references: [id], onDelete: Cascade)
+
+  @@index([folio])
+  @@index([gestorId])
+  @@index([sistemaGestionId])
+  @@index([fechaEmision])
+  @@index([estado])
+  @@map("certificados")
+}
+
+model SecuenciaFolio {
+  id        String   @id @default("folio-certificados")
+  anio      Int      @unique
+  secuencia Int      @default(1)
+  updatedAt DateTime @updatedAt
+
+  @@map("secuencias_folio")
+}
+
+model GuiaDespacho {
+  id                 String          @id @default(cuid())
+  numeroGuia         String          @unique
+  solicitudId        String          @unique
+  fechaEmision       DateTime        @default(now())
+  fechaSalida        DateTime?
+  fechaLlegada       DateTime?
+  vehiculoPatente    String
+  conductorNombre    String
+  conductorRut       String
+  descripcionCarga   String
+  categoriaNeumatico String
+  pesoKg             Float
+  cantidadUnidades   Int
+  residuosPeligrosos Boolean         @default(true)
+  pdfUrl             String?
+  qrCodeUrl          String?
+  generadoPor        String
+  fechaGeneracion    DateTime        @default(now())
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+  hashIntegridad     String?
+  versionDocumento   Int             @default(1)
+  generadoPorUsuario User            @relation("GuiaGeneradaPor", fields: [generadoPor], references: [id])
+  solicitud          SolicitudRetiro @relation(fields: [solicitudId], references: [id], onDelete: Cascade)
+
+  @@index([numeroGuia])
+  @@index([solicitudId])
+  @@map("guias_despacho")
+}
+
+model SecuenciaGuia {
+  id        String   @id @default("folio-guia-despacho")
+  anio      Int      @unique
+  secuencia Int      @default(1)
+  updatedAt DateTime @updatedAt
+
+  @@map("secuencias_guia")
+}
+
+model RetcEstablecimiento {
+  id               String   @id @default(cuid())
+  retcId           String   @unique
+  razonSocial      String?
+  direccion        String?
+  comuna           String?
+  region           String?
+  rubro            String?
+  estado           String?
+  fuenteDatos      String?
+  fechaImportacion DateTime @default(now())
+
+  @@index([retcId])
+  @@index([razonSocial])
+  @@map("retc_establecimientos")
+}
+
+enum EstadoSolicitud {
+  PENDIENTE
+  ACEPTADA
+  EN_CAMINO
+  RECOLECTADA
+  ENTREGADA_GESTOR
+  RECIBIDA_PLANTA
+  TRATADA
+  RECHAZADA
+  CANCELADA
+}
+
+enum MotivoRechazo {
+  FUERA_DE_ZONA
+  CARGA_NO_COMPATIBLE
+  CAPACIDAD_EXCEDIDA
+  HORARIO_NO_DISPONIBLE
+  OTRO
+}
+
+enum EstadoVerificacionUsuario {
+  PENDIENTE_VERIFICACION
+  DOCUMENTOS_CARGADOS
+  EN_REVISION
+  VERIFICADO
+  RECHAZADO
+  SUSPENDIDO
+}
+
+enum TipoDocumento {
+  AUTORIZACION_SANITARIA_TRANSPORTE
+  PERMISO_CIRCULACION
+  REVISION_TECNICA
+  CERTIFICADO_ANTECEDENTES
+  AUTORIZACION_SANITARIA_PLANTA
+  RCA
+  REGISTRO_GESTOR_MMA
+  CERTIFICADO_INSTALACION_ELECTRICA
+  CERTIFICADO_VIGENCIA_PODERES
+  PATENTE_MUNICIPAL
+}
+
+enum EstadoValidacion {
+  PENDIENTE
+  EN_REVISION
+  APROBADO
+  RECHAZADO
+  VENCIDO
+}
+
+enum NivelAlertaVencimiento {
+  VIGENTE
+  ALERTA
+  CRITICO
+  VENCIDO
+}
+
+enum EstadoRuta {
+  PLANIFICADA
+  EN_PROGRESO
+  COMPLETADA
+  CANCELADA
+}
+
+enum LegalStatus {
+  PENDIENTE
+  EN_REVISION
+  VERIFICADO
+  RECHAZADO
+}
+
+enum TratamientoTipo {
+  RECAUCHAJE
+  RECICLAJE_MATERIAL
+  CO_PROCESAMIENTO
+  VALORIZACION_ENERGETICA
+  OTRO
+}
+
+enum EstadoAutorizacion {
+  VIGENTE
+  VENCIDA
+  REVOCADA
+  SUSPENDIDA
+}

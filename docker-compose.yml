@@ -1,0 +1,41 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: traza-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-kirlts}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-devpassword123}
+      POSTGRES_DB: ${POSTGRES_DB:-trazambiental_db}
+    ports:
+      - "5433:5432"
+    volumes:
+      - traza-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test:
+        ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-kirlts} -d ${POSTGRES_DB:-trazambiental_db}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: traza-app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env.docker
+    depends_on:
+      db:
+        condition: service_healthy # LA VALLA CRÍTICA: Bloquea hasta el OK de Postgres
+    volumes:
+      - public-assets:/app/public/assets
+
+volumes:
+  traza-pgdata:
+  public-assets:

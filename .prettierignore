@@ -1,0 +1,11 @@
+node_modules
+.next
+build
+dist
+out
+public
+package-lock.json
+.vercel
+.cursor
+coverage
+docs/manual-web

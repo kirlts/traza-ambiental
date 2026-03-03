@@ -1,0 +1,347 @@
+/**
+ * Tests unitarios para API de gestión de documentos de usuario
+ * HU-016: Validación Documental de Transportistas y Gestores
+ */
+
+import { GET, POST } from '@/app/api/user/documentos/route'
+import { auth } from '@/lib/auth'
+import { prisma } from '@/lib/prisma'
+
+// Mocks
+jest.mock('@/lib/auth')
+jest.mock('@/lib/prisma', () => ({
+  prisma: {
+    documentoVerificacion: {
+      findMany: jest.fn(),
+      create: jest.fn(),
+    },
+    user: {
+      findUnique: jest.fn(),
+      update: jest.fn(),
+    }
+  }
+}))
+
+jest.mock('@aws-sdk/client-s3', () => ({
+  S3Client: jest.fn(() => ({
+    send: jest.fn()
+  })),
+  PutObjectCommand: jest.fn()
+}))
+
+const mockAuth = auth as jest.MockedFunction<typeof auth>
+const mockPrisma = prisma as jest.Mocked<typeof prisma>
+
+describe('API /api/user/documentos', () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
+
+  describe('GET - Obtener documentos del usuario', () => {
+    it('debería devolver 401 si no hay sesión', async () => {
+      mockAuth.mockResolvedValue(null)
+
+      const response = await GET()
+      const data = await response.json()
+
+      expect(response.status).toBe(401)
+      expect(data.error).toBe('No autorizado')
+    })
+
+    it('debería devolver 403 si el usuario no es transportista o gestor', async () => {
+      mockAuth.mockResolvedValue({
+        user: {
+          id: 'user-1',
+          roles: ['Generador']
+        }
+      } as any)
+
+      const response = await GET()
+      const data = await response.json()
+
+      expect(response.status).toBe(403)
+      expect(data.error).toBe('Acceso denegado - Solo transportistas y gestores')
+    })
+
+    it('debería devolver documentos para transportista válido', async () => {
+      const mockDocumentos = [
+        {
+          id: 'doc-1',
+          tipoDocumento: 'AUTORIZACION_SANITARIA_TRANSPORTE',
+          numeroFolio: 'AS-123456',
+          fechaEmision: new Date('2024-01-01'),
+          fechaVencimiento: new Date('2025-01-01'),
+          estadoValidacion: 'APROBADO',
+          urlArchivo: 'https://s3.amazonaws.com/doc-1.pdf',
+          createdAt: new Date('2024-01-01')
+        }
+      ]
+
+      mockAuth.mockResolvedValue({
+        user: {
+          id: 'user-1',
+          roles: ['Transportista']
+        }
+      } as any)
+
+      mockPrisma.documentoVerificacion.findMany.mockResolvedValue(mockDocumentos as any)
+
+      const response = await GET()
+      const data = await response.json()
+
+      expect(response.status).toBe(200)
+      expect(data.documentos).toHaveLength(1)
+      expect(data.documentos[0].id).toBe('doc-1')
+      expect(mockPrisma.documentoVerificacion.findMany).toHaveBeenCalledWith({
+        where: { userId: 'user-1' },
+        orderBy: { createdAt: 'desc' }
+      })
+    })
+
+    it('debería devolver documentos para gestor válido', async () => {
+      mockAuth.mockResolvedValue({
+        user: {
+          id: 'user-2',
+          roles: ['Gestor']
+        }
+      } as any)
+
+      mockPrisma.documentoVerificacion.findMany.mockResolvedValue([])
+
+      const response = await GET()
+      const data = await response.json()
+
+      expect(response.status).toBe(200)
+      expect(data.documentos).toHaveLength(0)
+    })
+  })
+
+  describe('POST - Subir nuevo documento', () => {
+    const mockFormData = new FormData()
+    const mockFile = new File(['test content'], 'test.pdf', { type: 'application/pdf' })
+    
+    beforeEach(() => {
+      mockFormData.append('tipoDocumento', 'AUTORIZACION_SANITARIA_TRANSPORTE')
+      mockFormData.append('fechaVencimiento', '2025-12-31')
+      mockFormData.append('archivo', mockFile)
+    })
+
+    it('debería devolver 401 si no hay sesión', async () => {
+      mockAuth.mockResolvedValue(null)
+
+      const request = new NextRequest('http://localhost/api/user/documentos', {
+        method: 'POST',
+        body: mockFormData
+      })
+
+      const response = await POST(request)
+      const data = await response.json()
+
+      expect(response.status).toBe(401)
+      expect(data.error).toBe('No autorizado')
+    })
+
+    it('debería devolver 403 si el usuario no es transportista o gestor', async () => {
+      mockAuth.mockResolvedValue({
+        user: {
+          id: 'user-1',
+          roles: ['Generador']
+        }
+      } as any)
+
+      const request = new NextRequest('http://localhost/api/user/documentos', {
+        method: 'POST',
+        body: mockFormData
+      })
+
+      const response = await POST(request)
+      const data = await response.json()
+
+      expect(response.status).toBe(403)
+      expect(data.error).toBe('Acceso denegado - Solo transportistas y gestores')
+    })
+
+    it('debería devolver 400 si faltan campos requeridos', async () => {
+      mockAuth.mockResolvedValue({
+        user: {
+          id: 'user-1',
+          roles: ['Transportista']
+        }
+      } as any)
+
+      const incompleteFormData = new FormData()
+      incompleteFormData.append('tipoDocumento', 'AUTORIZACION_SANITARIA_TRANSPORTE')
+      // Falta fechaVencimiento y archivo
+
+      const request = new NextRequest('http://localhost/api/user/documentos', {
+        method: 'POST',
+        body: incompleteFormData
+      })
+
+      const response = await POST(request)
+      const data = await response.json()
+
+      expect(response.status).toBe(400)
+      expect(data.error).toContain('Faltan campos requeridos')
+    })
+
+    it('debería devolver 400 si el archivo no es válido', async () => {
+      mockAuth.mockResolvedValue({
+        user: {
+          id: 'user-1',
+          roles: ['Transportista']
+        }
+      } as any)
+
+      const invalidFormData = new FormData()
+      const invalidFile = new File(['test'], 'test.txt', { type: 'text/plain' })
+      
+      invalidFormData.append('tipoDocumento', 'AUTORIZACION_SANITARIA_TRANSPORTE')
+      invalidFormData.append('fechaVencimiento', '2025-12-31')
+      invalidFormData.append('archivo', invalidFile)
+
+      const request = new NextRequest('http://localhost/api/user/documentos', {
+        method: 'POST',
+        body: invalidFormData
+      })
+
+      const response = await POST(request)
+      const data = await response.json()
+
+      expect(response.status).toBe(400)
+      expect(data.error).toContain('Tipo de archivo no válido')
+    })
+
+    it('debería crear documento exitosamente para transportista válido', async () => {
+      const mockDocumento = {
+        id: 'doc-1',
+        tipoDocumento: 'AUTORIZACION_SANITARIA_TRANSPORTE',
+        fechaVencimiento: new Date('2025-12-31'),
+        estadoValidacion: 'PENDIENTE',
+        urlArchivo: 'https://s3.amazonaws.com/doc-1.pdf'
+      }
+
+      mockAuth.mockResolvedValue({
+        user: {
+          id: 'user-1',
+          roles: ['Transportista']
+        }
+      } as any)
+
+      mockPrisma.documentoVerificacion.create.mockResolvedValue(mockDocumento as any)
+      mockPrisma.user.update.mockResolvedValue({} as any)
+
+      // Mock S3 upload success
+      const { S3Client } = require('@aws-sdk/client-s3')
+      const mockS3Instance = {
+        send: jest.fn().mockResolvedValue({ ETag: '"mock-etag"' })
+      }
+      S3Client.mockImplementation(() => mockS3Instance)
+
+      const request = new NextRequest('http://localhost/api/user/documentos', {
+        method: 'POST',
+        body: mockFormData
+      })
+
+      const response = await POST(request)
+      const data = await response.json()
+
+      expect(response.status).toBe(201)
+      expect(data.documento.id).toBe('doc-1')
+      expect(data.message).toBe('Documento subido exitosamente')
+      
+      expect(mockPrisma.documentoVerificacion.create).toHaveBeenCalledWith({
+        data: expect.objectContaining({
+          userId: 'user-1',
+          tipoDocumento: 'AUTORIZACION_SANITARIA_TRANSPORTE',
+          estadoValidacion: 'PENDIENTE'
+        })
+      })
+
+      expect(mockPrisma.user.update).toHaveBeenCalledWith({
+        where: { id: 'user-1' },
+        data: { estadoVerificacion: 'DOCUMENTOS_CARGADOS' }
+      })
+    })
+
+    it('debería manejar errores de S3', async () => {
+      mockAuth.mockResolvedValue({
+        user: {
+          id: 'user-1',
+          roles: ['Transportista']
+        }
+      } as any)
+
+      // Mock S3 upload failure
+      const { S3Client } = require('@aws-sdk/client-s3')
+      const mockS3Instance = {
+        send: jest.fn().mockRejectedValue(new Error('S3 Error'))
+      }
+      S3Client.mockImplementation(() => mockS3Instance)
+
+      const request = new NextRequest('http://localhost/api/user/documentos', {
+        method: 'POST',
+        body: mockFormData
+      })
+
+      const response = await POST(request)
+      const data = await response.json()
+
+      expect(response.status).toBe(500)
+      expect(data.error).toBe('Error al subir archivo')
+    })
+  })
+
+  describe('Validaciones de archivos', () => {
+    it('debería aceptar archivos PDF válidos', async () => {
+      const pdfFile = new File(['%PDF-1.4'], 'document.pdf', { type: 'application/pdf' })
+      expect(pdfFile.type).toBe('application/pdf')
+      expect(pdfFile.name.endsWith('.pdf')).toBe(true)
+    })
+
+    it('debería aceptar imágenes válidas', async () => {
+      const jpgFile = new File(['fake-jpg'], 'image.jpg', { type: 'image/jpeg' })
+      const pngFile = new File(['fake-png'], 'image.png', { type: 'image/png' })
+      
+      expect(['image/jpeg', 'image/png', 'image/jpg'].includes(jpgFile.type)).toBe(true)
+      expect(['image/jpeg', 'image/png', 'image/jpg'].includes(pngFile.type)).toBe(true)
+    })
+
+    it('debería rechazar archivos demasiado grandes', async () => {
+      // Simular archivo de 15MB (límite es 10MB)
+      const largeFile = new File(['x'.repeat(15 * 1024 * 1024)], 'large.pdf', { type: 'application/pdf' })
+      expect(largeFile.size).toBeGreaterThan(10 * 1024 * 1024)
+    })
+  })
+
+  describe('Estados de validación', () => {
+    it('debería manejar todos los estados de validación', () => {
+      const estadosValidos = ['PENDIENTE', 'EN_REVISION', 'APROBADO', 'RECHAZADO', 'VENCIDO']
+      
+      estadosValidos.forEach(estado => {
+        expect(typeof estado).toBe('string')
+        expect(estado.length).toBeGreaterThan(0)
+      })
+    })
+
+    it('debería manejar todos los tipos de documento', () => {
+      const tiposValidos = [
+        'AUTORIZACION_SANITARIA_TRANSPORTE',
+        'PERMISO_CIRCULACION',
+        'REVISION_TECNICA',
+        'CERTIFICADO_ANTECEDENTES',
+        'AUTORIZACION_SANITARIA_PLANTA',
+        'RCA',
+        'REGISTRO_GESTOR_MMA',
+        'CERTIFICADO_INSTALACION_ELECTRICA',
+        'CERTIFICADO_VIGENCIA_PODERES',
+        'PATENTE_MUNICIPAL'
+      ]
+      
+      tiposValidos.forEach(tipo => {
+        expect(typeof tipo).toBe('string')
+        expect(tipo.length).toBeGreaterThan(0)
+      })
+    })
+  })
+})

@@ -1,0 +1,54 @@
+import React from 'react'
+import { render, screen } from '@testing-library/react'
+import { KPICard } from '@/components/dashboard/KPICard'
+
+describe('KPICard', () => {
+  const defaultProps = {
+    titulo: 'Test KPI',
+    valor: '100%',
+    subtitulo: 'Test subtitle',
+    icon: 'target',
+    color: 'blue',
+  }
+
+  it('renders KPI card with correct content', () => {
+    render(<KPICard {...defaultProps} />)
+
+    expect(screen.getByText('Test KPI')).toBeInTheDocument()
+    expect(screen.getByText('100%')).toBeInTheDocument()
+    expect(screen.getByText('Test subtitle')).toBeInTheDocument()
+  })
+
+  it('renders with different colors', () => {
+    const { rerender } = render(<KPICard {...defaultProps} color="green" />)
+
+    // Check if the component renders without crashing with different colors
+    expect(screen.getByText('Test KPI')).toBeInTheDocument()
+
+    rerender(<KPICard {...defaultProps} color="red" />)
+    expect(screen.getByText('Test KPI')).toBeInTheDocument()
+  })
+
+  it('renders with different icons', () => {
+    const { rerender } = render(<KPICard {...defaultProps} icon="users" />)
+
+    expect(screen.getByText('Test KPI')).toBeInTheDocument()
+
+    rerender(<KPICard {...defaultProps} icon="building" />)
+    expect(screen.getByText('Test KPI')).toBeInTheDocument()
+  })
+
+  it('handles large numbers correctly', () => {
+    render(
+      <KPICard
+        titulo="Large Number"
+        valor="1,234,567"
+        subtitulo="Test large number"
+        icon="target"
+        color="blue"
+      />
+    )
+
+    expect(screen.getByText('1,234,567')).toBeInTheDocument()
+  })
+})

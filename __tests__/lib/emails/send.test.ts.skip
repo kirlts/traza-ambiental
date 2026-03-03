@@ -1,0 +1,369 @@
+/**
+ * Tests unitarios para funciones de envío de emails
+ * HU-016: Validación Documental de Transportistas y Gestores
+ */
+
+import {
+  sendWelcomeEmail,
+  sendAprobacionEmail,
+  sendRechazoEmail,
+  sendVencimiento30DiasEmail,
+  sendVencimiento15DiasEmail,
+  sendSuspensionEmail
+} from '@/lib/emails/send'
+
+import nodemailer from 'nodemailer'
+
+// Mock nodemailer
+jest.mock('nodemailer')
+
+const mockNodemailer = nodemailer as jest.Mocked<typeof nodemailer>
+const mockSendMail = jest.fn()
+const mockTransporter = {
+  sendMail: mockSendMail
+}
+
+describe('Funciones de envío de emails', () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
+    mockNodemailer.createTransporter.mockReturnValue(mockTransporter as any)
+    mockSendMail.mockResolvedValue({ messageId: 'test-message-id' })
+    
+    // Mock variables de entorno
+    process.env.SMTP_HOST = 'smtp.test.com'
+    process.env.SMTP_PORT = '587'
+    process.env.SMTP_USER = 'test@test.com'
+    process.env.SMTP_PASS = 'testpass'
+    process.env.FROM_EMAIL = 'noreply@trazambiental.com'
+    process.env.FROM_NAME = 'TrazAmbiental'
+  })
+
+  afterEach(() => {
+    // Limpiar variables de entorno
+    delete process.env.SMTP_HOST
+    delete process.env.SMTP_PORT
+    delete process.env.SMTP_USER
+    delete process.env.SMTP_PASS
+    delete process.env.FROM_EMAIL
+    delete process.env.FROM_NAME
+  })
+
+  describe('sendWelcomeEmail', () => {
+    it('debería enviar email de bienvenida para transportista', async () => {
+      await sendWelcomeEmail('juan@example.com', 'Juan Pérez', 'Transportista')
+
+      expect(mockSendMail).toHaveBeenCalledWith({
+        from: '"TrazAmbiental" <noreply@trazambiental.com>',
+        to: 'juan@example.com',
+        subject: '¡Bienvenido a TrazAmbiental! - Registro como Transportista',
+        html: expect.stringContaining('Juan Pérez'),
+        text: expect.stringContaining('Juan Pérez')
+      })
+    })
+
+    it('debería enviar email de bienvenida para gestor', async () => {
+      await sendWelcomeEmail('maria@example.com', 'María González', 'Gestor')
+
+      expect(mockSendMail).toHaveBeenCalledWith({
+        from: '"TrazAmbiental" <noreply@trazambiental.com>',
+        to: 'maria@example.com',
+        subject: '¡Bienvenido a TrazAmbiental! - Registro como Gestor',
+        html: expect.stringContaining('María González'),
+        text: expect.stringContaining('María González')
+      })
+    })
+
+    it('debería manejar errores de envío', async () => {
+      mockSendMail.mockRejectedValue(new Error('SMTP Error'))
+
+      await expect(
+        sendWelcomeEmail('error@example.com', 'Error User', 'Transportista')
+      ).rejects.toThrow('SMTP Error')
+    })
+  })
+
+  describe('sendAprobacionEmail', () => {
+    it('debería enviar email de aprobación', async () => {
+      await sendAprobacionEmail(
+        'juan@example.com',
+        'Juan Pérez',
+        'AUTORIZACION_SANITARIA_TRANSPORTE'
+      )
+
+      expect(mockSendMail).toHaveBeenCalledWith({
+        from: '"TrazAmbiental" <noreply@trazambiental.com>',
+        to: 'juan@example.com',
+        subject: '✅ Documento Aprobado - TrazAmbiental',
+        html: expect.stringContaining('Juan Pérez'),
+        text: expect.stringContaining('Juan Pérez')
+      })
+
+      const htmlContent = mockSendMail.mock.calls[0][0].html
+      expect(htmlContent).toContain('Autorización Sanitaria de Transporte')
+      expect(htmlContent).toContain('ha sido aprobado')
+    })
+
+    it('debería incluir nombre correcto del tipo de documento', async () => {
+      await sendAprobacionEmail(
+        'test@example.com',
+        'Test User',
+        'PERMISO_CIRCULACION'
+      )
+
+      const htmlContent = mockSendMail.mock.calls[0][0].html
+      expect(htmlContent).toContain('Permiso de Circulación')
+    })
+
+    it('debería manejar tipos de documento desconocidos', async () => {
+      await sendAprobacionEmail(
+        'test@example.com',
+        'Test User',
+        'DOCUMENTO_DESCONOCIDO' as any
+      )
+
+      const htmlContent = mockSendMail.mock.calls[0][0].html
+      expect(htmlContent).toContain('DOCUMENTO_DESCONOCIDO')
+    })
+  })
+
+  describe('sendRechazoEmail', () => {
+    it('debería enviar email de rechazo con motivo', async () => {
+      await sendRechazoEmail(
+        'juan@example.com',
+        'Juan Pérez',
+        'AUTORIZACION_SANITARIA_TRANSPORTE',
+        'Documento ilegible o incompleto'
+      )
+
+      expect(mockSendMail).toHaveBeenCalledWith({
+        from: '"TrazAmbiental" <noreply@trazambiental.com>',
+        to: 'juan@example.com',
+        subject: '❌ Documento Rechazado - TrazAmbiental',
+        html: expect.stringContaining('Juan Pérez'),
+        text: expect.stringContaining('Juan Pérez')
+      })
+
+      const htmlContent = mockSendMail.mock.calls[0][0].html
+      expect(htmlContent).toContain('Documento ilegible o incompleto')
+      expect(htmlContent).toContain('ha sido rechazado')
+    })
+
+    it('debería incluir instrucciones para resubir documento', async () => {
+      await sendRechazoEmail(
+        'test@example.com',
+        'Test User',
+        'RCA',
+        'Falta información'
+      )
+
+      const htmlContent = mockSendMail.mock.calls[0][0].html
+      expect(htmlContent).toContain('puede subir un nuevo documento')
+      expect(htmlContent).toContain('perfil')
+    })
+  })
+
+  describe('sendVencimiento30DiasEmail', () => {
+    it('debería enviar alerta de vencimiento a 30 días', async () => {
+      const fechaVencimiento = new Date('2025-12-31')
+      
+      await sendVencimiento30DiasEmail(
+        'juan@example.com',
+        'Juan Pérez',
+        'REVISION_TECNICA',
+        fechaVencimiento
+      )
+
+      expect(mockSendMail).toHaveBeenCalledWith({
+        from: '"TrazAmbiental" <noreply@trazambiental.com>',
+        to: 'juan@example.com',
+        subject: '🚨 Alerta: Documentación próxima a vencer (30 días) - Traza Ambiental',
+        html: expect.stringContaining('Juan Pérez'),
+        text: expect.stringContaining('Juan Pérez')
+      })
+
+      const htmlContent = mockSendMail.mock.calls[0][0].html
+      expect(htmlContent).toContain('Revisión Técnica')
+      expect(htmlContent).toContain('31 de diciembre de 2025')
+      expect(htmlContent).toContain('30 días')
+    })
+
+    it('debería formatear correctamente la fecha de vencimiento', async () => {
+      const fechaVencimiento = new Date('2025-06-15')
+      
+      await sendVencimiento30DiasEmail(
+        'test@example.com',
+        'Test User',
+        'PERMISO_CIRCULACION',
+        fechaVencimiento
+      )
+
+      const htmlContent = mockSendMail.mock.calls[0][0].html
+      expect(htmlContent).toContain('15 de junio de 2025')
+    })
+  })
+
+  describe('sendVencimiento15DiasEmail', () => {
+    it('debería enviar alerta crítica de vencimiento a 15 días', async () => {
+      const fechaVencimiento = new Date('2025-12-31')
+      
+      await sendVencimiento15DiasEmail(
+        'juan@example.com',
+        'Juan Pérez',
+        'AUTORIZACION_SANITARIA_TRANSPORTE',
+        fechaVencimiento
+      )
+
+      expect(mockSendMail).toHaveBeenCalledWith({
+        from: '"TrazAmbiental" <noreply@trazambiental.com>',
+        to: 'juan@example.com',
+        subject: '🚨 URGENTE: Documento vence en 15 días - TrazAmbiental',
+        html: expect.stringContaining('Juan Pérez'),
+        text: expect.stringContaining('Juan Pérez')
+      })
+
+      const htmlContent = mockSendMail.mock.calls[0][0].html
+      expect(htmlContent).toContain('URGENTE')
+      expect(htmlContent).toContain('15 días')
+      expect(htmlContent).toContain('suspendida')
+    })
+  })
+
+  describe('sendSuspensionEmail', () => {
+    it('debería enviar email de suspensión por documento vencido', async () => {
+      await sendSuspensionEmail(
+        'juan@example.com',
+        'Juan Pérez',
+        'AUTORIZACION_SANITARIA_TRANSPORTE'
+      )
+
+      expect(mockSendMail).toHaveBeenCalledWith({
+        from: '"TrazAmbiental" <noreply@trazambiental.com>',
+        to: 'juan@example.com',
+        subject: '🔒 Cuenta Suspendida - Documento Vencido - TrazAmbiental',
+        html: expect.stringContaining('Juan Pérez'),
+        text: expect.stringContaining('Juan Pérez')
+      })
+
+      const htmlContent = mockSendMail.mock.calls[0][0].html
+      expect(htmlContent).toContain('cuenta ha sido suspendida')
+      expect(htmlContent).toContain('Autorización Sanitaria de Transporte')
+      expect(htmlContent).toContain('vencido')
+    })
+
+    it('debería incluir instrucciones para reactivar cuenta', async () => {
+      await sendSuspensionEmail(
+        'test@example.com',
+        'Test User',
+        'RCA'
+      )
+
+      const htmlContent = mockSendMail.mock.calls[0][0].html
+      expect(htmlContent).toContain('reactivar su cuenta')
+      expect(htmlContent).toContain('documento actualizado')
+    })
+  })
+
+  describe('Configuración de transporter', () => {
+    it('debería crear transporter con configuración correcta', async () => {
+      await sendWelcomeEmail('test@example.com', 'Test', 'Transportista')
+
+      expect(mockNodemailer.createTransporter).toHaveBeenCalledWith({
+        host: 'smtp.test.com',
+        port: 587,
+        secure: false,
+        auth: {
+          user: 'test@test.com',
+          pass: 'testpass'
+        }
+      })
+    })
+
+    it('debería usar puerto seguro para puerto 465', async () => {
+      process.env.SMTP_PORT = '465'
+      
+      await sendWelcomeEmail('test@example.com', 'Test', 'Transportista')
+
+      expect(mockNodemailer.createTransporter).toHaveBeenCalledWith({
+        host: 'smtp.test.com',
+        port: 465,
+        secure: true,
+        auth: {
+          user: 'test@test.com',
+          pass: 'testpass'
+        }
+      })
+    })
+  })
+
+  describe('Manejo de errores de configuración', () => {
+    it('debería lanzar error si faltan variables de entorno', async () => {
+      delete process.env.SMTP_HOST
+
+      await expect(
+        sendWelcomeEmail('test@example.com', 'Test', 'Transportista')
+      ).rejects.toThrow()
+    })
+  })
+
+  describe('Formateo de nombres de documentos', () => {
+    const tiposDocumento = [
+      ['AUTORIZACION_SANITARIA_TRANSPORTE', 'Autorización Sanitaria de Transporte'],
+      ['PERMISO_CIRCULACION', 'Permiso de Circulación'],
+      ['REVISION_TECNICA', 'Revisión Técnica'],
+      ['CERTIFICADO_ANTECEDENTES', 'Certificado de Antecedentes'],
+      ['AUTORIZACION_SANITARIA_PLANTA', 'Autorización Sanitaria de Planta'],
+      ['RCA', 'Resolución de Calificación Ambiental (RCA)'],
+      ['REGISTRO_GESTOR_MMA', 'Registro de Gestor MMA'],
+      ['CERTIFICADO_INSTALACION_ELECTRICA', 'Certificado de Instalación Eléctrica'],
+      ['CERTIFICADO_VIGENCIA_PODERES', 'Certificado de Vigencia de Poderes'],
+      ['PATENTE_MUNICIPAL', 'Patente Municipal']
+    ]
+
+    tiposDocumento.forEach(([tipo, nombreEsperado]) => {
+      it(`debería formatear correctamente ${tipo}`, async () => {
+        await sendAprobacionEmail('test@example.com', 'Test', tipo as any)
+        
+        const htmlContent = mockSendMail.mock.calls[0][0].html
+        expect(htmlContent).toContain(nombreEsperado)
+      })
+    })
+  })
+
+  describe('Formateo de fechas', () => {
+    it('debería formatear fechas en español', async () => {
+      const fecha = new Date('2025-03-15')
+      
+      await sendVencimiento30DiasEmail(
+        'test@example.com',
+        'Test',
+        'RCA',
+        fecha
+      )
+
+      const htmlContent = mockSendMail.mock.calls[0][0].html
+      expect(htmlContent).toContain('15 de marzo de 2025')
+    })
+
+    it('debería manejar diferentes meses correctamente', async () => {
+      const fechas = [
+        [new Date('2025-01-01'), 'enero'],
+        [new Date('2025-02-01'), 'febrero'],
+        [new Date('2025-12-01'), 'diciembre']
+      ]
+
+      for (const [fecha, mesEsperado] of fechas) {
+        mockSendMail.mockClear()
+        
+        await sendVencimiento30DiasEmail(
+          'test@example.com',
+          'Test',
+          'RCA',
+          fecha as Date
+        )
+
+        const htmlContent = mockSendMail.mock.calls[0][0].html
+        expect(htmlContent).toContain(mesEsperado)
+      }
+    })
+  })
+})

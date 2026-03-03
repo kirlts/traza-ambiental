@@ -1,0 +1,413 @@
+@import "tailwindcss";
+@plugin "tailwindcss-animate";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ============================================
+   GUÍA DE MEJORES PRÁCTICAS DE COLORES
+   ============================================
+
+   ⚠️ IMPORTANTE: CONTRASTE Y LEGIBILIDAD
+
+   Para garantizar la legibilidad en toda la aplicación:
+
+   ✅ USAR (Colores directos de Tailwind):
+   - text-gray-900    → Textos principales (máximo contraste)
+   - text-gray-800    → Textos importantes
+   - text-gray-700    → Textos secundarios
+   - text-gray-600    → Textos terciarios
+   - text-gray-500    → Textos sutiles
+   - text-gray-400    → Placeholders y disabled
+
+   - text-emerald-600 → Enlaces y acciones primarias
+   - text-blue-600    → Enlaces secundarios
+   - text-red-600     → Errores y advertencias
+
+   ❌ EVITAR:
+   - text-[var(--foreground)] → Puede fallar en fondos claros
+   - text-[var(--muted-foreground)] → Contraste inconsistente
+   - Variables CSS para textos principales
+
+   📋 EXCEPCIÓN:
+   - Las variables CSS solo deben usarse en componentes
+     específicos donde el contraste esté garantizado
+
+   ============================================ */
+
+/* ============================================
+   1. VARIABLES CSS
+   ============================================ */
+:root {
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --border: oklch(0.922 0 0);
+  --border-light: #f1f5f9;
+  --input: oklch(0.922 0 0);
+  --input-border: #e2e8f0;
+  --ring: oklch(0.708 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-hover: #047857;
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-hover: #0284c7;
+  --secondary-foreground: oklch(0.205 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: #ffffff;
+  --success: #16a34a;
+  --success-foreground: #ffffff;
+  --warning: #d97706;
+  --warning-foreground: #ffffff;
+  --info: #2563eb;
+  --info-foreground: #ffffff;
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+/*
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0f172a;
+    --foreground: #f8fafc;
+    --muted: #94a3b8;
+    --muted-foreground: #cbd5e1;
+    --border: #334155;
+    --border-light: #1e293b;
+    --input: #1e293b;
+    --input-border: #334155;
+    --ring: #10b981;
+    --primary: #059669;
+    --primary-hover: #047857;
+    --primary-foreground: #ffffff;
+    --secondary: #0ea5e9;
+    --secondary-hover: #0284c7;
+    --secondary-foreground: #ffffff;
+    --accent: #1e293b;
+    --accent-foreground: #f8fafc;
+    --destructive: #dc2626;
+    --destructive-foreground: #ffffff;
+    --success: #16a34a;
+    --success-foreground: #ffffff;
+    --warning: #d97706;
+    --warning-foreground: #ffffff;
+    --info: #3b82f6;
+    --info-foreground: #ffffff;
+  }
+}
+*/
+
+/* ============================================
+   2. ESTILOS BASE Y RESETS
+   ============================================ */
+body {
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  line-height: 1.6;
+}
+
+/* ============================================
+   3. ELEMENTOS DE FORMULARIO - COLORES GARANTIZADOS
+   ============================================ */
+
+/* REGLA CRÍTICA: Todos los inputs SIEMPRE tienen texto oscuro visible
+   Esta regla sobrescribe cualquier CSS global que pueda ocultar el texto
+
+   ⚠️ PROBLEMA RESUELTO:
+   - Antes: Inputs sin text-gray-900 podían tener texto invisible
+   - Ahora: Todos los inputs tienen color de texto garantizado
+
+   ✅ Mejores prácticas (recomendado):
+   className="bg-gray-50 text-gray-900"
+
+   ✅ También funciona (con esta regla):
+   className="" (esta regla CSS lo arregla automáticamente)
+*/
+
+/* ESTILOS BASE PARA INPUTS - Se aplican a TODOS los inputs */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="tel"],
+input[type="url"],
+input[type="search"],
+input[type="date"],
+input[type="time"],
+input[type="datetime-local"],
+textarea,
+select {
+  /* Color de texto: Siempre oscuro y visible */
+  color: #0f172a !important;
+
+  /* Asegurar que webkit respete el color del texto */
+  -webkit-text-fill-color: #0f172a !important;
+
+  /* Fondo por defecto si no se especifica */
+  background-color: #ffffff;
+}
+
+/* Los inputs con bg-gray-50 mantienen su fondo pero con texto oscuro */
+input[type="text"].bg-gray-50,
+input[type="email"].bg-gray-50,
+input[type="password"].bg-gray-50,
+input[type="number"].bg-gray-50,
+input[type="tel"].bg-gray-50,
+input[type="url"].bg-gray-50,
+input[type="search"].bg-gray-50,
+textarea.bg-gray-50,
+select.bg-gray-50 {
+  color: #0f172a !important;
+  -webkit-text-fill-color: #0f172a !important;
+}
+
+/* Estados de focus - asegurar que el texto siga visible */
+input:focus,
+textarea:focus,
+select:focus {
+  color: #0f172a !important;
+  -webkit-text-fill-color: #0f172a !important;
+}
+
+/* Placeholders con contraste adecuado */
+input::placeholder,
+textarea::placeholder,
+select::placeholder {
+  color: #9ca3af !important; /* gray-400 */
+  opacity: 1;
+  -webkit-text-fill-color: #9ca3af !important;
+}
+
+/* Inputs con autofill de navegador - CRÍTICO para Chrome/Safari */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-text-fill-color: #0f172a !important;
+  -webkit-box-shadow: 0 0 0px 1000px #ffffff inset !important;
+  transition: background-color 5000s ease-in-out 0s;
+  color: #0f172a !important;
+}
+
+/* Inputs con autofill y fondo gray-50 */
+input.bg-gray-50:-webkit-autofill,
+input.bg-gray-50:-webkit-autofill:hover,
+input.bg-gray-50:-webkit-autofill:focus,
+input.bg-gray-50:-webkit-autofill:active {
+  -webkit-text-fill-color: #0f172a !important;
+  -webkit-box-shadow: 0 0 0px 1000px #f9fafb inset !important;
+}
+
+/* Inputs disabled */
+input:disabled,
+textarea:disabled,
+select:disabled {
+  color: #6b7280 !important; /* gray-500 */
+  -webkit-text-fill-color: #6b7280 !important;
+  background-color: #f3f4f6 !important; /* gray-100 */
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* ============================================
+   4. ENLACES
+   Solo aplicar estilos a enlaces de contenido (prose)
+   NO a todos los enlaces para respetar Tailwind
+   ============================================ */
+
+/* Enlaces en contenido editorial (usar clase .prose cuando sea necesario) */
+.prose a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.prose a:hover {
+  color: var(--ring);
+  text-decoration: underline;
+}
+
+/* ============================================
+   5. CLASES UTILITARIAS DE TEXTO
+   ============================================ */
+
+.text-high-contrast {
+  color: #0f172a !important;
+  font-weight: 500;
+}
+
+.text-muted-high-contrast {
+  color: #475569 !important;
+  font-weight: 400;
+}
+
+.text-subtle {
+  color: #64748b !important;
+  font-weight: 400;
+}
+
+/* Clases de estado */
+.text-success {
+  color: var(--success);
+  font-weight: 500;
+}
+
+.text-warning {
+  color: var(--warning);
+  font-weight: 500;
+}
+
+.text-error {
+  color: var(--destructive);
+  font-weight: 500;
+}
+
+.text-info {
+  color: var(--info);
+  font-weight: 500;
+}
+
+/* ============================================
+   6. CLASES UTILITARIAS DE FONDO Y BORDES
+   ============================================ */
+
+.bg-card {
+  background: var(--background);
+  border: 1px solid var(--border);
+}
+
+.bg-muted {
+  background: var(--accent);
+}
+
+.shadow-soft {
+  box-shadow:
+    0 1px 3px 0 rgba(0, 0, 0, 0.1),
+    0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.border-subtle {
+  border-color: var(--border);
+}
+
+/* ============================================
+   7. COMPONENTES ESPECÍFICOS
+   ============================================ */
+
+/* Navegación */
+.nav-item {
+  color: var(--muted-foreground);
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.nav-item:hover {
+  color: var(--foreground);
+}
+
+.nav-item.active {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}

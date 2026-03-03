@@ -1,0 +1,142 @@
+[
+  {
+    "marca": "Michelin",
+    "modelo": "Primacy 4",
+    "medida": "205/55R16",
+    "categoria": "A",
+    "nombre": "Michelin Primacy 4 205/55R16"
+  },
+  {
+    "marca": "Michelin",
+    "modelo": "Primacy 4",
+    "medida": "225/45R17",
+    "categoria": "A",
+    "nombre": "Michelin Primacy 4 225/45R17"
+  },
+  {
+    "marca": "Michelin",
+    "modelo": "Energy XM2+",
+    "medida": "175/65R14",
+    "categoria": "A",
+    "nombre": "Michelin Energy XM2+ 175/65R14"
+  },
+  {
+    "marca": "Michelin",
+    "modelo": "Energy XM2+",
+    "medida": "185/65R15",
+    "categoria": "A",
+    "nombre": "Michelin Energy XM2+ 185/65R15"
+  },
+  {
+    "marca": "Michelin",
+    "modelo": "Pilot Sport 4",
+    "medida": "225/40R18",
+    "categoria": "A",
+    "nombre": "Michelin Pilot Sport 4 225/40R18"
+  },
+  {
+    "marca": "Bridgestone",
+    "modelo": "Turanza T001",
+    "medida": "205/55R16",
+    "categoria": "A",
+    "nombre": "Bridgestone Turanza T001 205/55R16"
+  },
+  {
+    "marca": "Bridgestone",
+    "modelo": "Turanza T005",
+    "medida": "225/45R17",
+    "categoria": "A",
+    "nombre": "Bridgestone Turanza T005 225/45R17"
+  },
+  {
+    "marca": "Bridgestone",
+    "modelo": "Ecopia EP150",
+    "medida": "175/65R14",
+    "categoria": "A",
+    "nombre": "Bridgestone Ecopia EP150 175/65R14"
+  },
+  {
+    "marca": "Goodyear",
+    "modelo": "EfficientGrip Performance",
+    "medida": "205/55R16",
+    "categoria": "A",
+    "nombre": "Goodyear EfficientGrip Performance 205/55R16"
+  },
+  {
+    "marca": "Goodyear",
+    "modelo": "Eagle F1 Asymmetric 5",
+    "medida": "225/45R17",
+    "categoria": "A",
+    "nombre": "Goodyear Eagle F1 Asymmetric 5 225/45R17"
+  },
+  {
+    "marca": "Pirelli",
+    "modelo": "Cinturato P7",
+    "medida": "205/55R16",
+    "categoria": "A",
+    "nombre": "Pirelli Cinturato P7 205/55R16"
+  },
+  {
+    "marca": "Pirelli",
+    "modelo": "Cinturato P1 Verde",
+    "medida": "175/65R14",
+    "categoria": "A",
+    "nombre": "Pirelli Cinturato P1 Verde 175/65R14"
+  },
+  {
+    "marca": "Hankook",
+    "modelo": "Ventus Prime3 K125",
+    "medida": "205/55R16",
+    "categoria": "A",
+    "nombre": "Hankook Ventus Prime3 K125 205/55R16"
+  },
+  {
+    "marca": "Hankook",
+    "modelo": "Kinergy Eco2 K435",
+    "medida": "185/65R15",
+    "categoria": "A",
+    "nombre": "Hankook Kinergy Eco2 K435 185/65R15"
+  },
+  {
+    "marca": "Continental",
+    "modelo": "PremiumContact 6",
+    "medida": "205/55R16",
+    "categoria": "A",
+    "nombre": "Continental PremiumContact 6 205/55R16"
+  },
+  {
+    "marca": "Dunlop",
+    "modelo": "SP Sport FM800",
+    "medida": "195/65R15",
+    "categoria": "A",
+    "nombre": "Dunlop SP Sport FM800 195/65R15"
+  },
+  {
+    "marca": "Bridgestone",
+    "modelo": "R268",
+    "medida": "295/80R22.5",
+    "categoria": "B",
+    "nombre": "Bridgestone R268 295/80R22.5"
+  },
+  {
+    "marca": "Michelin",
+    "modelo": "X Multi Z",
+    "medida": "295/80R22.5",
+    "categoria": "B",
+    "nombre": "Michelin X Multi Z 295/80R22.5"
+  },
+  {
+    "marca": "Pirelli",
+    "modelo": "FR01",
+    "medida": "295/80R22.5",
+    "categoria": "B",
+    "nombre": "Pirelli FR01 295/80R22.5"
+  },
+  {
+    "marca": "Goodyear",
+    "modelo": "KMAX S",
+    "medida": "295/80R22.5",
+    "categoria": "B",
+    "nombre": "Goodyear KMAX S 295/80R22.5"
+  }
+]
