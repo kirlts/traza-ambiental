@@ -2,7 +2,7 @@
 description: /document - Sincroniza el eje documental (MASTER-SPEC, TODO, MEMORY) con el estado real del proyecto.
 ---
 
-# Sincronización documental
+# WORKFLOW: RITUAL DE CIERRE Y APRENDIZAJE (MAC)
 
 Este workflow asegura que toda la documentación del proyecto refleja fielmente el estado actual del código y la arquitectura.
 
@@ -36,6 +36,14 @@ Para cada documento, verificar la coherencia con el estado actual del proyecto:
 - ¿El TODO.md refleja el progreso real y tiene los timestamps correctos?
 - ¿Hay decisiones en el código que falten en USER-DECISIONS.md?
 - ¿Hay cambios en el producto que no figuren en CHANGELOG.md?
+
+### Fase 4: Bucle de Aprendizaje MaC (OBLIGATORIO)
+
+Al cruzar el estado del `CHANGELOG.md` con las tareas en el `TODO.md`, aplica el siguiente protocolo:
+
+1. **Registrar Sorpresas:** ¿El tiempo consumido se ajustó al estimado? ¿Hubo obstáculos técnicos imprevistos? Documenta estos hallazgos bajo en la sección [Unreleased] del `CHANGELOG.md` marcándolos explícitamente como "💥 Sorpresa Operativa".
+2. **Interpretar / Consolidar:** Si detectas una Sorpresa Operativa recurrente en el CHANGELOG o una desviación sistemática, detente. Redacta proactivamente la regla técnica subyacente que evitará repetir el error y añádela al `USER-DECISIONS.md`. Si es un patrón ya diagnosticado y maduro, muévelo a `MEMORY.md` instaurándolo como **Política**.
+3. **Actualizar Estrategia:** Confronta las políticas nuevas en `MEMORY.md` con las restricciones del `MASTER-SPEC.md`. Si entran en conflicto, altera la estrategia (MASTER-SPEC) y notifica al humano.
 
 ## Paso 4: Diagnóstico de Brechas y Propuesta de Migración
 

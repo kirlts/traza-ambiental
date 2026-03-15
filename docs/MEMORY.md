@@ -52,3 +52,9 @@ Es un registro **Append-Only** a nivel de conocimiento arquitectónico.
 - **Contexto de Origen:** Certificación final del repositiorio TrazAmbiental (2026-03-01).
 - **El Fenómeno:** La inercia del desarrollo a menudo permite una "Deuda de Confort": pequeños logs, castings `any` en tests o comentarios `TODO` que no impiden el funcionamiento pero degradan el orgullo técnico.
 - **Regla Estructural:** El estado de **Integridad de Diamante** se alcanza cuando la configuración del linter se eleva a nivel de `error` para reglas de tipado y variables no usadas, obligando a una purga absoluta. Un repositorio en este estado no admite "basura informativa" ni "silenciadores de tipos", convirtiéndose en un framework listo para producción y escalabilidad infinita sin lastre cognitivo.
+
+### [HEU-008] La Caída de los Modelos Declarativos ante la Precisión de Texto Múltiple
+
+- **Contexto de Origen:** Generación de Infografías de Flujo Legal (Ley REP) para el Stakeholder Principal (Dino) comprobando alternativas como D2 y Mermaid.
+- **El Fenómeno:** Las herramientas de diagramación declarativa como código asumen longitudes de strings fijas y fallan matemáticamente o mediante recortes gráficos cuando intentan inyectar explicaciones multilínea complejas para perfiles no-técnicos. Su motor nativo de renderizado de Bounding Boxes es imperfecto o inconsistente en la web vs cli.
+- **Regla Estructural:** Para modelaje dinámico y estructural interno, el diagrama declarativo (Mermaid/D2) puede tolerarse. **Para infografías destinadas a Stakeholders de Negocio, queda estrictamente prohibido usar diagramadores declarativos puros si requieren bloques de texto masivos.** Se debe pivotar inmediatamente al uso de Tecnologías DOM Web (HTML/CSS/Tailwind + Puppeteer) para que el propio motor de renderizado de Chromium asuma el parseo "Pixel-Perfect", impidiendo recortes (Truncation Tolerance = 0) y respetando estéticas de alto valor.

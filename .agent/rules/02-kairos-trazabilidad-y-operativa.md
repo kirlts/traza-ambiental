@@ -10,40 +10,18 @@ Estas directivas son de cumplimiento obligatorio y anulan cualquier instrucción
 
 Cualquier bloque de ejecución que requiera modificar código o arquitectura DEBE iniciar con una sección titulada `## Checklist de Integridad Kairós` en el `implementation_plan.md`. Estas tareas deben sincronizarse obligatoriamente en el `task.md` de Antigravity.
 
-## 1. Directorio /docs
+## 1. El Sistema Documental MaC (Trazabilidad Estratégica)
 
-TODOS los documentos rectores del proyecto deben residir obligatoriamente dentro del directorio `/docs/`. ESTÁ ESTRICTAMENTE PROHIBIDO generar código sin que el eje documental esté alineado.
+Cada sesión Kairós debe consultar este tridente documental para garantizar Coherencia Vertical. Queda prohibida la retención de estado mental dinámico fuera de ellos.
 
-### A. MASTER-SPEC.md
+1. **`MASTER-SPEC.md` (La Estrategia):** Define la Identidad (¿quiénes somos?), Dirección (¿a dónde vamos?) y **Capacidad** (¿con qué contamos?). Aquí viven todas las restricciones inviolables e inmutables del proyecto.
+2. **`TODO.md` (Las Tareas):** El backlog táctico. Toda entrada aquí debe haber pasado por los procesos de **Dimensionar** (cabe en la Capacidad) y **Descomponer** (es accionable). Nunca inicies una tarea sin que exista previamente en este archivo.
+3. **`CHANGELOG.md` (Los Resultados):** El registro cronológico de los ciclos ejecutados. Sirve como insumo para identificar **"Sorpresas"** (desviaciones entre lo planeado y lo ejecutado) durante el Ritual de Cierre (`/document`).
 
-Función: Cada vez que definas el "qué" se está haciendo y el "cómo" lograrlo a grandes rasgos, DEBES generar o nutrir el archivo `docs/MASTER-SPEC.md`. Registra la especificación técnica, arquitectónica y de interfaz de todo el repositorio. Todo lo implementado DEBE ir en favor de lo que esté en este archivo.
-Trazabilidad: Las épicas e historias en el TODO.md deben poseer trazabilidad directa (ej. referencias de tags) hacia las secciones del `MASTER-SPEC.md`.
+### Repositorios de Aprendizaje (Cadencia de Cierre)
 
-### B. TODO.md
-
-ESTÁ ESTRICTAMENTE PROHIBIDO modificar una sola línea de código si no existe un `docs/TODO.md` actualizado.
-Estructura Obligatoria: Épicas con IDs `[EPIC-NNN]`, Tareas con IDs `[TASK-NNN]`, subtareas con checkboxes.
-Actualización y Trazabilidad: Cada vez que avances o completes una subtarea, es OBLIGATORIO que actualices `docs/TODO.md` marcando progreso y añadiendo la fecha y hora (YYYY-MM-DD HH:MM:SS) junto a la tarea. Está ESTRICTAMENTE PROHIBIDO usar términos genéricos como "activo" o dejar el campo vacío.
-
-### C. MEMORY.md
-
-Función: Documenta heurísticas TRANSFERIBLES — patrones y lecciones que serían útiles en cualquier repo Kairós, independientemente del dominio del proyecto. NO es un log de sesión ni un changelog.
-Restricción de Crecimiento: Es un archivo "Append-Only". ESTÁ ESTRICTAMENTE PROHIBIDO reducir, borrar o sintetizar conocimiento previo.
-Literalidad de Intención: Al registrar heurísticas basadas en diálogos, prioriza la captura de la **intención pura del usuario** mediante citas textuales si es necesario para evitar diluir el hallazgo en paráfrasis genéricas.
-Consulta Obligatoria: Este archivo DEBE ser consultado al inicio de cada sesión (ver Rule 04, Paso 0) y antes de tomar decisiones de diseño estructural.
-Protocolo Anti-Sesgo: Antes de escribir una heurística, se DEBE seguir el procedimiento del Rule 04 (verificación con búsqueda web + confirmación del usuario si no hay fuente externa).
-
-### D. USER-DECISIONS.md (Registro de Agencia Humana)
-
-Función: Documenta las decisiones significativas del humano y su **Intención Declarada**. Responde: ¿quién decidió esto? ¿por qué se eligió este camino desde la voluntad humana?
-**Mandato de Identidad:** Este documento **NO ES UN CHANGELOG**. Es el registro de la soberanía del usuario. Debe capturar el "por qué" estratégico y las intenciones explícitas que el usuario comunica en el chat.
-Formato obligatorio: Cada entrada sigue el formato ADR adaptado con 5 campos: Contexto, Decisión, Alternativas Descartadas, Consecuencias, Condiciones de Reversión.
-Trazabilidad: La IA redacta la entrada basada en la literalidad del chat; el usuario confirma con "ok" o similar antes de guardar.
-
-### E. CHANGELOG.md
-
-Función: Historial versionado de cambios del proyecto. Formato Keep a Changelog.
-Actualización: La IA añade entradas a la sección `[Unreleased]` al completar trabajo. Al hacer un release, la sección se mueve a una versión numerada.
+4. **`USER-DECISIONS.md` (Decisiones):** Documenta los cambios de rumbo, ADRs formales y resoluciones tácticas frente a sorpresas operativas.
+5. **`MEMORY.md` (Políticas):** El extracto de las directrices que gobiernan tu comportamiento iterativo, consolidando decisiones repetidas en guías a futuro.
 
 ### F. PAUSA ESTRATÉGICA
 

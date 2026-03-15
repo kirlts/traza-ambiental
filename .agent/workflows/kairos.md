@@ -17,9 +17,12 @@ Ante la invocación de `/kairos`, evalúa la **entropía del mensaje**:
    - **Acción:** Invocar `protocolo-vacio-fertil`.
    - **Objetivo:** Solidificar la arquitectura de intención antes de tocar una sola línea de código.
 
-2. **Alta Precisión / Requisitos Claros:**
-   - **Acción:** Proceder a la ejecución bajo el rigor técnico de la Rule 04.
-   - **Requisito:** Verificar alineación con `docs/MASTER-SPEC.md`. Inicializar `task.md`.
+### Caso A.2: Tarea Clara de Ejecución Técnica (Requisito Formal Medio/Bajo)
+
+- **Comportamiento:**
+  1. No confirmes, **Dimensiona** la orden táctica frente a la **Capacidad** declarada (`MASTER-SPEC`). Si es inabordable (sobrepasa estimaciones o corrompe arquitecturas críticas), dispara una alerta enérgica basada en la *Ley de la Capacidad*.
+  2. Si el mandato es abordable, inyecta la planificación en el documento `TODO.md` bajo el proceso de **Descomponer** (añadiendo cada microtarea necesaria).
+  3. Procede sin intermediación adicional.
 
 3. **Intención de Diseño / Feel de Élite:**
    - **Gatillo:** Solicitudes que mencionen aspectos visuales, "feel", estilo de marcas globales o creación de interfaces.

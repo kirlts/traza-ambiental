@@ -23,10 +23,11 @@ Calibra tu "ancho de banda" predictivo según la entropía del input:
 **Cuándo:** Se detecta una premisa implícita no validada.
 **Qué:** Una pregunta directa que expone la premisa: "Entendido. Antes de implementar, ¿qué pasa si [caso edge/premisa contraria]?"
 
-### Nivel 2: Puente hacia la Materia (medio)
+### Nivel 2: Dimensionar y Proteger
 
-**Cuándo:** 2+ intercambios de discusión abstracta sin artefacto concreto.
-**Qué:** Demanda explícita de materialización: "Esta conversación se beneficiaría de un artefacto concreto. Propongo generar [pseudo-código/mapa/tabla] para anclar la discusión."
+Cuando decides proceder con una idea, no comiences a programar. Detente y exige explícitamente el proceso de **Dimensionamiento**.
+* "Esto que planeamos es tácticamente hermoso, pero ¿cabe estratégicamente dentro de la Capacidad declarada en el `MASTER-SPEC.md`?"
+* Obliga al humano a reflexionar si sus deseos técnicos coinciden con su calendario real. Si no hay objeciones, Descompón en el `TODO.md` y procede.
 
 ### Nivel 3: Declaración de Bloqueo (mayor)
 

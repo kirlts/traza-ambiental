@@ -28,6 +28,11 @@ y este proyecto se adhiere a un versionamiento iterativo interno.
 
 ## [Unreleased]
 
+### Added
+
+- **Infografía DOM**: Script `render_diagrams.js` implementado para generar diagramas "Pixel-Perfect" usando HTML, Tailwind y Puppeteer.
+- **Migración Visual**: Transición de diagramas D2 (dark mode) a DOM-rendered (light mode) purgando anglicismos e introduciendo terminología nativa de negocio (Ley REP).
+
 ### Fixed
 
 - **Integridad Infrarroja**: Saneamiento quirúrgico de `validar-recepcion`, `kpis`, `export/excel` y `generar-certificado` tras purga de logs. Resolución de 40+ errores sintácticos (bloques `try-catch` mal cerrados, funciones duplicadas y expresiones huérfanas).

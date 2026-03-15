@@ -53,3 +53,38 @@ Meta: Preparar el repositorio para su despliegue y validación continua.
 - [ ] [TASK-022] Crear commit inaugural y base.
 - [x] [TASK-023] Generar archivo de configuración Docker. - Completado previamente.
 - [ ] [TASK-024] Opcional: Configurar actions/pipelines de validación continua.
+
+## [EPIC-007] Desarrollo Modo Demo: Entorno General (Portal)
+
+Meta: Establecer el bypass de autenticación y la página índice de selección de roles.
+
+- [ ] [TASK-025] Crear página principal `/demo` de selección "Pixel-Perfect".
+- [ ] [TASK-026] Integrar lógica de mock-login (bypass) para cada rol al hacer click.
+
+## [EPIC-008] Desarrollo Modo Demo: Universo Generador
+
+Meta: Maquetar el flujo lógico y KPIs del Productor/Minera (Categoría A/B).
+
+- [ ] [TASK-027] UI de "Panel de Métricas" con data mockeada de avance REP.
+- [ ] [TASK-028] UI formulario "Nueva Solicitud" con validación de Peso Estimado.
+
+## [EPIC-009] Desarrollo Modo Demo: Universo Transportista
+
+Meta: Maquetar la bolsa de trabajo y la logística inversa.
+
+- [ ] [TASK-029] UI de Bolsa de Trabajo y vista del Mapa de Rutas Pendientes.
+- [ ] [TASK-030] Funcionalidad mock de "Aceptar Viaje" y "Reportar Kilo Real".
+
+## [EPIC-010] Desarrollo Modo Demo: Universo Gestor (Planta)
+
+Meta: Maquetar el portal de recepción física y certificación final.
+
+- [ ] [TASK-031] UI de "Recepción en Puertas" de vehículos en tránsito.
+- [ ] [TASK-032] Lógica simulada de "Pesaje de Romana" y emisión de QR (Mock).
+
+## [EPIC-011] Desarrollo Modo Demo: Universo Administración y Fiscalización
+
+Meta: Vistas de visualización asimétrica (L5 vs Read-Only).
+
+- [ ] [TASK-033] UI de Admin con opciones "Override" y suspensión de permisos simulados.
+- [ ] [TASK-034] UI Forense de Auditor con candados Read-Only e historial legal en crudo.

@@ -12,6 +12,8 @@ Axioma: En un entorno agéntico, el costo temporal de la excelencia es depreciab
 2. **Eliminación de Excusas:** La IA no debe comprometer la calidad en favor de la rapidez. Si una tarea puede elevarse al estándar FAANG en segundos, la metodología obliga a hacerlo.
 3. **Inteligencia Operativa (Precisión Quirúrgica):** El costo cero no justifica la sobreproducción ni el ruido informativo. Usa tu velocidad para alcanzar la **Alineación Total con el MASTER-SPEC**, utilizando tu capacidad agéntica como una herramienta de precisión para generar solo lo esencial con una perfección absoluta. La excelencia técnica es el camino de mínima fricción, no una excusa para la redundancia.
 
+**Condicionante Estratégico (MaC):** Esta velocidad es un arma letal, pero debe dispararse solo hacia blancos validados. La Inteligencia de Tiempo Cero **NO DEBE** usarse como excusa para saltar los procesos de **Enmarcar** (validar contra Identidad) y **Priorizar** (validar contra Capacidad). Escribir código rápido para el problema equivocado es crear basura operativa de forma eficiente. Todo esfuerzo veloz debe estar explícitamente planeado en el `TODO.md`.
+
 ## Simplicidad y complejidad
 
 Axioma: La sencillez es la máxima sofisticación, pero el minimalismo sin inteligencia es negligencia.

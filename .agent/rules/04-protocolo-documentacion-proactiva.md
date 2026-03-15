@@ -20,9 +20,10 @@ Si alguno de estos archivos no existe o está vacío, notifica al usuario una so
 
 ### BEFORE (Planeación)
 
-1. **Verificación TODO.md:** La tarea debe existir en `TODO.md` antes de ejecutarse.
-2. **Umbral de Planeación:** Si la tarea afecta a >1 archivo o modifica `MASTER-SPEC` §4/§5 → GENERAR `implementation_plan.md` con Checklist de Integridad.
-3. **Sincronización `task.md`:** Reflejar las subtareas del plan en el `task.md` de Antigravity.
+1. **Lectura Contextual Obligatoria:** Escanear silentes el `MASTER-SPEC.md` §3 y §4 (para alinear restricciones estratégicas) y el estado del arte visual en §8.
+2. **Dimensionamiento (Estrategia MaC):** La tarea en el `TODO.md` debe caber dentro de la Capacidad declarada.
+3. **Descomposición (Táctica MaC):** La solución propuesta debe desgranarse visualmente en el `TODO.md` con checklist de casillas anidadas, antes de cualquier ejecución directa.
+4. **Análisis de Impacto:** Evaluar dependencias. ¿Modificar esto rompe aquello?
 
 ### DURING (Ejecución)
 

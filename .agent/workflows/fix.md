@@ -34,9 +34,9 @@ Para ítems de severidad Alta o Media:
 
 ## Fase 3: Plan de Sanación y Ejecución
 
-1. **Quick Wins:** Aplicar inmediatamente (tests, dependencias, types).
-2. **Refactoring Soberano:** Proponer cambios que honren la arquitectura del `MASTER-SPEC`.
-3. **Cierre:** Actualizar `TODO.md` y `USER-DECISIONS.md`.
+1. **Quick Wins:** Aplicar inmediatamente (tests faltantes simples, typos).
+2. **Refactoring Soberano (Proceso PRIORIZAR MaC):** Todo cambio sistémico que altere las arquitecturas debe detenerse. Se listarán como mejoras en el `TODO.md`. Solo se ejecutarán tras invocar el proceso **Priorizar** para confirmar que existen los recursos (tiempo) disponibles dentro del ciclo estratégico vigente.
+3. **Cierre:** Actualizar o interpretar los cambios en el `USER-DECISIONS.md`.
 
 ---
 

@@ -22,6 +22,7 @@ Queda **ESTRICTAMENTE PROHIBIDO** el uso de soluciones por defecto (_defaults_) 
 1. **Pureza Tipográfica:** **RECHAZO MANDATORIO** de fuentes predeterminadas si no aportan identidad.
 2. **Arquitectura Limpia:** **PROHIBICIÓN** de anidación innecesaria (div-soup).
 3. **Identidad de Color:** **OBLIGATORIO** derivar una lógica cromática única para cada atmósfera.
+4. **Protocolo Enmarcar (Esfuerzo Visual):** Antes de consumir tokens en optimizaciones estéticas profundas (ej. derivar una "lógica cromática única"), el Agente **DEBE** verificar en el `MASTER-SPEC` que existe la holgura de **Capacidad** para tal nivel de "artesanía". La excelencia técnica a expensas de la viabilidad de entrega es considerada basura operativa.
 
 ## 3. Protocolo Brownfield (Integridad Contextual)
 

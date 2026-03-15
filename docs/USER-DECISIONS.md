@@ -92,3 +92,15 @@ Este archivo registra todas las decisiones que el usuario haya tomado o las corr
 - **Alternativas Descartadas:** Borrar completamente el archivo `archive-opentech` (rechazado por pérdida de memoria institucional original de OpenTech), o subirlo al repo (genera enorme ruido en commits y code reviews).
 - **Consecuencias:** Se establece una base de código "verde" impoluta. La historia legal/administrativa del backend reside en las computadoras locales sin ensuciar la cadena de ramas y _Code Review_ de otros desarrolladores.
 - **Condiciones de Reversión:** Si en el futuro surge la necesidad de auditar públicamente los documentos legacy a través de GitHub/GitLab, se debe re-indexar la carpeta.
+
+---
+
+## [ADR-010] Motor de Renderizado DOM Pixel-Perfect para Infografías Cliente
+
+- **Contexto:** Constante truncamiento de texto y fallos de Bounding-Box en herramientas de diagramado declarativo como D2 y Mermaid, inaceptable para entregables a Stakeholders no técnicos.
+- **Decisión:** 
+  1. Abandonar frameworks declarativos ligeros para entregables UI/UX.
+  2. Implementar motor basado en DOM real (`render_diagrams.js`) que renderiza HTML + TailwindCSS y toma capturas de pantalla exactas utilizando Puppeteer.
+- **Alternativas Descartadas:** Seguir iterando scripts automatizados de post-procesamiento para D2; tolerar entregables con texto ininteligible; pagar licencias restrictivas de software propietario de diagramación.
+- **Consecuencias:** Creación de imágenes PNG con fidelidad absoluta al esquema original de interfaz gráfica, garantizando cero recortes de texto. Documentabilidad procedural estricta en el nuevo pipeline.
+- **Condiciones de Reversión:** Si surge un motor declarativo open-source que solucione radicalmente el truncamiento de texto complejo en nodos estáticos.
