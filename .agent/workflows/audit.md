@@ -50,10 +50,12 @@ Para cada uno de los 4 ejes y sus respectivos KPIs definidos en `evaluacion.md`:
 **Criterios de Auditoría MaC Específicos:**
 
 ### Eje 1: Alineación (Auditoría MaC)
+
 - ¿El progreso del sprint es consistente con la **Dirección** formulada en el `MASTER-SPEC`?
 - ¿El equipo ejecutó tareas usando fielmente el proceso de **Dimensionamiento**? (Penaliza severamente refactorizaciones masivas indocumentadas en `TODO.md`).
 
 ### Eje 3: Eficiencia (Auditoría MaC)
+
 - Evalúa el grado de "Sorpresas" u obstáculos imprevistos reportados. ¿El tiempo invertido corresponde con la verdadera **Capacidad** del equipo? ¿Se utilizó adecuadamente el proceso **Registrar**?
 
 Generar la tabla de evaluación:

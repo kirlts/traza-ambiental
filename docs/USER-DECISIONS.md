@@ -86,7 +86,7 @@ Este archivo registra todas las decisiones que el usuario haya tomado o las corr
 ## [ADR-009] Aislamiento Criptográfico de la Capa Pasiva y Purga Efímera
 
 - **Contexto:** Iniciación del seguimiento de versiones (Git) y consolidación post-Fase de Sanación Integral.
-- **Decisión:** 
+- **Decisión:**
   1. Integrar el directorio `docs/archive-opentech/` al `.gitignore` y desenlazarlo del árbol de validación de Git.
   2. Borrar permanente y sistemáticamente todos los reportes sueltos, historiales y scripts de automatización temporal (`*.txt`, `*_errors.json`, `fix-*`), reduciendo la entropía a nivel de entorno base.
 - **Alternativas Descartadas:** Borrar completamente el archivo `archive-opentech` (rechazado por pérdida de memoria institucional original de OpenTech), o subirlo al repo (genera enorme ruido en commits y code reviews).
@@ -98,7 +98,7 @@ Este archivo registra todas las decisiones que el usuario haya tomado o las corr
 ## [ADR-010] Motor de Renderizado DOM Pixel-Perfect para Infografías Cliente
 
 - **Contexto:** Constante truncamiento de texto y fallos de Bounding-Box en herramientas de diagramado declarativo como D2 y Mermaid, inaceptable para entregables a Stakeholders no técnicos.
-- **Decisión:** 
+- **Decisión:**
   1. Abandonar frameworks declarativos ligeros para entregables UI/UX.
   2. Implementar motor basado en DOM real (`render_diagrams.js`) que renderiza HTML + TailwindCSS y toma capturas de pantalla exactas utilizando Puppeteer.
 - **Alternativas Descartadas:** Seguir iterando scripts automatizados de post-procesamiento para D2; tolerar entregables con texto ininteligible; pagar licencias restrictivas de software propietario de diagramación.

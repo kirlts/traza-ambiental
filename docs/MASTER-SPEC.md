@@ -31,7 +31,7 @@ Plataforma integral para la gestión de productos prioritarios bajo la Ley REP C
 
 ## 6. Foco Estratégico Actual: Módulo Minería (Modo Demo)
 
-El desarrollo a corto plazo (próximo mes) se centra exclusivamente en la vertical "Minería". Se prioriza la construcción de un **"Modo Demo"** puramente visual para que el Stakeholder valide la experiencia de usuario (UX) de los 5 roles base y el ciclo de vida del residuo. 
+El desarrollo a corto plazo (próximo mes) se centra exclusivamente en la vertical "Minería". Se prioriza la construcción de un **"Modo Demo"** puramente visual para que el Stakeholder valide la experiencia de usuario (UX) de los 5 roles base y el ciclo de vida del residuo.
 
 - Regla FrontEnd: Las pantallas Demo (`/demo/*`) deben operar mediante funciones Mock/bypass de NextAuth.
 - Criterio Kairós §6: Se exige estética premium (cero slop) al construir las vistas.

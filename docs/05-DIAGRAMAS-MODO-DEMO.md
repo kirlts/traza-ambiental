@@ -13,7 +13,7 @@ Así es como se estructurará la navegación inicial.
 ```mermaid
 graph LR
     A[Página Principal<br>Boton 'Modo Demo'] --> B{Seleccione qué rol<br>desea experimentar:}
-    
+
     B -->|Generador de Residuos| C[Universo Generador]
     B -->|Logística| D[Universo Transportista]
     B -->|Valorización| E[Universo Gestor de Planta]
@@ -25,9 +25,10 @@ graph LR
 
 ## 2. Los Universos Aislados (User Journeys)
 
-Cada Universo debe responder a la pregunta: *¿Qué hace exactamente este usuario en la plataforma?*
+Cada Universo debe responder a la pregunta: _¿Qué hace exactamente este usuario en la plataforma?_
 
 ### Universo 1: El Generador (Ej. Faena Minera)
+
 El usuario que necesita deshacerse de neumáticos OTR gigantes.
 
 ```mermaid
@@ -45,6 +46,7 @@ journey
 ```
 
 ### Universo 2: El Transportista
+
 El operador logístico que mueve los camiones. En su universo, ya verá subastas disponibles de empresas ficticias.
 
 ```mermaid
@@ -62,6 +64,7 @@ journey
 ```
 
 ### Universo 3: El Gestor de Planta (Centro de Valorización)
+
 Quien tritura o recicla el neumático y emite el documento sagrado (Certificado).
 
 ```mermaid
@@ -79,6 +82,7 @@ journey
 ```
 
 ### Universos 4 y 5 (Admin y Auditor)
+
 Cuentas de vista general, útiles para vender la solidez administrativa del software.
 
 ```mermaid

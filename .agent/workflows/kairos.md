@@ -20,7 +20,7 @@ Ante la invocación de `/kairos`, evalúa la **entropía del mensaje**:
 ### Caso A.2: Tarea Clara de Ejecución Técnica (Requisito Formal Medio/Bajo)
 
 - **Comportamiento:**
-  1. No confirmes, **Dimensiona** la orden táctica frente a la **Capacidad** declarada (`MASTER-SPEC`). Si es inabordable (sobrepasa estimaciones o corrompe arquitecturas críticas), dispara una alerta enérgica basada en la *Ley de la Capacidad*.
+  1. No confirmes, **Dimensiona** la orden táctica frente a la **Capacidad** declarada (`MASTER-SPEC`). Si es inabordable (sobrepasa estimaciones o corrompe arquitecturas críticas), dispara una alerta enérgica basada en la _Ley de la Capacidad_.
   2. Si el mandato es abordable, inyecta la planificación en el documento `TODO.md` bajo el proceso de **Descomponer** (añadiendo cada microtarea necesaria).
   3. Procede sin intermediación adicional.
 

@@ -1,11 +1,11 @@
-const puppeteer = require('puppeteer');
-const fs = require('fs');
-const path = require('path');
+const puppeteer = require("puppeteer");
+const fs = require("fs");
+const path = require("path");
 
 const diagramDefinitions = [
   {
-    name: '01-Navegacion-v3',
-    title: 'Portal de Demostración: Selección de Perfiles',
+    name: "01-Navegacion-v3",
+    title: "Portal de Demostración: Selección de Perfiles",
     html: `
       <div class="flex flex-col items-center gap-12 w-full max-w-5xl mx-auto p-8">
         <div class="main-card w-96 text-center">
@@ -89,11 +89,11 @@ const diagramDefinitions = [
           </div>
         </div>
       </div>
-    `
+    `,
   },
   {
-    name: '02-Generador-v3',
-    title: 'Flujo Principal: Perfil Generador',
+    name: "02-Generador-v3",
+    title: "Flujo Principal: Perfil Generador",
     html: `
       <div class="flex items-center gap-6 justify-center w-full px-8 py-12">
         
@@ -144,11 +144,11 @@ const diagramDefinitions = [
           </ul>
         </div>
       </div>
-    `
+    `,
   },
   {
-    name: '03-Transportista-v3',
-    title: 'Flujo Principal: Perfil Transportista (Logística Inversa)',
+    name: "03-Transportista-v3",
+    title: "Flujo Principal: Perfil Transportista (Logística Inversa)",
     html: `
       <div class="flex items-center gap-6 justify-center w-full px-8 py-12">
         <div class="step-card border-slate-200 hover:border-blue-500">
@@ -194,11 +194,11 @@ const diagramDefinitions = [
           </ul>
         </div>
       </div>
-    `
+    `,
   },
   {
-    name: '04-Gestor-v3',
-    title: 'Flujo Principal: Perfil Gestor (Centro de Reciclaje)',
+    name: "04-Gestor-v3",
+    title: "Flujo Principal: Perfil Gestor (Centro de Reciclaje)",
     html: `
       <div class="flex items-center gap-6 justify-center w-full px-8 py-12">
         <div class="step-card border-slate-200 hover:border-amber-500">
@@ -244,11 +244,11 @@ const diagramDefinitions = [
           </ul>
         </div>
       </div>
-    `
+    `,
   },
   {
-    name: '05-Admin-v3',
-    title: 'Perfiles Institucionales y de Auditoría',
+    name: "05-Admin-v3",
+    title: "Perfiles Institucionales y de Auditoría",
     html: `
       <div class="flex items-stretch gap-12 justify-center w-full max-w-5xl mx-auto px-8 py-12">
         <div class="flex-1 main-card border-red-500/30 bg-white">
@@ -311,8 +311,8 @@ const diagramDefinitions = [
           </ul>
         </div>
       </div>
-    `
-  }
+    `,
+  },
 ];
 
 const generateHTML = (diagram) => `
@@ -477,37 +477,37 @@ const generateHTML = (diagram) => `
 `;
 
 (async () => {
-  console.log('Iniciando Puppeteer...');
-  const browser = await puppeteer.launch({ 
-    args: ['--no-sandbox', '--disable-setuid-sandbox']
+  console.log("Iniciando Puppeteer...");
+  const browser = await puppeteer.launch({
+    args: ["--no-sandbox", "--disable-setuid-sandbox"],
   });
-  
+
   const page = await browser.newPage();
-  
+
   // High density para retina display
   await page.setViewport({ width: 1500, height: 1000, deviceScaleFactor: 2 });
 
   for (const diagram of diagramDefinitions) {
     console.log("Generando " + diagram.name + "...");
-    const htmlPath = path.join(__dirname, diagram.name + '.html');
-    const pngPath = path.join(__dirname, diagram.name + '.png');
-    
+    const htmlPath = path.join(__dirname, diagram.name + ".html");
+    const pngPath = path.join(__dirname, diagram.name + ".png");
+
     fs.writeFileSync(htmlPath, generateHTML(diagram));
-    
-    await page.goto('file://' + htmlPath, { waitUntil: 'networkidle0' });
-    
+
+    await page.goto("file://" + htmlPath, { waitUntil: "networkidle0" });
+
     // Calcular altura y anchura del componente de renderizado
-    const element = await page.$('#capture-zone');
+    const element = await page.$("#capture-zone");
     const boundingBox = await element.boundingBox();
-    
-    await page.screenshot({ 
+
+    await page.screenshot({
       path: pngPath,
       clip: {
         x: boundingBox.x,
         y: boundingBox.y,
         width: Math.min(boundingBox.width, 1600),
-        height: boundingBox.height
-      }
+        height: boundingBox.height,
+      },
     });
 
     // Cleanup HTML to avoid polluting codebase
@@ -516,5 +516,5 @@ const generateHTML = (diagram) => `
   }
 
   await browser.close();
-  console.log('Renderizado completo.');
+  console.log("Renderizado completo.");
 })();

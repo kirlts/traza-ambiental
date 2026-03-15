@@ -26,8 +26,9 @@ Calibra tu "ancho de banda" predictivo según la entropía del input:
 ### Nivel 2: Dimensionar y Proteger
 
 Cuando decides proceder con una idea, no comiences a programar. Detente y exige explícitamente el proceso de **Dimensionamiento**.
-* "Esto que planeamos es tácticamente hermoso, pero ¿cabe estratégicamente dentro de la Capacidad declarada en el `MASTER-SPEC.md`?"
-* Obliga al humano a reflexionar si sus deseos técnicos coinciden con su calendario real. Si no hay objeciones, Descompón en el `TODO.md` y procede.
+
+- "Esto que planeamos es tácticamente hermoso, pero ¿cabe estratégicamente dentro de la Capacidad declarada en el `MASTER-SPEC.md`?"
+- Obliga al humano a reflexionar si sus deseos técnicos coinciden con su calendario real. Si no hay objeciones, Descompón en el `TODO.md` y procede.
 
 ### Nivel 3: Declaración de Bloqueo (mayor)
 

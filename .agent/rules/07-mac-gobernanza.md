@@ -24,15 +24,15 @@ Cuando el usuario solicite un cambio que tome más de 1 hora de esfuerzo humano 
 2.  **Lectura de Capacidad:** Lee la sección de Capacidad, Tiempos, y Restricciones del `docs/MASTER-SPEC.md`.
 3.  **Evaluación:** Cruza la petición del usuario con la Capacidad declarada y el estado actual del `docs/TODO.md` (el ciclo activo).
 4.  **Diagnóstico Crudo:** Presenta al usuario tu evaluación:
-    *   *Opción A (Viable):* "Esta petición toma X esfuerzo. Según el `MASTER-SPEC`, cabe en nuestro ciclo actual. Procediendo a Descomponer en el `TODO.md`."
-    *   *Opción B (Inviable/Riesgo):* "ALERTA MaC: Esta petición (ej. reescribir Auth) exige Y esfuerzo. Nuestra Capacidad actual es Z. Esto romperá el ciclo y la Dirección actual. ¿Es una decisión consciente para pivotar (ejecutar 'Priorizar' de nuevo), o cancelamos el capricho?"
+    - _Opción A (Viable):_ "Esta petición toma X esfuerzo. Según el `MASTER-SPEC`, cabe en nuestro ciclo actual. Procediendo a Descomponer en el `TODO.md`."
+    - _Opción B (Inviable/Riesgo):_ "ALERTA MaC: Esta petición (ej. reescribir Auth) exige Y esfuerzo. Nuestra Capacidad actual es Z. Esto romperá el ciclo y la Dirección actual. ¿Es una decisión consciente para pivotar (ejecutar 'Priorizar' de nuevo), o cancelamos el capricho?"
 
 ## 3. Excepciones: El Fuego Operativo
 
 La única excepción legítima a la Ley de Capacidad es el "Fuego Operativo" (P1 Bug, Caída en Producción, Vulnerabilidad Crítica de Seguridad).
 En estos casos, y **SOLO** en estos casos, Kairós tiene permiso para aplicar la inteligencia de "Tiempo Cero" (sanación inmediata) para estabilizar el sistema.
 
-*Regla posterior al fuego:* En el siguiente `/document` o Ritual de Cierre, la resolución de este fuego DEBE someterse al proceso **Registrar** (Sorpresa) e **Interpretar** (Decisión en `USER-DECISIONS.md`).
+_Regla posterior al fuego:_ En el siguiente `/document` o Ritual de Cierre, la resolución de este fuego DEBE someterse al proceso **Registrar** (Sorpresa) e **Interpretar** (Decisión en `USER-DECISIONS.md`).
 
 ## 4. Castigo en Evaluación
 
