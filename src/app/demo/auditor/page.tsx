@@ -18,7 +18,7 @@ import {
 import Link from "next/link";
 
 export default function AuditorDashboard() {
-  const { solicitudes, isTourActive, tourStep } = useDemo();
+  const { solicitudes } = useDemo();
   const [searchTerm, setSearchTerm] = useState("");
 
   // Only consider certified/treated requests for auditing logic
@@ -88,9 +88,7 @@ export default function AuditorDashboard() {
               </div>
               <input
                 type="text"
-                className={`block w-full pl-11 pr-4 py-4 border-2 border-slate-200 rounded-2xl bg-white text-slate-900 focus:ring-4 focus:ring-slate-100 focus:border-slate-400 transition-all font-mono text-lg ${
-                  isTourActive && tourStep === 4 ? "ring-4 ring-indigo-500 ring-offset-2 animate-pulse border-indigo-300" : ""
-                }`}
+                className="block w-full pl-11 pr-4 py-4 border-2 border-slate-200 rounded-2xl bg-white text-slate-900 focus:ring-4 focus:ring-slate-100 focus:border-slate-400 transition-all font-mono text-lg"
                 placeholder="Ingrese ID Solicitud, N° Certificado o RUT Generador..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -258,13 +256,14 @@ export default function AuditorDashboard() {
                         </div>
                         <div className="flex-1 border-t sm:border-t-0 sm:border-l border-slate-100 pt-4 sm:pt-0 sm:pl-6">
                           <p className="text-xs text-slate-500 uppercase font-bold mb-1">
-                            Sello Criptográfico Legal (Simulado)
+                            Sello de Integridad (Ley REP)
                           </p>
                           <p className="font-mono text-[10px] text-slate-400 break-all leading-tight">
                             0x5f8b3c{record.id.replace(/-/g, "").toLowerCase()}a1f99c2b
                           </p>
-                          <p className="text-xs text-emerald-600 font-bold mt-2">
-                            Documento validado públicamente
+                          <p className="text-xs text-emerald-600 font-bold mt-2 flex items-center gap-1">
+                            <CheckCircle2 className="w-3 h-3" />
+                            Validado en RETC/SINADER
                           </p>
                         </div>
                       </div>

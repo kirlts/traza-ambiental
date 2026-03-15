@@ -62,9 +62,9 @@ export default function GestorDashboard() {
 
   const handleEmitirCertificado = (id: string) => {
     emitirCertificado(id);
-    toast.success("Automatización Legal Activada", {
+    toast.success("Certificado Emitido & SINADER", {
       description:
-        "El autómata del servidor ha compilado el historial y construido el PDF infalsificable final.",
+        "Se ha emitido el Certificado final legal. La información ha sido reportada directamente a Ventanilla Única SINADER.",
       icon: <ShieldCheck className="text-emerald-500" />,
     });
 
@@ -192,9 +192,7 @@ export default function GestorDashboard() {
                           </div>
                           <button
                             type="submit"
-                            className={`bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3 rounded-xl shadow-md transition-colors flex items-center gap-2 ${
-                              isTourActive && tourStep === 3 && pesoRomana ? "ring-4 ring-emerald-500 ring-offset-2 animate-pulse" : ""
-                            }`}
+                            className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3 rounded-xl shadow-md transition-colors flex items-center gap-2"
                           >
                             <CheckCircle className="w-5 h-5" />
                             Validar
@@ -209,9 +207,7 @@ export default function GestorDashboard() {
                     ) : (
                       <button
                         onClick={() => setSelectedId(viaje.id)}
-                        className={`w-full mt-4 bg-slate-900 hover:bg-emerald-700 text-white font-medium py-3 rounded-xl transition-colors flex items-center justify-center gap-2 group shadow-sm ${
-                          isTourActive && tourStep === 3 ? "ring-4 ring-emerald-500 ring-offset-2 animate-pulse" : ""
-                        }`}
+                        className="w-full mt-4 bg-slate-900 hover:bg-emerald-700 text-white font-medium py-3 rounded-xl transition-colors flex items-center justify-center gap-2 group shadow-sm"
                       >
                         Iniciar Pesaje en Romana
                         <ArrowRightCircle className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -302,9 +298,7 @@ export default function GestorDashboard() {
                     ) : (
                       <button
                         onClick={() => handleEmitirCertificado(viaje.id)}
-                        className={`w-full bg-linear-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-3 px-4 rounded-xl transition-all shadow-md shadow-blue-200 flex items-center justify-center gap-2 group ${
-                          isTourActive && tourStep === 3 ? "ring-4 ring-indigo-500 ring-offset-2 animate-pulse" : ""
-                        }`}
+                        className="w-full bg-linear-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-3 px-4 rounded-xl transition-all shadow-md shadow-blue-200 flex items-center justify-center gap-2 group"
                       >
                         <ShieldCheck className="w-5 h-5" />
                         Tratar Neumáticos y Sellar (Emitir Certificado)

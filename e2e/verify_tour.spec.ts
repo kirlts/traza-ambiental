@@ -56,10 +56,7 @@ test('Verify guided tour flow', async ({ page }) => {
   // We use force: true because the tour overlay might block the button on small viewports
   await page.getByRole('button', { name: 'Tratar Neumáticos y Sellar (Emitir Certificado)' }).first().click({ force: true });
 
-  // Esperar a que el toast o animaciones no estorben
-  await page.waitForTimeout(500);
   await page.getByRole('link', { name: 'Siguiente Perfil' }).click({ force: true });
-  await page.waitForTimeout(1000);
   await expect(page).toHaveURL(/.*\/demo\/auditor/);
   await expect(page.getByText('Paso 4: Fiscalización Estatal')).toBeVisible();
 
