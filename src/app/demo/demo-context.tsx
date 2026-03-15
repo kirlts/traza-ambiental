@@ -1,7 +1,6 @@
 "use client";
 
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
-import { v4 as uuidv4 } from "uuid"; // We will mock this or use simple math if not available, wait, let's use a simple ID generator to avoid deps
 
 // Type Definitions
 export type SolicitudStatus =
@@ -50,6 +49,13 @@ interface DemoState {
   registrarPesaje: (id: string, pesoReal: number) => void;
   emitirCertificado: (id: string) => void;
   resolverDiscrepancia: (id: string, pesoAcordado: number) => void;
+  resetSimulation: () => void;
+  // Tour State
+  isTourActive: boolean;
+  tourStep: number;
+  startTour: () => void;
+  nextTourStep: () => void;
+  endTour: () => void;
 }
 
 // Initial Mock Data (The Illusion)
@@ -122,6 +128,20 @@ export function DemoProvider({ children }: { children: ReactNode }) {
     return MOCK_DATA;
   });
 
+  const [isTourActive, setIsTourActive] = useState(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("traza_demo_tour") === "true";
+    }
+    return false;
+  });
+
+  const [tourStep, setTourStep] = useState(() => {
+    if (typeof window !== "undefined") {
+      return Number(localStorage.getItem("traza_demo_tour_step")) || 0;
+    }
+    return 0;
+  });
+
   // Calculate KPIs dynamically
   const kpisGlobales = {
     metaAnual: 5000, // 5000 Tons goal
@@ -135,6 +155,11 @@ export function DemoProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     localStorage.setItem("traza_demo_solicitudes", JSON.stringify(solicitudes));
   }, [solicitudes]);
+
+  useEffect(() => {
+    localStorage.setItem("traza_demo_tour", String(isTourActive));
+    localStorage.setItem("traza_demo_tour_step", String(tourStep));
+  }, [isTourActive, tourStep]);
 
   // Actions
   const addSolicitud = (tonelaje: number) => {
@@ -202,6 +227,31 @@ export function DemoProvider({ children }: { children: ReactNode }) {
     });
   };
 
+  const resetSimulation = () => {
+    setSolicitudes(MOCK_DATA);
+    localStorage.setItem("traza_demo_solicitudes", JSON.stringify(MOCK_DATA));
+    setIsTourActive(false);
+    setTourStep(0);
+  };
+
+  const startTour = () => {
+    resetSimulation(); // Limpiar para empezar de cero
+    // Remover todos los datos excepto quizás los históricos, para que sea un lienzo en blanco o usar MOCK_DATA?
+    // Mejor empezar con MOCK_DATA vacío o dejar MOCK_DATA como ambiente inicial
+    // Dejemos MOCK_DATA y que el tour guíe sobre crear uno nuevo.
+    setIsTourActive(true);
+    setTourStep(1); // Paso 1: Generador
+  };
+
+  const nextTourStep = () => {
+    setTourStep((prev) => prev + 1);
+  };
+
+  const endTour = () => {
+    setIsTourActive(false);
+    setTourStep(0);
+  };
+
   return (
     <DemoContext.Provider
       value={{
@@ -214,6 +264,12 @@ export function DemoProvider({ children }: { children: ReactNode }) {
         registrarPesaje,
         emitirCertificado,
         resolverDiscrepancia,
+        resetSimulation,
+        isTourActive,
+        tourStep,
+        startTour,
+        nextTourStep,
+        endTour,
       }}
     >
       {children}

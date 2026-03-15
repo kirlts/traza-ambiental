@@ -57,7 +57,7 @@ export default function AdminDashboard() {
           <div className="flex items-center gap-2 text-purple-600 mb-1">
             <ShieldCheck className="w-5 h-5" />
             <span className="font-semibold tracking-wide text-sm uppercase">
-              Universo Administrador
+              Perfil Administrador
             </span>
           </div>
           <h1 className="text-3xl font-bold text-slate-900">Control Institucional Integral</h1>

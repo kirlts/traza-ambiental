@@ -19,7 +19,7 @@ import { format } from "date-fns";
 import { es } from "date-fns/locale";
 
 export default function GestorDashboard() {
-  const { solicitudes, registrarPesaje, emitirCertificado } = useDemo();
+  const { solicitudes, registrarPesaje, emitirCertificado, isTourActive, tourStep } = useDemo();
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [pesoRomana, setPesoRomana] = useState<number | "">("");
 
@@ -67,6 +67,12 @@ export default function GestorDashboard() {
         "El autómata del servidor ha compilado el historial y construido el PDF infalsificable final.",
       icon: <ShieldCheck className="text-emerald-500" />,
     });
+
+    if (isTourActive && tourStep === 3) {
+      toast.info("¡Acciones completadas!", {
+        description: "Avanza al perfil Auditor en el panel del recorrido guiado.",
+      });
+    }
   };
 
   return (
@@ -77,7 +83,7 @@ export default function GestorDashboard() {
           <div className="flex items-center gap-2 text-emerald-600 mb-1">
             <Recycle className="w-5 h-5" />
             <span className="font-semibold tracking-wide text-sm uppercase">
-              Universo Gestor (Planta)
+              Perfil Gestor (Planta)
             </span>
           </div>
           <h1 className="text-3xl font-bold text-slate-900">Centro de Valorización NFU</h1>

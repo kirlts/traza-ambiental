@@ -3,6 +3,7 @@
 import { DemoProvider } from "./demo-context";
 import { ReactNode } from "react";
 import { Toaster } from "sonner"; // Assuming sonner is installed based on standard Next.js templates, otherwise I will check package.json
+import { GuidedTourOverlay } from "./guided-tour";
 
 export default function DemoLayout({ children }: { children: ReactNode }) {
   return (
@@ -11,6 +12,7 @@ export default function DemoLayout({ children }: { children: ReactNode }) {
         {/* We place a toaster here to show success notifications across the demo universes */}
         <Toaster position="top-right" richColors closeButton theme="light" />
         {children}
+        <GuidedTourOverlay />
       </div>
     </DemoProvider>
   );

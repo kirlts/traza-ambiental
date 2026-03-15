@@ -10,10 +10,12 @@ import {
   ArrowRight,
   Sparkles,
   Database,
-  LineChart,
   Scale,
+  RefreshCw,
+  PlayCircle,
 } from "lucide-react";
 import Image from "next/image";
+import { useDemo } from "./demo-context";
 
 const ROLES = [
   {
@@ -74,6 +76,8 @@ const ROLES = [
 ];
 
 export default function DemoPortal() {
+  const { resetSimulation, startTour } = useDemo();
+
   return (
     <div className="min-h-screen bg-linear-to-b from-slate-50 to-slate-100 text-slate-900 font-sans selection:bg-indigo-200">
       {/* Premium Header */}
@@ -84,6 +88,13 @@ export default function DemoPortal() {
             <span className="font-bold text-xl tracking-tight text-slate-800">Traza Ambiental</span>
           </Link>
           <div className="flex items-center gap-3">
+            <button
+              onClick={() => resetSimulation()}
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-rose-100 text-rose-700 ring-1 ring-inset ring-rose-600/20 hover:bg-rose-200 transition-colors cursor-pointer"
+            >
+              <RefreshCw className="w-3.5 h-3.5" />
+              Reiniciar Simulación
+            </button>
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-100 text-indigo-700 ring-1 ring-inset ring-indigo-600/20">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-500 opacity-75"></span>
@@ -105,12 +116,21 @@ export default function DemoPortal() {
             </span>
           </div>
           <h1 className="text-5xl sm:text-6xl font-extrabold tracking-tight mb-6 text-slate-900">
-            Seleccione un Universo
+            Seleccione un Perfil de Usuario
           </h1>
-          <p className="text-xl text-slate-600 leading-relaxed">
-            Experimente la plataforma Traza Ambiental desde la perspectiva de los diferentes actores
-            de la economía circular y la Ley REP. Los datos están conectados en tiempo real.
+          <p className="text-xl text-slate-600 leading-relaxed mb-8">
+            Explore los diferentes módulos de Traza Ambiental desde la perspectiva de los actores
+            de la cadena de valor en la economía circular. Los entornos están integrados y sincronizados.
           </p>
+          <div className="flex items-center justify-center gap-4">
+            <button
+              onClick={() => startTour()}
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200"
+            >
+              <PlayCircle className="w-5 h-5" />
+              Comenzar Recorrido Guiado (Desde Cero)
+            </button>
+          </div>
         </div>
 
         {/* Roles Grid */}
@@ -179,7 +199,7 @@ export default function DemoPortal() {
                   <div
                     className={`inline-flex items-center justify-center w-full px-6 py-3 text-sm font-semibold rounded-xl bg-slate-50 text-slate-700 group-hover:text-white group-hover:bg-linear-to-r ${role.color} transition-all duration-300`}
                   >
-                    Entrar al Universo
+                    Ingresar al Módulo
                     <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                   </div>
                 </div>
@@ -199,8 +219,8 @@ export default function DemoPortal() {
                 Motor de Simulación Centralizado
               </h2>
               <p className="text-slate-300 text-lg">
-                Todos los universos comparten el mismo estado en tiempo real. Crea una solicitud
-                como Minera y vela aparecer instantáneamente en la bolsa de cargas del
+                Todos los módulos comparten un entorno de datos integrado. Una solicitud generada
+                por la Minera estará inmediatamente disponible en la bolsa de cargas del
                 Transportista.
               </p>
             </div>

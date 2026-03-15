@@ -13,13 +13,14 @@ import {
   AlertTriangle,
   Clock,
   Briefcase,
+  Factory,
 } from "lucide-react";
 import Link from "next/link";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 
 export default function TransportistaDashboard() {
-  const { solicitudes, acceptViaje, iniciarTransito, entregarEnPlanta } = useDemo();
+  const { solicitudes, acceptViaje, iniciarTransito, entregarEnPlanta, isTourActive, tourStep } = useDemo();
 
   // Filter requests relevant to logistics
   const disponibles = solicitudes.filter((s) => s.status === "BUSCANDO_TRANSPORTISTA");
@@ -63,6 +64,12 @@ export default function TransportistaDashboard() {
         "Has entregado la carga en puertas. Esperando confirmación de pesaje en Romana por la Planta.",
       icon: <PackageCheck className="text-emerald-500" />,
     });
+
+    if (isTourActive && tourStep === 2) {
+      toast.info("¡Acciones completadas!", {
+        description: "Avanza al perfil Planta Gestora en el panel del recorrido guiado.",
+      });
+    }
   };
 
   return (
@@ -73,7 +80,7 @@ export default function TransportistaDashboard() {
           <div className="flex items-center gap-2 text-blue-600 mb-1">
             <Truck className="w-5 h-5" />
             <span className="font-semibold tracking-wide text-sm uppercase">
-              Universo Transportista
+              Perfil Transportista
             </span>
           </div>
           <h1 className="text-3xl font-bold text-slate-900">Operador Logístico</h1>

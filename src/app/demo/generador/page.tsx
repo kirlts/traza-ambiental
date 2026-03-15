@@ -13,13 +13,14 @@ import {
   CheckCircle2,
   Download,
   Activity,
+  LucideIcon,
 } from "lucide-react";
 import Link from "next/link";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 
 export default function GeneradorDashboard() {
-  const { solicitudes, addSolicitud } = useDemo();
+  const { solicitudes, addSolicitud, isTourActive, tourStep } = useDemo();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [tonelaje, setTonelaje] = useState<number | "">("");
 
@@ -52,9 +53,15 @@ export default function GeneradorDashboard() {
       description: `Se han publicado ${tonelaje} tons. en la Bolsa de Cargas.`,
       icon: <CheckCircle2 className="text-emerald-500" />,
     });
+
+    if (isTourActive && tourStep === 1) {
+      toast.info("¡Acción completada!", {
+        description: "Avanza al siguiente perfil usando el panel flotante.",
+      });
+    }
   };
 
-  const statusMap: Record<string, { label: string; color: string; icon: any }> = {
+  const statusMap: Record<string, { label: string; color: string; icon: LucideIcon }> = {
     PENDIENTE: {
       label: "Borrador",
       color: "text-slate-500 bg-slate-100 ring-slate-200",
@@ -105,7 +112,7 @@ export default function GeneradorDashboard() {
           <div className="flex items-center gap-2 text-orange-600 mb-1">
             <Factory className="w-5 h-5" />
             <span className="font-semibold tracking-wide text-sm uppercase">
-              Universo Generador
+              Perfil Generador
             </span>
           </div>
           <h1 className="text-3xl font-bold text-slate-900">Dashboard Minero</h1>

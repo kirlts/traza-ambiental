@@ -16,8 +16,6 @@ import {
   Database,
 } from "lucide-react";
 import Link from "next/link";
-import { format } from "date-fns";
-import { es } from "date-fns/locale";
 
 export default function AuditorDashboard() {
   const { solicitudes } = useDemo();
@@ -261,8 +259,7 @@ export default function AuditorDashboard() {
                             Sello Criptográfico Legal (Simulado)
                           </p>
                           <p className="font-mono text-[10px] text-slate-400 break-all leading-tight">
-                            0x{Math.random().toString(16).substring(2)}a1
-                            {record.id.replace(/-/g, "").toLowerCase()}f99c2b
+                            0x5f8b3c{record.id.replace(/-/g, "").toLowerCase()}a1f99c2b
                           </p>
                           <p className="text-xs text-emerald-600 font-bold mt-2">
                             Documento validado públicamente
