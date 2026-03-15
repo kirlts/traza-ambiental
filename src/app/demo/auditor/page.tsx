@@ -18,7 +18,7 @@ import {
 import Link from "next/link";
 
 export default function AuditorDashboard() {
-  const { solicitudes } = useDemo();
+  const { solicitudes, isTourActive, tourStep } = useDemo();
   const [searchTerm, setSearchTerm] = useState("");
 
   // Only consider certified/treated requests for auditing logic
@@ -88,7 +88,9 @@ export default function AuditorDashboard() {
               </div>
               <input
                 type="text"
-                className="block w-full pl-11 pr-4 py-4 border-2 border-slate-200 rounded-2xl bg-white text-slate-900 focus:ring-4 focus:ring-slate-100 focus:border-slate-400 transition-all font-mono text-lg"
+                className={`block w-full pl-11 pr-4 py-4 border-2 border-slate-200 rounded-2xl bg-white text-slate-900 focus:ring-4 focus:ring-slate-100 focus:border-slate-400 transition-all font-mono text-lg ${
+                  isTourActive && tourStep === 4 ? "ring-4 ring-indigo-500 ring-offset-2 animate-pulse border-indigo-300" : ""
+                }`}
                 placeholder="Ingrese ID Solicitud, N° Certificado o RUT Generador..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}

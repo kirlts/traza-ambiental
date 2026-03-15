@@ -130,7 +130,9 @@ export default function GeneradorDashboard() {
           </Link>
           <button
             onClick={() => setIsModalOpen(true)}
-            className="inline-flex items-center justify-center gap-2 bg-slate-900 text-white px-5 py-2.5 rounded-xl font-medium shadow-md shadow-slate-900/20 hover:bg-slate-800 hover:scale-[1.02] hover:shadow-lg transition-all active:scale-[0.98]"
+            className={`inline-flex items-center justify-center gap-2 bg-slate-900 text-white px-5 py-2.5 rounded-xl font-medium shadow-md shadow-slate-900/20 hover:bg-slate-800 hover:scale-[1.02] hover:shadow-lg transition-all active:scale-[0.98] ${
+              isTourActive && tourStep === 1 && !isModalOpen ? "ring-4 ring-indigo-500 ring-offset-2 animate-pulse" : ""
+            }`}
           >
             <PlusCircle className="w-5 h-5" />
             Nueva Solicitud OTR
@@ -350,7 +352,9 @@ export default function GeneradorDashboard() {
                   </button>
                   <button
                     type="submit"
-                    className="flex-1 px-4 py-3 text-white bg-slate-900 hover:bg-slate-800 rounded-xl font-medium transition-colors shadow-md shadow-slate-900/20"
+                    className={`flex-1 px-4 py-3 text-white bg-slate-900 hover:bg-slate-800 rounded-xl font-medium transition-colors shadow-md shadow-slate-900/20 ${
+                      isTourActive && tourStep === 1 && tonelaje ? "ring-4 ring-indigo-500 ring-offset-2 animate-pulse" : ""
+                    }`}
                   >
                     Publicar Solicitud
                   </button>

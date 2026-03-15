@@ -165,7 +165,9 @@ export default function TransportistaDashboard() {
                         {viaje.status === "ASIGNADA" && (
                           <button
                             onClick={() => handleLoad(viaje.id)}
-                            className="mt-4 bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2.5 px-5 rounded-xl text-sm transition-all shadow-md shadow-indigo-200 flex items-center gap-2"
+                            className={`mt-4 bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2.5 px-5 rounded-xl text-sm transition-all shadow-md shadow-indigo-200 flex items-center gap-2 ${
+                              isTourActive && tourStep === 2 ? "ring-4 ring-indigo-500 ring-offset-2 animate-pulse" : ""
+                            }`}
                           >
                             <CheckSquare className="w-4 h-4" />
                             Declarar Carga Subida
@@ -195,7 +197,9 @@ export default function TransportistaDashboard() {
                         {viaje.status === "EN_TRANSITO" && (
                           <button
                             onClick={() => handleDeliver(viaje.id)}
-                            className="mt-4 bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-2.5 px-5 rounded-xl text-sm transition-all shadow-md shadow-emerald-200 flex items-center gap-2 w-full sm:w-auto justify-center"
+                            className={`mt-4 bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-2.5 px-5 rounded-xl text-sm transition-all shadow-md shadow-emerald-200 flex items-center gap-2 w-full sm:w-auto justify-center ${
+                              isTourActive && tourStep === 2 ? "ring-4 ring-emerald-500 ring-offset-2 animate-pulse" : ""
+                            }`}
                           >
                             <PackageCheck className="w-4 h-4" />
                             Entregar en Planta
@@ -325,7 +329,9 @@ export default function TransportistaDashboard() {
                       </div>
                       <button
                         onClick={() => handleAccept(viaje.id, viaje.tonelajeEstimado)}
-                        className="bg-slate-900 text-white hover:bg-blue-600 px-4 py-2 rounded-xl text-sm font-bold transition-colors shadow-sm flex items-center gap-1.5 group-hover:scale-105 active:scale-95"
+                        className={`bg-slate-900 text-white hover:bg-blue-600 px-4 py-2 rounded-xl text-sm font-bold transition-colors shadow-sm flex items-center gap-1.5 group-hover:scale-105 active:scale-95 ${
+                          isTourActive && tourStep === 2 ? "ring-4 ring-indigo-500 ring-offset-2 animate-pulse" : ""
+                        }`}
                       >
                         Aceptar Viaje
                         <ArrowRight className="w-4 h-4" />
