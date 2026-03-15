@@ -22,22 +22,20 @@ _(Nota: Toda la documentación extensa heredada de la agencia anterior está alo
 
 ## 🚀 Despliegue Local (Docker Recomendado)
 
-Toda la aplicación ya está contenedorizada y lista para correr en desarrollo. Se prefiere el flujo por contenedores.
+Toda la aplicación ya está contenedorizada y lista para correr en desarrollo con un solo comando. No es necesario realizar configuraciones manuales de bases de datos o instalar dependencias pesadas en tu máquina local.
 
-### 1. Variables de Entorno
-
+### 1. Variables de Entorno (Opcional)
+Docker Compose está configurado para leer automáticamente las variables desde el archivo `.env.docker` que ya viene incluido en el repositorio. Si necesitas correr la app fuera de Docker, puedes copiar el archivo de ejemplo:
 ```bash
 cp .env.example .env
 ```
 
-_(Los parámetros por defecto del `.env.example` son suficientes para que PostgreSQL local y NextAuth levanten sin fricciones)._
+### 2. Iniciar el Entorno (Todo en 1 Comando)
 
-### 2. Iniciar el Entorno
-
-Levantar la base de datos, aplicar migraciones de Prisma, correr el seeder y levantar el frontend:
+Levantar la base de datos PostgreSQL, aplicar migraciones de Prisma, correr el seeder de pruebas y levantar el frontend interactivo:
 
 ```bash
-docker compose up --build -d
+docker compose up --build
 ```
 
 Frontend: [http://localhost:3000](http://localhost:3000)
