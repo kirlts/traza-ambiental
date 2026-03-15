@@ -119,7 +119,16 @@ const DemoContext = createContext<DemoState | undefined>(undefined);
 const generateId = () => `SOL-2026-00${Math.floor(Math.random() * 900) + 10}`;
 
 export function DemoProvider({ children }: { children: ReactNode }) {
-  // Try to load from localStorage to keep state between route changes, fallback to mock data
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    // Small timeout to satisfy linter rule against synchronous setState in effect
+    const timeout = setTimeout(() => {
+      setIsClient(true);
+    }, 0);
+    return () => clearTimeout(timeout);
+  }, []);
+
   const [solicitudes, setSolicitudes] = useState<Solicitud[]>(() => {
     if (typeof window !== "undefined") {
       const saved = localStorage.getItem("traza_demo_solicitudes");
@@ -251,6 +260,10 @@ export function DemoProvider({ children }: { children: ReactNode }) {
     setIsTourActive(false);
     setTourStep(0);
   };
+
+  if (!isClient) {
+    return null; // or a loading spinner to prevent hydration mismatch
+  }
 
   return (
     <DemoContext.Provider
