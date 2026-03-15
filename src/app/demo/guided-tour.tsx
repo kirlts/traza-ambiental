@@ -36,6 +36,14 @@ const TOUR_STEPS = [
     description: "Cumplimiento 100% garantizado Ley REP. Vea cómo el hash inmutable sella todo el historial, listo para cualquier auditoría sin estrés.",
     path: "/demo/auditor",
     targetAction: "viewCertificate",
+    nextPath: "/demo/sistema-gestion",
+  },
+  {
+    step: 5,
+    title: "Paso Final: Sistema de Gestión",
+    description: "La 'Vista de Dios'. Observe cómo las toneladas recicladas se suman a la meta nacional y calculan las emisiones de CO2 evitadas para su reporte ESG.",
+    path: "/demo/sistema-gestion",
+    targetAction: "viewDashboard",
     nextPath: "/demo",
   },
 ];

@@ -41,6 +41,7 @@ interface DemoState {
   kpisGlobales: {
     metaAnual: number;
     toneladasRecicladas: number;
+    co2Evitado: number; // Toneladas de CO2e evitadas
   };
   addSolicitud: (tonelaje: number) => void;
   acceptViaje: (id: string) => void;
@@ -152,12 +153,15 @@ export function DemoProvider({ children }: { children: ReactNode }) {
   });
 
   // Calculate KPIs dynamically
+  const baseTons = 1250;
+  const tonsRecicladas = solicitudes
+    .filter((s) => s.status === "CERTIFICADA" || s.status === "TRATADA")
+    .reduce((acc, curr) => acc + (curr.tonelajeReal || curr.tonelajeEstimado), 0) + baseTons;
+
   const kpisGlobales = {
     metaAnual: 5000, // 5000 Tons goal
-    toneladasRecicladas:
-      solicitudes
-        .filter((s) => s.status === "CERTIFICADA" || s.status === "TRATADA")
-        .reduce((acc, curr) => acc + (curr.tonelajeReal || curr.tonelajeEstimado), 0) + 1250, // Base starts at 1250
+    toneladasRecicladas: tonsRecicladas,
+    co2Evitado: tonsRecicladas * 2.8, // Factor de conversión aproximado: 2.8 toneladas de CO2e evitadas por tonelada de NFU reciclada
   };
 
   // Sync to localStorage

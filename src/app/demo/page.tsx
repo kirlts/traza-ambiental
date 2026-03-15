@@ -13,6 +13,7 @@ import {
   Scale,
   RefreshCw,
   PlayCircle,
+  Building2,
 } from "lucide-react";
 import Image from "next/image";
 import { useDemo } from "./demo-context";
@@ -72,6 +73,17 @@ const ROLES = [
     bgLight: "bg-slate-100",
     href: "/demo/auditor",
     highlights: ["Rastreo Forense", "Validación Pública", "Vista de Solo Lectura"],
+  },
+  {
+    id: "sistema-gestion",
+    title: "Sistema de Gestión",
+    description:
+      "Controla las metas nacionales consolidadas, huella de carbono colectiva (ESG) y el presupuesto de múltiples generadores.",
+    icon: Building2,
+    color: "from-pink-500 to-rose-600",
+    bgLight: "bg-pink-50",
+    href: "/demo/sistema-gestion",
+    highlights: ["Metas Consolidadas", "Impacto ESG (CO2)", "Licitaciones Logísticas"],
   },
 ];
 

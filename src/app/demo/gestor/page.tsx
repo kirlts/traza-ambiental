@@ -13,10 +13,12 @@ import {
   Building,
   ArrowRightCircle,
   FileText,
+  Download,
 } from "lucide-react";
 import Link from "next/link";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
+import { generateCertificadoPDF } from "../generar-pdf";
 
 export default function GestorDashboard() {
   const { solicitudes, registrarPesaje, emitirCertificado, isTourActive, tourStep } = useDemo();
@@ -329,12 +331,12 @@ export default function GestorDashboard() {
             {tratadas.map((cert) => (
               <div
                 key={cert.id}
-                className="border border-emerald-100 bg-emerald-50/30 rounded-2xl p-4 flex gap-4 items-center"
+                className="border border-emerald-100 bg-emerald-50/30 rounded-2xl p-4 flex gap-4 items-center relative group"
               >
                 <div className="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 shadow-inner">
                   <FileText className="w-6 h-6" />
                 </div>
-                <div className="min-w-0">
+                <div className="min-w-0 flex-1">
                   <p className="font-bold text-sm text-slate-900 truncate">{cert.certificadoId}</p>
                   <p className="text-xs text-slate-500 truncate mb-1">
                     Gen: {cert.generador.nombre}
@@ -343,6 +345,23 @@ export default function GestorDashboard() {
                     {cert.tonelajeReal} Tons. Procesadas
                   </p>
                 </div>
+                <button
+                  onClick={() => {
+                    toast.success("Generando PDF Incorruptible...");
+                    generateCertificadoPDF({
+                      certificadoId: cert.certificadoId!,
+                      generador: cert.generador,
+                      transportista: cert.transportista || { nombre: "N/A", patente: "N/A" },
+                      gestor: cert.gestor || { nombre: "N/A", planta: "N/A" },
+                      tonelaje: cert.tonelajeReal || cert.tonelajeEstimado,
+                      fechaEmision: cert.fechaActualizacion,
+                    });
+                  }}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-emerald-100 text-emerald-700 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity hover:bg-emerald-200"
+                  title="Descargar PDF"
+                >
+                  <Download className="w-5 h-5" />
+                </button>
               </div>
             ))}
           </div>

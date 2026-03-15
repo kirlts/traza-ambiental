@@ -139,7 +139,7 @@ export default function GeneradorDashboard() {
       </div>
 
       {/* KPIs Grid */}
-      <div className="grid md:grid-cols-3 gap-6 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         {/* KPI 1: Progress */}
         <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs relative overflow-hidden">
           <div className="flex justify-between items-start mb-4">
@@ -162,11 +162,30 @@ export default function GeneradorDashboard() {
             ></div>
           </div>
           <p className="text-xs text-slate-500 mt-2 font-medium">
-            {progress.toFixed(1)}% de la meta obligatoria completada
+            {progress.toFixed(1)}% de la meta
           </p>
         </div>
 
-        {/* KPI 2: Active */}
+        {/* KPI 2: CO2 Evitado */}
+        <div className="bg-slate-900 text-white rounded-2xl p-6 shadow-xs relative overflow-hidden border border-slate-800">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500 rounded-full blur-3xl opacity-20 -mr-10 -mt-10"></div>
+          <div className="flex justify-between items-start mb-4 relative z-10">
+            <div>
+              <p className="text-sm font-medium text-slate-400">Huella de Carbono (Alcance 3)</p>
+              <h3 className="text-3xl font-bold mt-1">
+                {(totalReciclado * 2.8).toLocaleString(undefined, { maximumFractionDigits: 1 })}
+              </h3>
+            </div>
+            <div className="p-3 bg-slate-800 text-emerald-400 rounded-xl">
+              <span className="text-xl">🌿</span>
+            </div>
+          </div>
+          <p className="text-xs text-emerald-400 mt-6 font-medium relative z-10">
+            tCO₂e Emisiones Evitadas
+          </p>
+        </div>
+
+        {/* KPI 3: Active */}
         <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs">
           <div className="flex justify-between items-start mb-4">
             <div>
@@ -183,11 +202,11 @@ export default function GeneradorDashboard() {
             </div>
           </div>
           <p className="text-xs text-slate-500 mt-6 font-medium">
-            Buscando flota o en tránsito a planta
+            Buscando flota o en tránsito
           </p>
         </div>
 
-        {/* KPI 3: Certs */}
+        {/* KPI 4: Certs */}
         <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs">
           <div className="flex justify-between items-start mb-4">
             <div>

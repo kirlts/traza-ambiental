@@ -16,6 +16,8 @@ import {
   Database,
 } from "lucide-react";
 import Link from "next/link";
+import { toast } from "sonner";
+import { generateCertificadoPDF } from "../generar-pdf";
 
 export default function AuditorDashboard() {
   const { solicitudes } = useDemo();
@@ -148,6 +150,25 @@ export default function AuditorDashboard() {
                     <CheckCircle2 className="w-4 h-4" />
                     Valorizado Legalmente
                   </span>
+                  {record.certificadoId && (
+                    <button
+                      onClick={() => {
+                        toast.success("Generando PDF Incorruptible...");
+                        generateCertificadoPDF({
+                          certificadoId: record.certificadoId!,
+                          generador: record.generador,
+                          transportista: record.transportista || { nombre: "N/A", patente: "N/A" },
+                          gestor: record.gestor || { nombre: "N/A", planta: "N/A" },
+                          tonelaje: record.tonelajeReal || record.tonelajeEstimado,
+                          fechaEmision: record.fechaActualizacion,
+                        });
+                      }}
+                      className="ml-2 bg-slate-800 hover:bg-slate-900 text-white font-bold p-2 rounded-lg flex items-center justify-center transition-colors"
+                      title="Descargar PDF Original"
+                    >
+                      <Download className="w-4 h-4" />
+                    </button>
+                  )}
                 </div>
               </div>
 
