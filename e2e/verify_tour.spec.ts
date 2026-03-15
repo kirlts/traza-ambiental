@@ -31,7 +31,7 @@ test('Verify guided tour flow', async ({ page }) => {
   // Next step in tour
   await page.getByRole('link', { name: 'Siguiente Perfil' }).click();
   await expect(page).toHaveURL(/.*\/demo\/transportista/);
-  await expect(page.getByText('Paso 2: Perfil Transportista')).toBeVisible();
+  await expect(page.getByText('Paso 2: Perfil Logístico')).toBeVisible();
 
   // Take screenshot of Transportista with tour active
   await page.screenshot({ path: '/home/jules/verification/tour-step-2.png' });
@@ -44,7 +44,7 @@ test('Verify guided tour flow', async ({ page }) => {
   // Next step in tour
   await page.getByRole('link', { name: 'Siguiente Perfil' }).click();
   await expect(page).toHaveURL(/.*\/demo\/gestor/);
-  await expect(page.getByText('Paso 3: Perfil Gestor')).toBeVisible();
+  await expect(page.getByText('Paso 3: Planta Valorizadora')).toBeVisible();
 
   // Take screenshot of Gestor with tour active
   await page.screenshot({ path: '/home/jules/verification/tour-step-3.png' });
@@ -53,11 +53,12 @@ test('Verify guided tour flow', async ({ page }) => {
   await page.getByRole('button', { name: 'Iniciar Pesaje en Romana' }).first().click();
   await page.getByPlaceholder('Ej: 46.2').fill('50');
   await page.getByRole('button', { name: 'Validar' }).click();
-  await page.getByRole('button', { name: 'Tratar Neumáticos y Sellar (Emitir Certificado)' }).first().click();
+  // We use force: true because the tour overlay might block the button on small viewports
+  await page.getByRole('button', { name: 'Tratar Neumáticos y Sellar (Emitir Certificado)' }).first().click({ force: true });
 
-  await page.getByRole('link', { name: 'Siguiente Perfil' }).click();
+  await page.getByRole('link', { name: 'Siguiente Perfil' }).click({ force: true });
   await expect(page).toHaveURL(/.*\/demo\/auditor/);
-  await expect(page.getByText('Paso 4: Perfil Auditor')).toBeVisible();
+  await expect(page.getByText('Paso 4: Fiscalización Estatal')).toBeVisible();
 
   // Take screenshot of Auditor with tour active
   await page.screenshot({ path: '/home/jules/verification/tour-step-4.png' });

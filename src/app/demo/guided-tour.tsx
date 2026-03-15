@@ -9,31 +9,31 @@ const TOUR_STEPS = [
   {
     step: 1,
     title: "Paso 1: Perfil Generador",
-    description: "Cree una nueva solicitud de retiro (Ej: 50 toneladas).",
+    description: "Venda su NFU de inmediato. Declare su retiro (ej: 50 tons) y la plataforma buscará flotas autorizadas al instante, mitigando su riesgo legal.",
     path: "/demo/generador",
     targetAction: "addSolicitud",
     nextPath: "/demo/transportista",
   },
   {
     step: 2,
-    title: "Paso 2: Perfil Transportista",
-    description: "Vaya a la Bolsa de Cargas, acepte el viaje recién creado y luego inicie el tránsito.",
+    title: "Paso 2: Perfil Logístico",
+    description: "Adiós a los papeles y tiempos muertos. Su flota acepta la carga digitalmente y reporta la entrega en tiempo real desde la cabina.",
     path: "/demo/transportista",
     targetAction: "iniciarTransito",
     nextPath: "/demo/gestor",
   },
   {
     step: 3,
-    title: "Paso 3: Perfil Gestor (Planta)",
-    description: "Reciba el camión, registre el pesaje en la romana y emita el certificado.",
+    title: "Paso 3: Planta Valorizadora",
+    description: "Cero error de digitación. Registre el pesaje de Romana y el Autómata de Traza emitirá el Certificado Infalsificable al instante.",
     path: "/demo/gestor",
     targetAction: "emitirCertificado",
     nextPath: "/demo/auditor",
   },
   {
     step: 4,
-    title: "Paso 4: Perfil Auditor",
-    description: "Busque el certificado generado para validar la trazabilidad del residuo.",
+    title: "Paso 4: Fiscalización Estatal",
+    description: "Cumplimiento 100% garantizado Ley REP. Vea cómo el hash inmutable sella todo el historial, listo para cualquier auditoría sin estrés.",
     path: "/demo/auditor",
     targetAction: "viewCertificate",
     nextPath: "/demo",
@@ -62,7 +62,7 @@ export function GuidedTourOverlay() {
           </button>
         </div>
         <p className="text-sm text-slate-600 mb-4">
-          Ha completado exitosamente todo el flujo integrado de la Ley REP a través de los diferentes módulos.
+          Ha presenciado cómo Traza Ambiental automatiza el 100% de la cadena de valor de sus residuos, eliminando riesgos legales, reduciendo horas hombre y centralizando la visibilidad para alta gerencia.
         </p>
         <Link
           href="/demo"
