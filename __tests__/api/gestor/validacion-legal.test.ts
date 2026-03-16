@@ -4,6 +4,7 @@ import { uploadFile } from "@/lib/storage";
 import { POST } from "@/app/api/gestor/validacion-legal/route";
 
 // Mocks
+jest.mock("next-auth");
 jest.mock("@/lib/auth");
 jest.mock("@/lib/prisma", () => ({
   prisma: {
@@ -87,7 +88,7 @@ describe("/api/gestor/validacion-legal POST", () => {
     expect(res.status).toBe(200);
     expect(prisma.managerLegalProfile.create).toHaveBeenCalledWith({
       data: expect.objectContaining({
-        managerId: "gestor-123",
+        manager: { connect: { id: "gestor-123" } },
         retcId: "123456",
         retcFileUrl: "https://fake-url.com/file.pdf",
         status: "EN_REVISION",

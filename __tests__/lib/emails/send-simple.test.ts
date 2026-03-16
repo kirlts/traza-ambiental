@@ -12,20 +12,26 @@ import {
   sendSuspensionEmail,
 } from "@/lib/emails/send";
 
-// Mock nodemailer completamente
-jest.mock("nodemailer", () => ({
-  createTransporter: jest.fn(() => ({
-    sendMail: jest.fn().mockResolvedValue({ messageId: "test-123" }),
-    verify: jest.fn().mockResolvedValue(true),
-  })),
-}));
+// Mock mailgun.js completamente
+jest.mock("mailgun.js", () => {
+  return jest.fn().mockImplementation(() => {
+    return {
+      client: jest.fn().mockReturnValue({
+        messages: {
+          create: jest.fn().mockResolvedValue({ id: "test-123", message: "Queued" }),
+        },
+        domains: {
+          list: jest.fn().mockResolvedValue([{ name: "test.com" }]),
+        },
+      }),
+    };
+  });
+});
 
 describe("Funciones de envío de emails - Tests Simplificados", () => {
   beforeEach(() => {
-    process.env.SMTP_HOST = "smtp.test.com";
-    process.env.SMTP_PORT = "587";
-    process.env.SMTP_USER = "test@test.com";
-    process.env.SMTP_PASS = "testpass";
+    process.env.MAILGUN_DOMAIN = "test.com";
+    process.env.MAILGUN_API_KEY = "test-key";
     process.env.FROM_EMAIL = "noreply@trazambiental.com";
     process.env.FROM_NAME = "TrazAmbiental";
   });

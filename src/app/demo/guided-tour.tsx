@@ -3,46 +3,42 @@
 import { useDemo } from "./demo-context";
 import { ArrowRight, CheckCircle2, Info, X } from "lucide-react";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 const TOUR_STEPS = [
   {
     step: 1,
-    title: "Paso 1: Perfil Generador",
-    description: "Venda su NFU de inmediato. Declare su retiro (ej: 50 tons) y la plataforma buscará flotas autorizadas al instante, mitigando su riesgo legal.",
+    title: "Paso 1: Módulo Generador",
+    description: "Para comenzar, cree una nueva solicitud de retiro utilizando el botón 'Nueva Solicitud de Retiro'. Ingrese un valor de tonelaje estimado (ej: 50 toneladas) y presione 'Publicar Solicitud'.",
     path: "/demo/generador",
-    targetAction: "addSolicitud",
     nextPath: "/demo/transportista",
   },
   {
     step: 2,
-    title: "Paso 2: Perfil Logístico",
-    description: "Adiós a los papeles y tiempos muertos. Su flota acepta la carga digitalmente y reporta la entrega en tiempo real desde la cabina.",
+    title: "Paso 2: Módulo Transportista",
+    description: "La solicitud ha sido publicada en la Bolsa de Cargas. Para continuar, acéptela, luego declare la carga en origen y finalmente registre la entrega en la planta de destino.",
     path: "/demo/transportista",
-    targetAction: "iniciarTransito",
     nextPath: "/demo/gestor",
   },
   {
     step: 3,
-    title: "Paso 3: Planta Valorizadora",
-    description: "Cero error de digitación. Registre el pesaje de Romana y el Autómata de Traza emitirá el Certificado Infalsificable al instante.",
+    title: "Paso 3: Centro de Valorización",
+    description: "Valide el pesaje de la carga entrante en la romana. Ingrese el peso real y luego emita el Certificado de Valorización para la carga que ha sido procesada.",
     path: "/demo/gestor",
-    targetAction: "emitirCertificado",
     nextPath: "/demo/auditor",
   },
   {
     step: 4,
-    title: "Paso 4: Fiscalización Estatal",
-    description: "Cumplimiento 100% garantizado Ley REP. Vea cómo el hash inmutable sella todo el historial, listo para cualquier auditoría sin estrés.",
+    title: "Paso 4: Portal Fiscalización",
+    description: "Como auditor, usted puede verificar la trazabilidad de la operación. Haga clic en 'Descargar' para visualizar el certificado generado y revisar el registro inalterable de la transacción.",
     path: "/demo/auditor",
-    targetAction: "viewCertificate",
     nextPath: "/demo/sistema-gestion",
   },
   {
     step: 5,
     title: "Paso Final: Sistema de Gestión",
-    description: "La 'Vista de Dios'. Observe cómo las toneladas recicladas se suman a la meta nacional y calculan las emisiones de CO2 evitadas para su reporte ESG.",
+    description: "En este panel, revise cómo los indicadores consolidados de cumplimiento y emisiones evitadas se actualizan en tiempo real para todos los actores de la red de generadores.",
     path: "/demo/sistema-gestion",
-    targetAction: "viewDashboard",
     nextPath: "/demo",
   },
 ];
@@ -57,57 +53,58 @@ export function GuidedTourOverlay() {
   if (!currentStepInfo) {
     // Finished tour
     return (
-      <div className="fixed bottom-6 right-6 z-[100] w-80 bg-white rounded-2xl shadow-2xl ring-1 ring-slate-200 p-5 animate-in slide-in-from-bottom-5">
+      <div className="fixed bottom-6 right-6 z-[100] w-80 bg-white rounded-xl shadow-lg border border-gray-200 p-5 animate-in slide-in-from-bottom-5">
         <div className="flex justify-between items-start mb-3">
           <div className="flex items-center gap-2 text-emerald-600">
             <CheckCircle2 className="w-5 h-5" />
             <span className="font-bold">¡Recorrido Completado!</span>
           </div>
-          <button onClick={endTour} className="text-slate-400 hover:text-slate-600">
+          <button onClick={endTour} className="text-gray-400 hover:text-gray-600">
             <X className="w-5 h-5" />
           </button>
         </div>
-        <p className="text-sm text-slate-600 mb-4">
-          Ha presenciado cómo Traza Ambiental automatiza el 100% de la cadena de valor de sus residuos, eliminando riesgos legales, reduciendo horas hombre y centralizando la visibilidad para alta gerencia.
+        <p className="text-sm text-gray-600 mb-4 leading-relaxed">
+          Ha presenciado cómo la plataforma integra el flujo completo de la Ley REP, automatizando la trazabilidad documental, consolidando indicadores ESG y simplificando el cumplimiento normativo.
         </p>
         <Link
           href="/demo"
           onClick={endTour}
-          className="flex w-full items-center justify-center py-2 px-4 rounded-xl bg-slate-900 text-white font-medium hover:bg-slate-800 transition-colors"
         >
-          Volver al Inicio
+          <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm">
+            Volver al Simulador
+          </Button>
         </Link>
       </div>
     );
   }
 
   return (
-    <div className="fixed bottom-6 right-6 z-[100] w-80 bg-white rounded-2xl shadow-2xl ring-1 ring-indigo-500/20 p-5 animate-in slide-in-from-bottom-5">
+    <div className="fixed bottom-6 right-6 z-[100] w-80 bg-white rounded-xl shadow-lg border border-gray-200 p-5 animate-in slide-in-from-bottom-5">
       <div className="flex justify-between items-start mb-3">
-        <div className="flex items-center gap-2">
-          <span className="flex items-center justify-center w-6 h-6 rounded-full bg-indigo-100 text-indigo-700 text-xs font-bold">
+        <div className="flex items-center gap-2 text-emerald-700 bg-emerald-50 px-2 py-1 rounded-md border border-emerald-100">
+          <span className="flex items-center justify-center w-5 h-5 rounded-full bg-emerald-200 text-emerald-800 text-xs font-bold">
             {tourStep}
           </span>
-          <span className="font-bold text-slate-900 text-sm">Tour Interactivo Activo</span>
+          <span className="font-semibold text-sm">Recorrido Guiado</span>
         </div>
-        <button onClick={endTour} className="text-slate-400 hover:text-slate-600" title="Cancelar Tour">
+        <button onClick={endTour} className="text-gray-400 hover:text-gray-600 mt-1" title="Cancelar Tour">
           <X className="w-4 h-4" />
         </button>
       </div>
 
-      <h4 className="font-semibold text-indigo-900 mb-1">{currentStepInfo.title}</h4>
-      <p className="text-sm text-slate-600 mb-4">{currentStepInfo.description}</p>
+      <h4 className="font-bold text-gray-900 mb-2">{currentStepInfo.title}</h4>
+      <p className="text-sm text-gray-600 mb-4 leading-relaxed">{currentStepInfo.description}</p>
 
       <div className="space-y-3">
         {!tourStepCompleted ? (
-          <div className="flex items-start gap-2 p-3 bg-blue-50 text-blue-800 rounded-xl text-xs">
+          <div className="flex items-start gap-2 p-3 bg-blue-50 text-blue-800 rounded-lg text-xs border border-blue-100">
             <Info className="w-4 h-4 shrink-0 mt-0.5" />
-            <p>Complete la acción requerida en esta pantalla para continuar con la demostración.</p>
+            <p>Siga las instrucciones en pantalla para continuar con el recorrido.</p>
           </div>
         ) : (
-          <div className="flex items-start gap-2 p-3 bg-emerald-50 text-emerald-800 rounded-xl text-xs">
-            <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5" />
-            <p>¡Acción completada! Ya puede avanzar al siguiente paso del flujo.</p>
+          <div className="flex items-start gap-2 p-3 bg-emerald-50 text-emerald-800 rounded-lg text-xs border border-emerald-100">
+            <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5 text-emerald-600" />
+            <p>¡Paso completado exitosamente! Presione el botón resaltado para continuar.</p>
           </div>
         )}
 
@@ -115,19 +112,21 @@ export function GuidedTourOverlay() {
           <Link
             href={currentStepInfo.nextPath}
             onClick={nextTourStep}
-            className="flex w-full items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-slate-900 text-white font-medium hover:bg-slate-800 transition-colors shadow-sm"
+            className="block w-full"
           >
-            Siguiente paso
-            <ArrowRight className="w-4 h-4" />
+            <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm flex items-center gap-2 ring-2 ring-emerald-500 animate-demo-pulse transition-all">
+              Siguiente Paso
+              <ArrowRight className="w-4 h-4" />
+            </Button>
           </Link>
         ) : (
-          <button
+          <Button
             disabled
-            className="flex w-full items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-slate-200 text-slate-400 font-medium cursor-not-allowed opacity-50"
+            className="w-full bg-gray-100 text-gray-400 flex items-center gap-2 opacity-70 border border-gray-200"
           >
-            Siguiente paso
+            Siguiente Paso
             <ArrowRight className="w-4 h-4" />
-          </button>
+          </Button>
         )}
       </div>
     </div>

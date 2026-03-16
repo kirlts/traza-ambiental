@@ -1,10 +1,10 @@
 import { createMocks } from "node-mocks-http";
 import { POST, GET } from "@/app/api/transportista/validacion-legal/route";
 import { prisma } from "@/lib/prisma";
-import { getServerSession } from "next-auth";
+import { auth } from "@/lib/auth";
 
 // Mocks
-jest.mock("next-auth");
+jest.mock("@/lib/auth");
 jest.mock("@/lib/prisma", () => ({
   prisma: {
     carrierLegalProfile: {
@@ -20,6 +20,28 @@ jest.mock("@/lib/storage", () => ({
   validateImageFile: jest.fn(),
 }));
 
+// Mock completo de NextResponse para evitar dependencias de Next.js
+const mockJson = jest.fn((body, init) => ({
+  status: init?.status || 200,
+  body,
+  json: () => Promise.resolve(body),
+}));
+
+jest.mock("next/server", () => ({
+  NextResponse: {
+    json: (body: any, init: any) => mockJson(body, init),
+  },
+  NextRequest: class {
+    constructor(
+      public url: string,
+      public init?: any
+    ) {}
+    formData() {
+      return Promise.resolve(this.init?.formData);
+    }
+  },
+}));
+
 describe("/api/transportista/validacion-legal", () => {
   const mockSession = {
     user: { id: "user-123", email: "test@test.com" },
@@ -27,7 +49,7 @@ describe("/api/transportista/validacion-legal", () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    (getServerSession as jest.Mock).mockResolvedValue(mockSession);
+    (auth as jest.Mock).mockResolvedValue(mockSession);
   });
 
   describe("POST", () => {

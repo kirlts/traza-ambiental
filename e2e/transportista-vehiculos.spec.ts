@@ -84,7 +84,7 @@ test.describe("Flujo de Vehículos Transportista", () => {
     // Vamos a buscar el botón "Editar" dentro de la tarjeta que contiene la patente
 
     // Aproximación más robusta: Encontrar el contenedor (Card) que tiene el texto de la patente
-    const _unused = page.locator("div.rounded-xl", { hasText: patenteOriginal }).first();
+    // const _unused = page.locator("div.rounded-xl", { hasText: patenteOriginal }).first();
     // O mejor, buscar por texto y subir
 
     // Dado el HTML:
