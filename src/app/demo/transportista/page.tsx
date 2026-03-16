@@ -20,7 +20,7 @@ import { format } from "date-fns";
 import { es } from "date-fns/locale";
 
 export default function TransportistaDashboard() {
-  const { solicitudes, acceptViaje, iniciarTransito, entregarEnPlanta, isTourActive, tourStep } = useDemo();
+  const { solicitudes, acceptViaje, iniciarTransito, entregarEnPlanta, isTourActive, tourStep, markTourStepCompleted } = useDemo();
 
   // Filter requests relevant to logistics
   const disponibles = solicitudes.filter((s) => s.status === "BUSCANDO_TRANSPORTISTA");
@@ -66,9 +66,7 @@ export default function TransportistaDashboard() {
     });
 
     if (isTourActive && tourStep === 2) {
-      toast.info("¡Acciones completadas!", {
-        description: "Avanza al perfil Planta Gestora en el panel del recorrido guiado.",
-      });
+      markTourStepCompleted();
     }
   };
 

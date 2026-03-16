@@ -21,7 +21,7 @@ import { es } from "date-fns/locale";
 import { generateCertificadoPDF } from "../generar-pdf";
 
 export default function GestorDashboard() {
-  const { solicitudes, registrarPesaje, emitirCertificado, isTourActive, tourStep } = useDemo();
+  const { solicitudes, registrarPesaje, emitirCertificado, isTourActive, tourStep, markTourStepCompleted } = useDemo();
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [pesoRomana, setPesoRomana] = useState<number | "">("");
 
@@ -71,9 +71,7 @@ export default function GestorDashboard() {
     });
 
     if (isTourActive && tourStep === 3) {
-      toast.info("¡Acciones completadas!", {
-        description: "Avanza al perfil Auditor en el panel del recorrido guiado.",
-      });
+      markTourStepCompleted();
     }
   };
 

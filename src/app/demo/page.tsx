@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { useDemo } from "./demo-context";
+import { useRouter } from "next/navigation";
 
 const ROLES = [
   {
@@ -89,6 +90,12 @@ const ROLES = [
 
 export default function DemoPortal() {
   const { resetSimulation, startTour } = useDemo();
+  const router = useRouter();
+
+  const handleStartTour = () => {
+    startTour();
+    router.push("/demo/generador");
+  };
 
   return (
     <div className="min-h-screen bg-linear-to-b from-slate-50 to-slate-100 text-slate-900 font-sans selection:bg-indigo-200">
@@ -136,7 +143,7 @@ export default function DemoPortal() {
           </p>
           <div className="flex items-center justify-center gap-4">
             <button
-              onClick={() => startTour()}
+              onClick={handleStartTour}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200"
             >
               <PlayCircle className="w-5 h-5" />

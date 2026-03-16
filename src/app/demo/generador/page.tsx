@@ -20,7 +20,7 @@ import { format } from "date-fns";
 import { es } from "date-fns/locale";
 
 export default function GeneradorDashboard() {
-  const { solicitudes, addSolicitud, isTourActive, tourStep } = useDemo();
+  const { solicitudes, addSolicitud, isTourActive, tourStep, markTourStepCompleted } = useDemo();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [tonelaje, setTonelaje] = useState<number | "">("");
 
@@ -55,9 +55,7 @@ export default function GeneradorDashboard() {
     });
 
     if (isTourActive && tourStep === 1) {
-      toast.info("¡Acción completada!", {
-        description: "Avanza al siguiente perfil usando el panel flotante.",
-      });
+      markTourStepCompleted();
     }
   };
 

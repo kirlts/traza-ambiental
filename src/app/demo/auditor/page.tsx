@@ -20,7 +20,7 @@ import { toast } from "sonner";
 import { generateCertificadoPDF } from "../generar-pdf";
 
 export default function AuditorDashboard() {
-  const { solicitudes } = useDemo();
+  const { solicitudes, isTourActive, tourStep, markTourStepCompleted } = useDemo();
   const [searchTerm, setSearchTerm] = useState("");
 
   // Only consider certified/treated requests for auditing logic
@@ -162,6 +162,10 @@ export default function AuditorDashboard() {
                           tonelaje: record.tonelajeReal || record.tonelajeEstimado,
                           fechaEmision: record.fechaActualizacion,
                         });
+
+                        if (isTourActive && tourStep === 4) {
+                          markTourStepCompleted();
+                        }
                       }}
                       className="ml-2 bg-slate-800 hover:bg-slate-900 text-white font-bold p-2 rounded-lg flex items-center justify-center transition-colors"
                       title="Descargar PDF Original"

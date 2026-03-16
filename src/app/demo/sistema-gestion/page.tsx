@@ -10,9 +10,16 @@ import {
   Users,
 } from "lucide-react";
 import Link from "next/link";
+import { useEffect } from "react";
 
 export default function SistemaGestionDashboard() {
-  const { kpisGlobales, solicitudes } = useDemo();
+  const { kpisGlobales, solicitudes, isTourActive, tourStep, markTourStepCompleted } = useDemo();
+
+  useEffect(() => {
+    if (isTourActive && tourStep === 5) {
+      markTourStepCompleted();
+    }
+  }, [isTourActive, tourStep, markTourStepCompleted]);
 
   const totalSocios = 145; // Ficticio
   const empresasActivas = 89;

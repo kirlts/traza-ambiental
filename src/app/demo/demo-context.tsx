@@ -54,8 +54,10 @@ interface DemoState {
   // Tour State
   isTourActive: boolean;
   tourStep: number;
+  tourStepCompleted: boolean;
   startTour: () => void;
   nextTourStep: () => void;
+  markTourStepCompleted: () => void;
   endTour: () => void;
 }
 
@@ -152,6 +154,13 @@ export function DemoProvider({ children }: { children: ReactNode }) {
     return 0;
   });
 
+  const [tourStepCompleted, setTourStepCompleted] = useState(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("traza_demo_tour_completed") === "true";
+    }
+    return false;
+  });
+
   // Calculate KPIs dynamically
   const baseTons = 1250;
   const tonsRecicladas = solicitudes
@@ -172,7 +181,8 @@ export function DemoProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     localStorage.setItem("traza_demo_tour", String(isTourActive));
     localStorage.setItem("traza_demo_tour_step", String(tourStep));
-  }, [isTourActive, tourStep]);
+    localStorage.setItem("traza_demo_tour_completed", String(tourStepCompleted));
+  }, [isTourActive, tourStep, tourStepCompleted]);
 
   // Actions
   const addSolicitud = (tonelaje: number) => {
@@ -245,24 +255,29 @@ export function DemoProvider({ children }: { children: ReactNode }) {
     localStorage.setItem("traza_demo_solicitudes", JSON.stringify(MOCK_DATA));
     setIsTourActive(false);
     setTourStep(0);
+    setTourStepCompleted(false);
   };
 
   const startTour = () => {
-    resetSimulation(); // Limpiar para empezar de cero
-    // Remover todos los datos excepto quizás los históricos, para que sea un lienzo en blanco o usar MOCK_DATA?
-    // Mejor empezar con MOCK_DATA vacío o dejar MOCK_DATA como ambiente inicial
-    // Dejemos MOCK_DATA y que el tour guíe sobre crear uno nuevo.
+    resetSimulation();
     setIsTourActive(true);
     setTourStep(1); // Paso 1: Generador
+    setTourStepCompleted(false);
   };
 
   const nextTourStep = () => {
     setTourStep((prev) => prev + 1);
+    setTourStepCompleted(false);
+  };
+
+  const markTourStepCompleted = () => {
+    setTourStepCompleted(true);
   };
 
   const endTour = () => {
     setIsTourActive(false);
     setTourStep(0);
+    setTourStepCompleted(false);
   };
 
   if (!isClient) {
@@ -284,8 +299,10 @@ export function DemoProvider({ children }: { children: ReactNode }) {
         resetSimulation,
         isTourActive,
         tourStep,
+        tourStepCompleted,
         startTour,
         nextTourStep,
+        markTourStepCompleted,
         endTour,
       }}
     >

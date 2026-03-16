@@ -1,9 +1,8 @@
 "use client";
 
 import { useDemo } from "./demo-context";
-import { ArrowRight, CheckCircle2, Play, Info, X } from "lucide-react";
+import { ArrowRight, CheckCircle2, Info, X } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 
 const TOUR_STEPS = [
   {
@@ -49,8 +48,7 @@ const TOUR_STEPS = [
 ];
 
 export function GuidedTourOverlay() {
-  const { isTourActive, tourStep, nextTourStep, endTour } = useDemo();
-  const pathname = usePathname();
+  const { isTourActive, tourStep, tourStepCompleted, nextTourStep, endTour } = useDemo();
 
   if (!isTourActive || tourStep === 0) return null;
 
@@ -83,8 +81,6 @@ export function GuidedTourOverlay() {
     );
   }
 
-  const isCorrectPath = pathname === currentStepInfo.path;
-
   return (
     <div className="fixed bottom-6 right-6 z-[100] w-80 bg-white rounded-2xl shadow-2xl ring-1 ring-indigo-500/20 p-5 animate-in slide-in-from-bottom-5">
       <div className="flex justify-between items-start mb-3">
@@ -102,30 +98,38 @@ export function GuidedTourOverlay() {
       <h4 className="font-semibold text-indigo-900 mb-1">{currentStepInfo.title}</h4>
       <p className="text-sm text-slate-600 mb-4">{currentStepInfo.description}</p>
 
-      {!isCorrectPath ? (
-        <Link
-          href={currentStepInfo.path}
-          className="flex w-full items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-indigo-600 text-white font-medium hover:bg-indigo-700 transition-colors shadow-sm"
-        >
-          <Play className="w-4 h-4" />
-          Ir al Perfil
-        </Link>
-      ) : (
-        <div className="space-y-3">
+      <div className="space-y-3">
+        {!tourStepCompleted ? (
           <div className="flex items-start gap-2 p-3 bg-blue-50 text-blue-800 rounded-xl text-xs">
             <Info className="w-4 h-4 shrink-0 mt-0.5" />
-            <p>Realice la acción en esta pantalla. Cuando termine, avance al siguiente paso.</p>
+            <p>Complete la acción requerida en esta pantalla para continuar con la demostración.</p>
           </div>
+        ) : (
+          <div className="flex items-start gap-2 p-3 bg-emerald-50 text-emerald-800 rounded-xl text-xs">
+            <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5" />
+            <p>¡Acción completada! Ya puede avanzar al siguiente paso del flujo.</p>
+          </div>
+        )}
+
+        {tourStepCompleted ? (
           <Link
             href={currentStepInfo.nextPath}
             onClick={nextTourStep}
             className="flex w-full items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-slate-900 text-white font-medium hover:bg-slate-800 transition-colors shadow-sm"
           >
-            Siguiente Perfil
+            Siguiente paso
             <ArrowRight className="w-4 h-4" />
           </Link>
-        </div>
-      )}
+        ) : (
+          <button
+            disabled
+            className="flex w-full items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-slate-200 text-slate-400 font-medium cursor-not-allowed opacity-50"
+          >
+            Siguiente paso
+            <ArrowRight className="w-4 h-4" />
+          </button>
+        )}
+      </div>
     </div>
   );
 }
