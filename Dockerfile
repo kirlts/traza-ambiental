@@ -40,7 +40,7 @@ RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
 # Herramientas globales para que el Docker Entrypoint pueda ejecutar las migraciones y seed
-RUN npm install -g prisma@6.18.0 tsx
+RUN npm install -g prisma@6.18.0 tsx && npm install bcryptjs @types/bcryptjs
 
 COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
