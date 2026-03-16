@@ -8,7 +8,6 @@ import {
   ShieldCheck,
   Search,
   ArrowRight,
-  Sparkles,
   Database,
   Scale,
   RefreshCw,
@@ -18,73 +17,74 @@ import {
 import Image from "next/image";
 import { useDemo } from "./demo-context";
 import { useRouter } from "next/navigation";
+import { Card, CardContent } from "@/components/ui/card";
 
 const ROLES = [
   {
     id: "generador",
-    title: "Generador (Minera)",
+    title: "Generador",
     description:
-      "Crea solicitudes de retiro de neumáticos gigantes (OTR) y monitorea tus KPIs de reciclaje anuales para cumplir con la Ley REP.",
+      "Panel de control para la declaración de Neumáticos Fuera de Uso (NFU) y monitoreo de metas de reciclaje.",
     icon: Factory,
-    color: "from-orange-500 to-amber-600",
-    bgLight: "bg-orange-50",
+    color: "from-emerald-500 to-emerald-600",
+    bgLight: "bg-emerald-50",
     href: "/demo/generador",
-    highlights: ["KPIs Anuales", "Crear Solicitudes", "Descarga de Certificados"],
+    highlights: ["Indicadores Anuales", "Creación de Solicitudes", "Certificados Emitidos"],
   },
   {
     id: "transportista",
     title: "Transportista",
     description:
-      "Encuentra cargas disponibles, acepta viajes, simula la recolección de residuos y realiza entregas en plantas de valorización.",
+      "Gestión logística de retiros, asignación de viajes y control de entregas en centros de valorización.",
     icon: Truck,
-    color: "from-blue-500 to-indigo-600",
-    bgLight: "bg-blue-50",
+    color: "from-emerald-500 to-emerald-600",
+    bgLight: "bg-emerald-50",
     href: "/demo/transportista",
-    highlights: ["Bolsa de Cargas", "Rutas Activas", "Comprobantes de Entrega"],
+    highlights: ["Ofertas de Carga", "Rutas en Tránsito", "Confirmación de Entrega"],
   },
   {
     id: "gestor",
-    title: "Planta de Valorización",
+    title: "Centro de Valorización",
     description:
-      "Recibe camiones, valida el pesaje en romana, detecta discrepancias y emite certificados legales de forma automatizada.",
+      "Recepción de cargas, registro de pesaje validado y emisión formal de certificados de tratamiento.",
     icon: Recycle,
-    color: "from-emerald-500 to-teal-600",
+    color: "from-emerald-500 to-emerald-600",
     bgLight: "bg-emerald-50",
     href: "/demo/gestor",
-    highlights: ["Recepción de Camiones", "Pesaje (Romana)", "Emisión Automática"],
+    highlights: ["Recepciones Pendientes", "Control de Pesaje", "Emisión de Certificados"],
   },
   {
     id: "admin",
-    title: "Administrador (Traza Ambiental)",
+    title: "Administrador de Plataforma",
     description:
-      "Visualiza el estado global de la plataforma, gestiona flotas y resuelve discrepancias de pesaje entre actores.",
+      "Monitorización global del sistema, administración de usuarios y resolución de alertas operativas.",
     icon: ShieldCheck,
-    color: "from-purple-500 to-fuchsia-600",
-    bgLight: "bg-purple-50",
+    color: "from-slate-500 to-slate-600",
+    bgLight: "bg-slate-50",
     href: "/demo/admin",
-    highlights: ["Control Total", "Auditoría de Discrepancias", "Gestión de Permisos"],
+    highlights: ["Visión Global", "Gestión de Alertas", "Administración de Roles"],
   },
   {
     id: "auditor",
-    title: "Fiscalización Estatal",
+    title: "Fiscalización",
     description:
-      "Acceso forense de solo lectura para rastrear certificados específicos y validar la trazabilidad completa del residuo.",
+      "Acceso de lectura y auditoría para la revisión de trazabilidad y validación de certificados emitidos.",
     icon: Search,
-    color: "from-slate-600 to-gray-800",
-    bgLight: "bg-slate-100",
+    color: "from-slate-500 to-slate-600",
+    bgLight: "bg-slate-50",
     href: "/demo/auditor",
-    highlights: ["Rastreo Forense", "Validación Pública", "Vista de Solo Lectura"],
+    highlights: ["Auditoría de Trazabilidad", "Validación Documental", "Reportes de Cumplimiento"],
   },
   {
     id: "sistema-gestion",
     title: "Sistema de Gestión",
     description:
-      "Controla las metas nacionales consolidadas, huella de carbono colectiva (ESG) y el presupuesto de múltiples generadores.",
+      "Consolidación de metas nacionales, cálculo de impacto ambiental colectivo y gestión de presupuestos.",
     icon: Building2,
-    color: "from-pink-500 to-rose-600",
-    bgLight: "bg-pink-50",
+    color: "from-slate-500 to-slate-600",
+    bgLight: "bg-slate-50",
     href: "/demo/sistema-gestion",
-    highlights: ["Metas Consolidadas", "Impacto ESG (CO2)", "Licitaciones Logísticas"],
+    highlights: ["Metas Consolidadas", "Reportes ESG", "Gestión de Licitaciones"],
   },
 ];
 
@@ -98,162 +98,120 @@ export default function DemoPortal() {
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-b from-slate-50 to-slate-100 text-slate-900 font-sans selection:bg-indigo-200">
-      {/* Premium Header */}
-      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200/60 shadow-xs">
+    <div className="min-h-screen bg-gray-50 text-gray-900 font-sans">
+      {/* Header */}
+      <header className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-xs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
             <Image src="/logo-trazambiental-hoja.svg" alt="TrazAmbiental" width={32} height={32} />
-            <span className="font-bold text-xl tracking-tight text-slate-800">Traza Ambiental</span>
+            <span className="font-bold text-xl tracking-tight text-emerald-900">Traza Ambiental</span>
           </Link>
           <div className="flex items-center gap-3">
             <button
               onClick={() => resetSimulation()}
-              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-rose-100 text-rose-700 ring-1 ring-inset ring-rose-600/20 hover:bg-rose-200 transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors cursor-pointer border border-gray-200"
             >
-              <RefreshCw className="w-3.5 h-3.5" />
-              Reiniciar Simulación
+              <RefreshCw className="w-4 h-4" />
+              Reiniciar Simulador
             </button>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-100 text-indigo-700 ring-1 ring-inset ring-indigo-600/20">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium bg-emerald-50 text-emerald-700 border border-emerald-200">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-500 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-600"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               </span>
-              Demo Mode Active
+              Entorno de Simulación
             </span>
           </div>
         </div>
       </header>
 
-      {/* Hero Section */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
-        <div className="text-center max-w-3xl mx-auto mb-20 animate-in fade-in slide-in-from-bottom-8 duration-1000">
-          <div className="inline-flex items-center justify-center p-2 mb-6 bg-indigo-50 rounded-2xl ring-1 ring-indigo-100">
-            <Sparkles className="w-5 h-5 text-indigo-600 mr-2" />
-            <span className="text-sm font-semibold text-indigo-900 tracking-wide uppercase">
-              Experiencia Interactiva
-            </span>
-          </div>
-          <h1 className="text-5xl sm:text-6xl font-extrabold tracking-tight mb-6 text-slate-900">
-            Seleccione un Perfil de Usuario
+      {/* Main Content */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <h1 className="text-4xl font-bold tracking-tight mb-4 text-gray-900">
+            Simulador de Trazabilidad Ley REP
           </h1>
-          <p className="text-xl text-slate-600 leading-relaxed mb-8">
-            Explore los diferentes módulos de Traza Ambiental desde la perspectiva de los actores
-            de la cadena de valor en la economía circular. Los entornos están integrados y sincronizados.
+          <p className="text-lg text-gray-600 leading-relaxed mb-8">
+            Explore los diferentes módulos de la plataforma desde la perspectiva de cada actor en la cadena de valor. Este entorno simulado permite conocer los flujos operativos principales.
           </p>
           <div className="flex items-center justify-center gap-4">
             <button
               onClick={handleStartTour}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-md bg-emerald-600 text-white font-medium hover:bg-emerald-700 transition-colors shadow-sm"
             >
               <PlayCircle className="w-5 h-5" />
-              Comenzar Recorrido Guiado (Desde Cero)
+              Iniciar Recorrido Guiado
             </button>
           </div>
         </div>
 
         {/* Roles Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {ROLES.map((role, index) => {
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {ROLES.map((role) => {
             const Icon = role.icon;
             return (
               <Link
                 href={role.href}
                 key={role.id}
-                className="group relative flex flex-col justify-between bg-white rounded-3xl p-8 shadow-sm ring-1 ring-slate-200 hover:shadow-2xl hover:ring-2 hover:ring-indigo-500/50 transition-all duration-300 hover:-translate-y-2 overflow-hidden"
-                style={{ animationDelay: `${index * 100}ms` }}
+                className="group flex flex-col h-full"
               >
-                {/* Decorative background gradient */}
-                <div
-                  className={`absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-linear-to-br ${role.color} rounded-full blur-3xl opacity-10 group-hover:opacity-30 transition-opacity duration-500`}
-                />
-
-                <div>
-                  <div
-                    className={`inline-flex items-center justify-center w-14 h-14 rounded-2xl ${role.bgLight} mb-6 shadow-xs ring-1 ring-black/5`}
-                  >
-                    <Icon
-                      className={`w-7 h-7 bg-clip-text bg-linear-to-br ${role.color} text-transparent`}
-                      style={{ stroke: "url(#gradient-" + role.id + ")" }}
-                    />
-                    {/* SVG Gradient Definition for Icons */}
-                    <svg width="0" height="0" className="absolute">
-                      <linearGradient
-                        id={`gradient-${role.id}`}
-                        x1="0%"
-                        y1="0%"
-                        x2="100%"
-                        y2="100%"
-                      >
-                        <stop
-                          offset="0%"
-                          className={role.color.split(" ")[0].replace("from-", "text-")}
-                          stopColor="currentColor"
-                        />
-                        <stop
-                          offset="100%"
-                          className={role.color.split(" ")[1].replace("to-", "text-")}
-                          stopColor="currentColor"
-                        />
-                      </linearGradient>
-                    </svg>
-                  </div>
-
-                  <h3 className="text-2xl font-bold text-slate-900 mb-3">{role.title}</h3>
-                  <p className="text-slate-600 leading-relaxed mb-6">{role.description}</p>
-                </div>
-
-                <div>
-                  <div className="space-y-2 mb-8">
-                    {role.highlights.map((highlight, i) => (
-                      <div key={i} className="flex items-center text-sm text-slate-600">
-                        <div
-                          className={`w-1.5 h-1.5 rounded-full bg-linear-to-r ${role.color} mr-2`}
-                        />
-                        {highlight}
+                <Card className="flex flex-col h-full border border-gray-200 shadow-sm hover:shadow-md hover:border-emerald-300 transition-all duration-200">
+                  <CardContent className="p-6 flex flex-col flex-grow">
+                    <div className="flex items-start justify-between mb-4">
+                      <div className={`p-3 rounded-lg ${role.bgLight} group-hover:bg-emerald-100 transition-colors`}>
+                        <Icon className="w-6 h-6 text-emerald-600" />
                       </div>
-                    ))}
-                  </div>
+                    </div>
 
-                  <div
-                    className={`inline-flex items-center justify-center w-full px-6 py-3 text-sm font-semibold rounded-xl bg-slate-50 text-slate-700 group-hover:text-white group-hover:bg-linear-to-r ${role.color} transition-all duration-300`}
-                  >
-                    Ingresar al Módulo
-                    <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                  </div>
-                </div>
+                    <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-emerald-700 transition-colors">{role.title}</h3>
+                    <p className="text-sm text-gray-600 leading-relaxed mb-6 flex-grow">{role.description}</p>
+
+                    <div className="space-y-2 mb-6">
+                      {role.highlights.map((highlight, i) => (
+                        <div key={i} className="flex items-center text-sm text-gray-500">
+                          <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-2" />
+                          {highlight}
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="mt-auto flex items-center text-sm font-semibold text-emerald-600 group-hover:text-emerald-700 transition-colors">
+                      Ingresar al Módulo
+                      <ArrowRight className="w-4 h-4 ml-1.5 group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </CardContent>
+                </Card>
               </Link>
             );
           })}
         </div>
 
         {/* Global Architecture Info */}
-        <div className="mt-24 p-8 sm:p-12 bg-slate-900 rounded-3xl shadow-2xl overflow-hidden relative">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500 rounded-full blur-3xl opacity-20 -mr-20 -mt-20"></div>
-          <div className="absolute bottom-0 left-0 w-64 h-64 bg-emerald-500 rounded-full blur-3xl opacity-20 -ml-20 -mb-20"></div>
-
-          <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-12">
-            <div className="md:w-1/2">
-              <h2 className="text-3xl font-bold text-white mb-4">
-                Motor de Simulación Centralizado
-              </h2>
-              <p className="text-slate-300 text-lg">
-                Todos los módulos comparten un entorno de datos integrado. Una solicitud generada
-                por la Minera estará inmediatamente disponible en la bolsa de cargas del
-                Transportista.
-              </p>
-            </div>
-            <div className="md:w-1/2 flex gap-4">
-              <div className="flex-1 bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-white/10 text-center">
-                <Database className="w-8 h-8 text-indigo-400 mx-auto mb-3" />
-                <div className="text-white font-medium">Datos Persistentes (Local)</div>
+        <div className="mt-16">
+          <Card className="bg-gray-50 border border-gray-200 shadow-sm">
+            <CardContent className="p-8">
+              <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+                <div className="md:w-1/2">
+                  <h2 className="text-2xl font-bold text-gray-900 mb-3">
+                    Entorno Integrado
+                  </h2>
+                  <p className="text-gray-600">
+                    Los módulos del simulador operan sobre una base de datos efímera compartida. Las acciones realizadas en un perfil (ej. creación de una solicitud) se reflejarán inmediatamente en los paneles correspondientes de los demás actores.
+                  </p>
+                </div>
+                <div className="md:w-1/2 flex gap-4 w-full">
+                  <div className="flex-1 bg-white p-5 rounded-lg border border-gray-200 shadow-xs flex flex-col items-center justify-center text-center">
+                    <Database className="w-6 h-6 text-emerald-600 mb-2" />
+                    <div className="text-gray-900 font-medium text-sm">Estado Simulado Local</div>
+                  </div>
+                  <div className="flex-1 bg-white p-5 rounded-lg border border-gray-200 shadow-xs flex flex-col items-center justify-center text-center">
+                    <Scale className="w-6 h-6 text-emerald-600 mb-2" />
+                    <div className="text-gray-900 font-medium text-sm">Validación REP Integrada</div>
+                  </div>
+                </div>
               </div>
-              <div className="flex-1 bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-white/10 text-center">
-                <Scale className="w-8 h-8 text-emerald-400 mx-auto mb-3" />
-                <div className="text-white font-medium">Lógica REP Integrada</div>
-              </div>
-            </div>
-          </div>
+            </CardContent>
+          </Card>
         </div>
       </main>
     </div>
