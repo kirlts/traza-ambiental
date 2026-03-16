@@ -327,7 +327,7 @@ export default function GestorDashboard() {
                       <Button
                         onClick={() => handleEmitirCertificado(viaje.id)}
                         className={`w-full bg-emerald-600 hover:bg-emerald-700 text-white gap-2 shadow-sm ${
-                            isTargetCertificar ? "ring-2 ring-emerald-500 animate-pulse" : ""
+                            isTargetCertificar ? "ring-2 ring-emerald-500 animate-pulse border-emerald-500" : ""
                         }`}
                         title="Emita el certificado legal que acredita el tratamiento final de este volumen"
                       >

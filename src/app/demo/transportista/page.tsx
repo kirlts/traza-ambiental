@@ -15,6 +15,10 @@ import {
   Briefcase,
   Factory,
   Info,
+  CheckCircle,
+  TrendingUp,
+  Package,
+  BarChart3,
 } from "lucide-react";
 import Link from "next/link";
 import { format } from "date-fns";
@@ -22,6 +26,7 @@ import { es } from "date-fns/locale";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import DashboardLayout from "@/components/layout/DashboardLayout";
 
 export default function TransportistaDashboard() {
   const { solicitudes, acceptViaje, iniciarTransito, entregarEnPlanta, isTourActive, tourStep, markTourStepCompleted } = useDemo();
@@ -79,30 +84,10 @@ export default function TransportistaDashboard() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-gray-50 min-h-screen">
-      {/* Explicación del Perfil */}
-      <div className="mb-6 p-4 bg-emerald-50 text-emerald-900 rounded-lg border border-emerald-100 flex gap-3">
-        <Info className="w-5 h-5 shrink-0 text-emerald-600 mt-0.5" />
-        <div className="text-sm">
-          <strong>Perfil Transportista:</strong> Este módulo es para los operadores logísticos encargados del traslado físico de los NFU.
-          Permite buscar cargas disponibles ("Bolsa de Cargas"), aceptar viajes, declarar el momento de carga en la instalación del Generador
-          y registrar la entrega final en el Centro de Valorización.
-        </div>
-      </div>
-
-      {/* Top Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
-        <div>
-          <div className="flex items-center gap-2 text-emerald-600 mb-1">
-            <Truck className="w-5 h-5" />
-            <span className="font-semibold tracking-wide text-sm uppercase">
-              Módulo Transportista
-            </span>
-          </div>
-          <h1 className="text-3xl font-bold text-gray-900">Panel de Control: Logística</h1>
-          <p className="text-gray-500 mt-1">Mi Flota (Demo) • Patente: DEMO-01</p>
-        </div>
-
+    <DashboardLayout
+      title="Panel de Control: Logística"
+      subtitle="Mi Flota (Demo) • Patente: DEMO-01"
+      actions={
         <div className="flex items-center gap-3">
           <Link
             href="/demo"
@@ -118,9 +103,86 @@ export default function TransportistaDashboard() {
             Disponible para viajes
           </div>
         </div>
-      </div>
+      }
+    >
+      <div className="space-y-6">
+        {/* Banner Explicativo */}
+        <div className="bg-emerald-50 border border-emerald-100 rounded-xl p-4 flex items-start gap-3">
+          <Info className="w-5 h-5 shrink-0 text-emerald-600 mt-0.5" />
+          <div className="text-sm">
+            <strong>Perfil Transportista:</strong> Este módulo es para los operadores logísticos encargados del traslado físico de los NFU.
+            Permite buscar cargas disponibles ("Bolsa de Cargas"), aceptar viajes, declarar el momento de carga en la instalación del Generador
+            y registrar la entrega final en el Centro de Valorización.
+          </div>
+        </div>
 
-      <div className="grid lg:grid-cols-12 gap-6">
+        {/* Dashboard KPIs */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* Entregas Completadas */}
+          <Card className="relative overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-white">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-[#4fa362]/10 rounded-bl-full"></div>
+            <CardContent className="p-6 relative">
+              <div className="flex items-start justify-between mb-4">
+                <div className="p-3 bg-[#4fa362]/10 rounded-xl">
+                  <CheckCircle className="h-6 w-6 text-[#4fa362]" />
+                </div>
+                <Badge className="bg-[#4fa362]/10 text-[#4fa362] border-0">Demo</Badge>
+              </div>
+              <div>
+                <p className="text-sm font-medium text-gray-500 mb-1">Completadas</p>
+                <div className="text-3xl font-bold text-gray-900 mb-1">{completados.length}</div>
+                <p className="text-xs text-[#4fa362] font-medium flex items-center gap-1">
+                  <TrendingUp className="h-3 w-3" />
+                  Entregas exitosas
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Rutas Activas */}
+          <Card className="relative overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-white">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-[#459e60]/10 rounded-bl-full"></div>
+            <CardContent className="p-6 relative">
+              <div className="flex items-start justify-between mb-4">
+                <div className="p-3 bg-[#459e60]/10 rounded-xl">
+                  <Truck className="h-6 w-6 text-[#459e60]" />
+                </div>
+                <Badge className="bg-[#459e60]/10 text-[#459e60] border-0">En Curso</Badge>
+              </div>
+              <div>
+                <p className="text-sm font-medium text-gray-500 mb-1">En Ruta</p>
+                <div className="text-3xl font-bold text-gray-900 mb-1">{misViajesActivos.length}</div>
+                <p className="text-xs text-[#459e60] font-medium flex items-center gap-1">
+                  <MapPin className="h-3 w-3" />
+                  Servicios activos
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Bolsa Disponibles */}
+          <Card className="relative overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-white">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-blue-100 rounded-bl-full"></div>
+            <CardContent className="p-6 relative">
+              <div className="flex items-start justify-between mb-4">
+                <div className="p-3 bg-blue-50 rounded-xl">
+                  <Package className="h-6 w-6 text-blue-600" />
+                </div>
+                <Badge className="bg-blue-50 text-blue-600 border-0">Mercado</Badge>
+              </div>
+              <div>
+                <p className="text-sm font-medium text-gray-500 mb-1">Bolsa de Cargas</p>
+                <div className="text-3xl font-bold text-gray-900 mb-1">{disponibles.length}</div>
+                <p className="text-xs text-blue-600 font-medium flex items-center gap-1">
+                  <BarChart3 className="h-3 w-3" />
+                  Pendientes de asignar
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        <div className="grid lg:grid-cols-12 gap-6 mt-6">
         {/* Left Column: Active Trips & Completed */}
         <div className="lg:col-span-7 space-y-6">
           {/* Active Trips Section */}
@@ -288,7 +350,7 @@ export default function TransportistaDashboard() {
         </div>
 
         {/* Right Column: Bolsa de Cargas */}
-        <div className="lg:col-span-5">
+        <div className="lg:col-span-5 mb-10">
           <Card className="border border-gray-200 shadow-sm sticky top-24 overflow-hidden">
             <div className="bg-gray-50 p-5 border-b border-gray-200">
               <div className="flex justify-between items-center mb-1">
@@ -364,7 +426,8 @@ export default function TransportistaDashboard() {
             </div>
           </Card>
         </div>
+        </div>
       </div>
-    </div>
+    </DashboardLayout>
   );
 }

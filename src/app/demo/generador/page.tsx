@@ -20,7 +20,6 @@ import Link from "next/link";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
 export default function GeneradorDashboard() {
@@ -108,32 +107,10 @@ export default function GeneradorDashboard() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-gray-50 min-h-screen">
-      {/* Explicación del Perfil */}
-      <div className="mb-6 p-4 bg-emerald-50 text-emerald-900 rounded-lg border border-emerald-100 flex gap-3">
-        <Info className="w-5 h-5 shrink-0 text-emerald-600 mt-0.5" />
-        <div className="text-sm">
-          <strong>Perfil Generador:</strong> Este módulo es utilizado por las empresas que generan Neumáticos Fuera de Uso (NFU).
-          Aquí puede declarar los retiros de residuos necesarios en su instalación y monitorear el progreso hacia su meta anual
-          de cumplimiento normativo (Ley REP).
-        </div>
-      </div>
-
-      {/* Top Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
-        <div>
-          <div className="flex items-center gap-2 text-emerald-600 mb-1">
-            <Factory className="w-5 h-5" />
-            <span className="font-semibold tracking-wide text-sm uppercase">
-              Módulo Generador
-            </span>
-          </div>
-          <h1 className="text-3xl font-bold text-gray-900">Panel de Control: Generador</h1>
-          <p className="text-gray-500 mt-1">
-            Gestión de Retiros y Declaraciones de NFU
-          </p>
-        </div>
-
+    <DashboardLayout
+      title="Panel de Control: Generador"
+      subtitle="Gestión de Retiros y Declaraciones de NFU"
+      actions={
         <div className="flex items-center gap-3">
           <Link
             href="/demo"
@@ -152,10 +129,132 @@ export default function GeneradorDashboard() {
             Nueva Solicitud de Retiro
           </Button>
         </div>
-      </div>
+      }
+    >
+      <div className="space-y-6">
+        {/* Banner Explicativo */}
+        <div className="bg-emerald-50 border border-emerald-100 rounded-xl p-4 flex items-start gap-3">
+          <Info className="w-5 h-5 shrink-0 text-emerald-600 mt-0.5" />
+          <div className="text-sm">
+            <strong>Perfil Generador:</strong> Este módulo es utilizado por las empresas que generan Neumáticos Fuera de Uso (NFU).
+            Aquí puede declarar los retiros de residuos necesarios en su instalación y monitorear el progreso hacia su meta anual de cumplimiento normativo (Ley REP).
+          </div>
+        </div>
 
-      {/* KPIs Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        {/* Action Cards (like Production) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Card: Nueva Solicitud */}
+          <div
+            onClick={() => setIsModalOpen(true)}
+            className={`group relative bg-white border rounded-2xl p-6 hover:shadow-xl hover:shadow-emerald-100/50 transition-all duration-300 cursor-pointer overflow-hidden ${
+              isAddTarget ? "border-emerald-500 ring-2 ring-emerald-500 animate-pulse" : "border-emerald-200 hover:border-emerald-300"
+            }`}
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-emerald-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="relative z-10">
+              <div className="flex items-center justify-between mb-4">
+                <div className={`flex items-center justify-center h-12 w-12 rounded-xl bg-emerald-500 text-white group-hover:scale-110 transition-transform duration-300`}>
+                  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 4v16m8-8H4"
+                    />
+                  </svg>
+                </div>
+                <div className="h-2 w-2 rounded-full bg-emerald-400"></div>
+              </div>
+              <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-emerald-900 transition-colors">
+                Nueva Solicitud de Retiro
+              </h3>
+              <p className="text-gray-600 text-sm mb-4 leading-relaxed">
+                Crea una nueva solicitud para el retiro y valorización de neumáticos en tus instalaciones
+              </p>
+              <div className="flex items-center justify-between">
+                <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800 border border-emerald-200">
+                  <svg className="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                      fillRule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                  Disponible
+                </span>
+                <svg
+                  className="w-5 h-5 text-emerald-600 opacity-0 group-hover:opacity-100 transition-opacity"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          {/* Card: Inventario Digital */}
+          <div
+            className="group relative bg-white border border-blue-200 rounded-2xl p-6 hover:shadow-xl hover:shadow-blue-100/50 transition-all duration-300 cursor-pointer hover:border-blue-300 overflow-hidden"
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="relative z-10">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center justify-center h-12 w-12 rounded-xl bg-blue-500 text-white group-hover:scale-110 transition-transform duration-300">
+                  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
+                    />
+                  </svg>
+                </div>
+                <div className="h-2 w-2 rounded-full bg-blue-400"></div>
+              </div>
+              <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-blue-900 transition-colors">
+                Inventario Digital
+              </h3>
+              <p className="text-gray-600 text-sm mb-4 leading-relaxed">
+                Gestiona digitalmente tu inventario de neumáticos con trazabilidad completa
+              </p>
+              <div className="flex items-center justify-between">
+                <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-800 border border-blue-200">
+                  <svg className="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                      fillRule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                  Disponible
+                </span>
+                <svg
+                  className="w-5 h-5 text-blue-600 opacity-0 group-hover:opacity-100 transition-opacity"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Estadísticas rápidas (KPIs) */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         {/* KPI 1: Progress */}
         <Card className="border border-gray-200 shadow-sm">
           <CardContent className="p-5">
@@ -224,10 +323,10 @@ export default function GeneradorDashboard() {
             <p className="text-xs text-gray-500 mt-6 font-medium">Respaldos legales completados</p>
           </CardContent>
         </Card>
-      </div>
+        </div>
 
-      {/* Tracking Table */}
-      <Card className="border border-gray-200 shadow-sm overflow-hidden">
+        {/* Tracking Table */}
+        <Card className="border border-gray-200 shadow-sm overflow-hidden mb-10">
         <div className="px-6 py-4 border-b border-gray-200 bg-white">
           <h2 className="text-lg font-bold text-gray-900">Historial de Solicitudes</h2>
         </div>
@@ -385,7 +484,8 @@ export default function GeneradorDashboard() {
             </div>
           </div>
         </div>
-      )}
-    </div>
+        )}
+      </div>
+    </DashboardLayout>
   );
 }

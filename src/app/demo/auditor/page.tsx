@@ -290,7 +290,7 @@ export default function AuditorDashboard() {
                             Sello de Trazabilidad
                           </p>
                           <p className="font-mono text-[10px] text-gray-400 break-all leading-tight">
-                            {record.id.replace(/-/g, "").toLowerCase()}-{Date.now().toString(16)}
+                            {record.id.replace(/-/g, "").toLowerCase()}-{new Date(record.fechaActualizacion).getTime().toString(16)}
                           </p>
                           <p className="text-xs text-emerald-600 font-semibold mt-1.5 flex items-center gap-1">
                             <CheckCircle2 className="w-3 h-3" />
