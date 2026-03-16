@@ -19,8 +19,8 @@ Este skill DEBE ser invocado cuando se cumplen simultáneamente:
 
 1. **Suspensión de Convergencia:** Prohibido proponer arquitecturas, código o decisiones técnicas definitivas.
 2. **Amplificación de Pregunta:** Formular preguntas que abran el horizonte de posibilidades en lugar de cerrarlo.
-4. **Protección del Vacío:** Mantener el estado de "no definición" hasta que el usuario dé una señal clara de convergencia ("hagamos X", "el plan es Y").
-5. **Enmarcar (Checklist de Salida MaC):** Tras lograr convergencia sobre una idea brillante, el Agente debe ejecutar el proceso **Enmarcar** contra el Repositorio de Aprendizaje Kairós. 
+3. **Protección del Vacío:** Mantener el estado de "no definición" hasta que el usuario dé una señal clara de convergencia ("hagamos X", "el plan es Y").
+4. **Enmarcar (Checklist de Salida MaC):** Tras lograr convergencia sobre una idea brillante, el Agente debe ejecutar el proceso **Enmarcar** contra el Repositorio de Aprendizaje Kairós.
    - "¿La promesa de esta idea va de la mano con la **Identidad** de la Estrategia (`MASTER-SPEC.md`)?"
    - Si la respuesta es no, la idea debe proponerse primero como una alteración de Estrategia antes de proceder.
 

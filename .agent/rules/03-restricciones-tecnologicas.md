@@ -6,6 +6,7 @@ trigger: always_on
 
 > [!WARNING]
 > MODO SIMBIOSIS MAC: Este documento queda congelado y depreciado para el registro de nuevas restricciones. A partir de ahora, toda restricción tecnológica dura u obstáculo operativo que requiera un acuerdo a largo plazo DEBE someterse al proceso de aprendizaje de MaC.
+>
 > - Si altera la arquitectura base: Pasa a **Estrategia** (`MASTER-SPEC`).
 > - Si dicta cómo resolver una sorpresa: Pasa como **Decisión** (`USER-DECISIONS`).
 > - Si se repite constantemente: Se formaliza como **Política** (`MEMORY`).

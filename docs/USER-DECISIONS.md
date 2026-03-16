@@ -86,7 +86,7 @@ Este archivo registra todas las decisiones que el usuario haya tomado o las corr
 ## [ADR-009] Aislamiento Criptográfico de la Capa Pasiva y Purga Efímera
 
 - **Contexto:** Iniciación del seguimiento de versiones (Git) y consolidación post-Fase de Sanación Integral.
-- **Decisión:** 
+- **Decisión:**
   1. Integrar el directorio `docs/archive-opentech/` al `.gitignore` y desenlazarlo del árbol de validación de Git.
   2. Borrar permanente y sistemáticamente todos los reportes sueltos, historiales y scripts de automatización temporal (`*.txt`, `*_errors.json`, `fix-*`), reduciendo la entropía a nivel de entorno base.
 - **Alternativas Descartadas:** Borrar completamente el archivo `archive-opentech` (rechazado por pérdida de memoria institucional original de OpenTech), o subirlo al repo (genera enorme ruido en commits y code reviews).
@@ -98,9 +98,19 @@ Este archivo registra todas las decisiones que el usuario haya tomado o las corr
 ## [ADR-010] Motor de Renderizado DOM Pixel-Perfect para Infografías Cliente
 
 - **Contexto:** Constante truncamiento de texto y fallos de Bounding-Box en herramientas de diagramado declarativo como D2 y Mermaid, inaceptable para entregables a Stakeholders no técnicos.
-- **Decisión:** 
+- **Decisión:**
   1. Abandonar frameworks declarativos ligeros para entregables UI/UX.
   2. Implementar motor basado en DOM real (`render_diagrams.js`) que renderiza HTML + TailwindCSS y toma capturas de pantalla exactas utilizando Puppeteer.
 - **Alternativas Descartadas:** Seguir iterando scripts automatizados de post-procesamiento para D2; tolerar entregables con texto ininteligible; pagar licencias restrictivas de software propietario de diagramación.
 - **Consecuencias:** Creación de imágenes PNG con fidelidad absoluta al esquema original de interfaz gráfica, garantizando cero recortes de texto. Documentabilidad procedural estricta en el nuevo pipeline.
 - **Condiciones de Reversión:** Si surge un motor declarativo open-source que solucione radicalmente el truncamiento de texto complejo en nodos estáticos.
+
+---
+
+## [ADR-011] Estrictez de Hidratación en Componentes React 19 (Modo Demo)
+
+- **Contexto:** Desarrollo del motor interactivo (`demo-context.tsx`) empleando `React.createContext` y `localStorage` para persistir datos del Modo Demo.
+- **Decisión:** Implementar renderizado condicional de componentes hijos sólo después del montaje en el cliente (`useEffect` + bandera `isClient`) para inyectar el estado recuperado desde `localStorage`.
+- **Alternativas Descartadas:** Intentar sincronizar el estado inicial de React con `localStorage` directamente en la fase de render (genera errores de `Hydration Mismatch` entre servidor y cliente).
+- **Consecuencias:** Prevención de parpadeos y errores de hidratación. La UI interactiva espera un ciclo adicional para volcar los datos reales persistidos.
+- **Condiciones de Reversión:** Adopción de librerías avanzadas de persistencia isomórfica que resuelvan la hidratación de cliente nativamente de forma transparente.

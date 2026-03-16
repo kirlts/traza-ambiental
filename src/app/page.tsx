@@ -203,6 +203,22 @@ export default function Home() {
                   Iniciar Sesión
                 </Link>
               </div>
+
+              <div className="mt-8 flex justify-center">
+                <Link
+                  href="/demo"
+                  className="group relative inline-flex items-center justify-center px-8 py-4 font-bold text-white transition-all duration-300 ease-in-out bg-linear-to-r from-blue-600 via-indigo-600 to-purple-600 rounded-2xl overflow-hidden hover:scale-105 shadow-[0_0_40px_-10px_rgba(79,70,229,0.5)] hover:shadow-[0_0_60px_-15px_rgba(79,70,229,0.7)]"
+                >
+                  <span className="absolute inset-0 w-full h-full bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-[150%] skew-x-[30deg] group-hover:animate-[shimmer_1.5s_infinite]"></span>
+                  <div className="flex items-center gap-2 relative z-10">
+                    <span className="relative flex h-3 w-3">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-3 w-3 bg-white"></span>
+                    </span>
+                    Explorar Demo Interactivo
+                  </div>
+                </Link>
+              </div>
             </div>
           </div>
         </section>
@@ -641,6 +657,11 @@ export default function Home() {
           }
           .animate-float {
             animation: float 3s ease-in-out infinite;
+          }
+          @keyframes shimmer {
+            100% {
+              transform: translateX(150%) skewX(30deg);
+            }
           }
         `}</style>
       </div>

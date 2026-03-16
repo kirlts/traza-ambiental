@@ -4,21 +4,22 @@ mac_trigger: Ninguno
 date: 2026-03-10
 autor: Antigravity (AI Agent)
 ---
+
 # Preguntas que responde MaC
 
 MaC es un sistema de gestión que se basa en el ciclo **Acción → Aprendizaje** siguiendo una estrategia común. Este documento presenta las preguntas que cada capa necesita responder. No es necesario responderlas todas: elige las que sean relevantes para tu organización, tu escala y tu momento. Al final hay una sección con preguntas que un agente IA puede responder antes de la intervención humana, a partir de los documentos existentes.
 
 1. **Estrategia**
-	- **Identidad**: _¿Por qué existimos y qué nos diferencia?_
-	- **Dirección**: _¿Hacia dónde vamos y cómo sabremos que llegamos?_
-	- **Capacidad**: _¿Con qué contamos realmente?_
+   - **Identidad**: _¿Por qué existimos y qué nos diferencia?_
+   - **Dirección**: _¿Hacia dónde vamos y cómo sabremos que llegamos?_
+   - **Capacidad**: _¿Con qué contamos realmente?_
 2. **Acción**
-	- **Planificación**: _¿Qué hacer a continuación?_
-	- **Tareas**: _¿Qué hacer concretamente?_
-	- **Resultados**: _¿Quién ejecutó y qué fue diferente a lo esperado?_
+   - **Planificación**: _¿Qué hacer a continuación?_
+   - **Tareas**: _¿Qué hacer concretamente?_
+   - **Resultados**: _¿Quién ejecutó y qué fue diferente a lo esperado?_
 3. **Aprendizaje**
-	- **Decisiones**: _¿Qué decidimos, cuándo y por qué?_
-	- **Políticas**: _¿Qué debemos hacer diferente?_
+   - **Decisiones**: _¿Qué decidimos, cuándo y por qué?_
+   - **Políticas**: _¿Qué debemos hacer diferente?_
 
 ```mermaid
 %%{init: {'flowchart': {'useMaxWidth': true}, 'theme': 'neutral', 'themeVariables': {}}}%%
@@ -43,7 +44,7 @@ graph LR
 			Políticas[["Políticas<br>(cómo hacer)"]]
 			Decisiones[["Decisiones<br>(qué cambiar)"]]
 		end
-		Estrategia <==> Acción <==> Aprendizaje		
+		Estrategia <==> Acción <==> Aprendizaje
 	end
 
 	Organización ==>|Responde| SuperU
@@ -60,7 +61,7 @@ La estrategia es lo que permanece estable mientras el ciclo Acción → Aprendiz
 ### Identidad
 
 **Pregunta corta**: _¿Por qué existimos y qué nos diferencia?_
-**Pregunta extendida**: _¿Qué nos constituye como organización y qué seguiría siendo verdadero aunque todo lo demás cambiara?
+**Pregunta extendida**: \_¿Qué nos constituye como organización y qué seguiría siendo verdadero aunque todo lo demás cambiara?
 
 - ¿Por qué existe esta organización?
 - ¿Qué problema resuelve que nadie más resuelve de esta forma?
@@ -297,17 +298,20 @@ Un agente IA puede procesar la documentación existente (logs, planes, identidad
 ### Estrategia
 
 **Identidad:**
+
 - ¿Existe una declaración de propósito explícita en los documentos, o solo se infiere?
 - ¿Las decisiones registradas son coherentes con los principios declarados?
 - ¿El lenguaje usado en los documentos operativos refleja la identidad declarada?
 
 **Dirección:**
+
 - ¿Qué objetivos declarados no tienen ninguna tarea asociada?
 - ¿Qué objetivos llevan más de un ciclo sin cambio de estado ni mención en resultados?
 - ¿Hay objetivos cuyo responsable no aparece como agente en ninguna tarea activa?
 - ¿Hay objetivos del ciclo anterior que desaparecieron sin decisión registrada que lo justifique?
 
 **Capacidad:**
+
 - ¿Qué tareas activas dependen del mismo recurso o persona, creando un cuello de botella implícito?
 - ¿Los objetivos más exigentes del ciclo están asignados a períodos donde históricamente la capacidad baja?
 - ¿Hay dependencias externas que aparecen en más de un objetivo sin plan B documentado?
@@ -316,16 +320,19 @@ Un agente IA puede procesar la documentación existente (logs, planes, identidad
 ### Acción
 
 **Planificación:**
+
 - ¿La planificación del ciclo actual referencia los aprendizajes del ciclo anterior?
 - ¿Hay tareas planificadas que no conectan con ningún objetivo de Dirección?
 - ¿Se repite la misma planificación de ciclo en ciclo sin ajustes?
 
 **Tareas:**
+
 - ¿Qué tareas llevan más de un ciclo sin cambio de estado?
 - ¿Hay bloqueos registrados que no generaron ninguna decisión?
 - ¿Qué compromisos hacia afuera vencen en el próximo ciclo y tienen estado incompleto?
 
 **Resultados:**
+
 - ¿Qué resultados del último ciclo registran sorpresas explícitas?
 - ¿Hay ciclos que terminaron sin un registro de resultados?
 - ¿Qué porcentaje de lo planificado se completó versus lo que quedó pendiente?
@@ -334,12 +341,14 @@ Un agente IA puede procesar la documentación existente (logs, planes, identidad
 ### Aprendizaje
 
 **Decisiones:**
+
 - ¿Hay decisiones cuya condición de revisión ya se cumplió pero no han sido revisadas?
 - ¿Se repiten decisiones sobre el mismo tema sin que se referencien entre sí?
 - ¿Hay tareas activas que no tienen una decisión que las respalde?
 - ¿Qué decisiones del último ciclo no registran alternativas descartadas ni información base?
 
 **Políticas:**
+
 - ¿Hay políticas que no se mencionan en ningún documento operativo?
 - ¿Hay decisiones recurrentes sobre el mismo tema que podrían consolidarse en una política?
 - ¿Alguna política contradice una decisión posterior sin que la política se haya actualizado?
