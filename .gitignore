@@ -70,7 +70,3 @@ tsc_errors.txt
 
 # Archive
 docs/archive-opentech/
-
-# SSH
-*.key
-*.pub
