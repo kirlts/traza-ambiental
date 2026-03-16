@@ -80,3 +80,18 @@ global.File = class File {
     this.type = options.type || "";
   }
 };
+
+// Mock Request/Response for next/server compatibility in JSDOM
+if (typeof global.Request === "undefined") {
+  global.Request = class Request {};
+}
+if (typeof global.Response === "undefined") {
+  global.Response = class Response {
+    static json(body, init) {
+      return {
+        status: init?.status || 200,
+        json: async () => body,
+      };
+    }
+  };
+}

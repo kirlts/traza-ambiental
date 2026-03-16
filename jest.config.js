@@ -13,8 +13,12 @@ const customJestConfig = {
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/src/$1",
     "^lucide-react$": "<rootDir>/__tests__/__mocks__/lucide-react.ts",
+    "^next-auth$": "<rootDir>/__tests__/__mocks__/next-auth.ts",
+    "^next-auth/providers/credentials$": "<rootDir>/__tests__/__mocks__/next-auth.ts",
+    "^@auth/core$": "<rootDir>/__tests__/__mocks__/next-auth.ts",
   },
   testPathIgnorePatterns: ["<rootDir>/.next/", "<rootDir>/node_modules/"],
+  transformIgnorePatterns: ["/node_modules/(?!(next-auth|@auth)/)"],
   collectCoverageFrom: [
     "src/**/*.{js,jsx,ts,tsx}",
     "!src/**/*.d.ts",

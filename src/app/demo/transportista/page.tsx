@@ -97,7 +97,7 @@ export default function TransportistaDashboard() {
           </Link>
           <div className="inline-flex items-center justify-center gap-2 bg-emerald-50 text-emerald-700 px-4 py-2 rounded-md font-medium border border-emerald-100 shadow-sm" title="El sistema monitorea en tiempo real la disponibilidad de la flota">
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="animate-demo-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
             </span>
             Disponible para viajes
@@ -244,7 +244,7 @@ export default function TransportistaDashboard() {
                             <Button
                               onClick={() => handleLoad(viaje.id)}
                               className={`mt-4 bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm gap-2 ${
-                                isTargetLoad ? "ring-2 ring-emerald-500 animate-pulse" : ""
+                                isTargetLoad ? "ring-2 ring-emerald-500 animate-demo-pulse" : ""
                               }`}
                               title="Confirme que el material ya ha sido cargado en el vehículo"
                             >
@@ -277,7 +277,7 @@ export default function TransportistaDashboard() {
                             <Button
                               onClick={() => handleDeliver(viaje.id)}
                               className={`mt-4 bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm gap-2 ${
-                                isTargetDeliver ? "ring-2 ring-emerald-500 animate-pulse" : ""
+                                isTargetDeliver ? "ring-2 ring-emerald-500 animate-demo-pulse" : ""
                               }`}
                               title="Confirme que ha entregado el material en la planta de destino"
                             >
@@ -411,7 +411,7 @@ export default function TransportistaDashboard() {
                         <Button
                           onClick={() => handleAccept(viaje.id, viaje.tonelajeEstimado)}
                           className={`bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm gap-1.5 ${
-                            isTargetAccept ? "ring-2 ring-emerald-500 animate-pulse" : ""
+                            isTargetAccept ? "ring-2 ring-emerald-500 animate-demo-pulse" : ""
                           }`}
                           title="Asigne esta solicitud de carga a su flota para iniciar el transporte"
                         >

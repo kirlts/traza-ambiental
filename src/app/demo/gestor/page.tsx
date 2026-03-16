@@ -203,7 +203,7 @@ export default function GestorDashboard() {
                                 setPesoRomana(e.target.value ? Number(e.target.value) : "")
                               }
                               className={`w-full text-base bg-white border border-gray-300 rounded-md px-3 py-2 outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all text-gray-900 ${
-                                isTargetPesaje ? "ring-2 ring-emerald-500 animate-pulse border-emerald-500" : ""
+                                isTargetPesaje ? "ring-2 ring-emerald-500 animate-demo-pulse border-emerald-500" : ""
                               }`}
                               placeholder="Ej: 46.2"
                               autoFocus
@@ -215,7 +215,7 @@ export default function GestorDashboard() {
                           <Button
                             type="submit"
                             className={`bg-emerald-600 hover:bg-emerald-700 text-white gap-2 ${
-                                isTargetPesaje ? "ring-2 ring-emerald-500 animate-pulse" : ""
+                                isTargetPesaje ? "ring-2 ring-emerald-500 animate-demo-pulse" : ""
                             }`}
                             title="Confirme el peso real medido en romana para compararlo con el declarado"
                           >
@@ -233,7 +233,7 @@ export default function GestorDashboard() {
                         variant="outline"
                         onClick={() => setSelectedId(viaje.id)}
                         className={`w-full mt-2 flex items-center justify-center gap-2 group ${
-                          isTargetPesaje ? "ring-2 ring-emerald-500 animate-pulse border-emerald-500 text-emerald-700 bg-emerald-50" : "text-gray-700"
+                          isTargetPesaje ? "ring-2 ring-emerald-500 animate-demo-pulse border-emerald-500 text-emerald-700 bg-emerald-50" : "text-gray-700"
                         }`}
                         title="Inicie el proceso de validación del peso de esta carga"
                       >
@@ -327,7 +327,7 @@ export default function GestorDashboard() {
                       <Button
                         onClick={() => handleEmitirCertificado(viaje.id)}
                         className={`w-full bg-emerald-600 hover:bg-emerald-700 text-white gap-2 shadow-sm ${
-                            isTargetCertificar ? "ring-2 ring-emerald-500 animate-pulse border-emerald-500" : ""
+                            isTargetCertificar ? "ring-2 ring-emerald-500 animate-demo-pulse border-emerald-500" : ""
                         }`}
                         title="Emita el certificado legal que acredita el tratamiento final de este volumen"
                       >

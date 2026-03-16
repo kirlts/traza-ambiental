@@ -114,7 +114,7 @@ export function GuidedTourOverlay() {
             onClick={nextTourStep}
             className="block w-full"
           >
-            <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm flex items-center gap-2 ring-2 ring-emerald-500 animate-pulse transition-all">
+            <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm flex items-center gap-2 ring-2 ring-emerald-500 animate-demo-pulse transition-all">
               Siguiente Paso
               <ArrowRight className="w-4 h-4" />
             </Button>

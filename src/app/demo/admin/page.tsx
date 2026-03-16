@@ -142,7 +142,7 @@ export default function AdminDashboard() {
               <p className="text-slate-400 text-sm font-medium mb-1">Estado de Servidores</p>
               <p className="text-xl font-bold text-emerald-400 flex items-center gap-2 mt-2">
                 <span className="relative flex h-3 w-3">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="animate-demo-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
                 </span>
                 Óptimo
@@ -163,7 +163,7 @@ export default function AdminDashboard() {
               Resolución de Conflictos
             </h2>
             {discrepancias.length > 0 && (
-              <span className="bg-red-100 text-red-700 text-xs font-bold px-2.5 py-1 rounded-full animate-pulse">
+              <span className="bg-red-100 text-red-700 text-xs font-bold px-2.5 py-1 rounded-full animate-demo-pulse">
                 {discrepancias.length} Pendientes
               </span>
             )}

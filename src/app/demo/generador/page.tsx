@@ -21,6 +21,7 @@ import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import DashboardLayout from "@/components/layout/DashboardLayout";
 
 export default function GeneradorDashboard() {
   const { solicitudes, addSolicitud, isTourActive, tourStep, markTourStepCompleted } = useDemo();
@@ -121,7 +122,7 @@ export default function GeneradorDashboard() {
           <Button
             onClick={() => setIsModalOpen(true)}
             className={`flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm ${
-              isAddTarget ? "ring-4 ring-emerald-500/50 animate-pulse" : ""
+              isAddTarget ? "ring-4 ring-emerald-500/50 animate-demo-pulse" : ""
             }`}
             title="Cree una nueva solicitud para que un transportista asigne un vehículo al retiro"
           >
@@ -147,7 +148,7 @@ export default function GeneradorDashboard() {
           <div
             onClick={() => setIsModalOpen(true)}
             className={`group relative bg-white border rounded-2xl p-6 hover:shadow-xl hover:shadow-emerald-100/50 transition-all duration-300 cursor-pointer overflow-hidden ${
-              isAddTarget ? "border-emerald-500 ring-2 ring-emerald-500 animate-pulse" : "border-emerald-200 hover:border-emerald-300"
+              isAddTarget ? "border-emerald-500 ring-2 ring-emerald-500 animate-demo-pulse" : "border-emerald-200 hover:border-emerald-300"
             }`}
           >
             <div className="absolute inset-0 bg-gradient-to-br from-emerald-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -447,7 +448,7 @@ export default function GeneradorDashboard() {
                       value={tonelaje}
                       onChange={(e) => setTonelaje(e.target.value ? Number(e.target.value) : "")}
                       className={`block w-full rounded-md border-gray-300 py-2.5 px-3 text-gray-900 bg-white border focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm outline-none transition-all ${
-                        isAddTarget ? "ring-2 ring-emerald-500 animate-pulse" : ""
+                        isAddTarget ? "ring-2 ring-emerald-500 animate-demo-pulse" : ""
                       }`}
                       placeholder="Ej: 50"
                       min="1"
@@ -474,7 +475,7 @@ export default function GeneradorDashboard() {
                   <Button
                     type="submit"
                     className={`bg-emerald-600 hover:bg-emerald-700 text-white ${
-                      isAddTarget ? "ring-2 ring-emerald-500 animate-pulse" : ""
+                      isAddTarget ? "ring-2 ring-emerald-500 animate-demo-pulse" : ""
                     }`}
                   >
                     Publicar Solicitud

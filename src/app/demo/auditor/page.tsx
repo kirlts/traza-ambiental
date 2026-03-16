@@ -180,7 +180,7 @@ export default function AuditorDashboard() {
                         }
                       }}
                       className={`ml-2 text-gray-700 hover:text-emerald-700 hover:bg-emerald-50 ${
-                        isTourTarget ? "ring-2 ring-emerald-500 animate-pulse border-emerald-500 bg-emerald-50 text-emerald-700" : ""
+                        isTourTarget ? "ring-2 ring-emerald-500 animate-demo-pulse border-emerald-500 bg-emerald-50 text-emerald-700" : ""
                       }`}
                       title="Descargar copia oficial del Certificado de Valorización"
                     >

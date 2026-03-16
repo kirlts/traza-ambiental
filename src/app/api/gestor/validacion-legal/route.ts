@@ -12,9 +12,10 @@ export async function GET(_req: NextRequest) {
       return NextResponse.json({ error: "No autorizado" }, { status: 401 });
     }
 
-    // Bypass temporal de validación estricta de rol para desbloquear desarrollo
-    // const userRole = session.user.role || session.user.roles?.[0];
-    // if (userRole !== "GESTOR") { ... }
+    const userRole = session.user.role || session.user.roles?.[0];
+    if (userRole !== "GESTOR") {
+       return NextResponse.json({ error: "No autorizado" }, { status: 401 });
+    }
 
     const managerId = session.user.id;
     const profile = await prisma.managerLegalProfile.findUnique({
@@ -35,6 +36,11 @@ export async function POST(req: NextRequest) {
 
     if (!session?.user) {
       return NextResponse.json({ error: "No autorizado" }, { status: 401 });
+    }
+
+    const userRole = session.user.role || session.user.roles?.[0];
+    if (userRole !== "GESTOR") {
+       return NextResponse.json({ error: "No autorizado" }, { status: 401 });
     }
 
     const formData = await req.formData();
