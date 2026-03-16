@@ -30,35 +30,33 @@ y este proyecto se adhiere a un versionamiento iterativo interno.
 
 ### Added
 
+- **Modo Demo Élite**: Implementación de un entorno simulado interactivo con 6 perfiles aislados pero integrados lógicamente (Portal, Generador, Transportista, Gestor, Admin, Auditor, Sistema de Gestión).
+- **Recorrido Guiado ("Tour") B2B**: Implementación de onboarding en pasos secuenciales reactivos, obligando a completar acciones clave antes de avanzar, y con una narrativa de negocio enfocada en resolver dolores de cumplimiento REP.
+- **Métricas ESG (Huella de Carbono)**: Añadido indicador de "tCO2e Emisiones Evitadas" en el panel del Generador y en el consolidado del Sistema de Gestión.
+- **Mock de Integraciones Nativas**: Simuladores visuales (Notificaciones/Badges) que explicitan interoperabilidad automática con Ventanilla Única, SINADER y Servicio de Impuestos Internos (SII).
+- **Generación Real de PDF**: Los botones de descarga de certificados (Gestor y Auditor) ahora generan en tiempo real un documento PDF fidedigno en el navegador usando jsPDF.
 - **Infografía DOM**: Script `render_diagrams.js` implementado para generar diagramas "Pixel-Perfect" usando HTML, Tailwind y Puppeteer.
 - **Migración Visual**: Transición de diagramas D2 (dark mode) a DOM-rendered (light mode) purgando anglicismos e introduciendo terminología nativa de negocio (Ley REP).
-
-### Fixed
-
-- **Integridad Infrarroja**: Saneamiento quirúrgico de `validar-recepcion`, `kpis`, `export/excel` y `generar-certificado` tras purga de logs. Resolución de 40+ errores sintácticos (bloques `try-catch` mal cerrados, funciones duplicadas y expresiones huérfanas).
-- **Compilación Limpia**: Alcanzada la meta de **0 errores TSC** en todo el repositorio estratégico.
-- **Nulidad en Guías**: Implementación de _optional chaining_ en el generador de guías de despacho para evitar fallos por datos de vehículo/conductor ausentes.
-
-### Added
-
 - **Seguridad Centralizada**: Migración de la lógica de protección de rutas y RBAC al `middleware.ts`, eliminando la necesidad de validaciones redundantes en componentes cliente.
-- **Saneamiento de Hooks (React 19)**: Purga masiva de `useEffect` no deterministas en todos los dashboards del sistema.
-- **Corrección de Determinismo**: Reparación de bugs en `useEffect` con dependencias vacías que accedían a variables externas en el módulo de Perfil.
-- **Optimización de UI**: Eliminación de parpadeos (_content flashing_) en rutas protegidas mediante el bloqueo a nivel de red.
-- **Sincronización de Dependencias**: Inclusión de `react-is` para asegurar compatibilidad de `recharts` con Turbopack/Next 16.
 - **Arquitectura de Administración**: Extracción de componentes `UserTable`, `UserModal` y unificación de tipos en el módulo de usuarios para cumplimiento del MASTER-SPEC.
 
 ### Fixed
 
+- 💥 **Sorpresa Operativa (Hydration Mismatch)**: Resolución de advertencias de hidratación servidor/cliente en `demo-context.tsx` corrigiendo el diseño de estados iniciales atados a hooks `useEffect`.
+- **Efecto Cortina UX**: Adición de `padding-bottom` (pb-72) condicional al layout base del demo para evitar que componentes flotantes tapen botones de acción clave en pantallas menores.
+- **Integridad Infrarroja**: Saneamiento quirúrgico de `validar-recepcion`, `kpis`, `export/excel` y `generar-certificado` tras purga de logs. Resolución de 40+ errores sintácticos (bloques `try-catch` mal cerrados, funciones duplicadas y expresiones huérfanas).
+- **Compilación Limpia**: Alcanzada la meta de **0 errores TSC** en todo el repositorio estratégico.
+- **Nulidad en Guías**: Implementación de _optional chaining_ en el generador de guías de despacho para evitar fallos por datos de vehículo/conductor ausentes.
+- **Saneamiento de Hooks (React 19)**: Purga masiva de `useEffect` no deterministas en todos los dashboards del sistema.
+- **Corrección de Determinismo**: Reparación de bugs en `useEffect` con dependencias vacías que accedían a variables externas en el módulo de Perfil.
+- **Optimización de UI**: Eliminación de parpadeos (_content flashing_) en rutas protegidas mediante el bloqueo a nivel de red.
+- **Sincronización de Dependencias**: Inclusión de `react-is` para asegurar compatibilidad de `recharts` con Turbopack/Next 16.
 - **Comunicación de Cron**: Activación real del sistema de alertas por email en el cron job de vencimientos, integrando `sendSuspensionEmailMultiple`.
 - **Sanación de API Crítica**: Implementación de tipado estricto en `/api/cron/vencimientos` y `/api/dashboard/export/excel`, eliminando el uso de `any` en capas de datos.
-
-### Fixed
-
 - **Purgado de Logs**: Eliminación global de 200+ `console.log` en rutas críticas de auth y API.
 - **Determinismo React 19**: Eliminación de `useEffect` para sincronización en `ReporteAnualPage.tsx`, sustituido por carga imperativa.
 - **Tipado de Infraestructura**: Remoción de casting `as any` y `@ts-ignore` en transacciones de Prisma tras regeneración del cliente.
-- [EPIC-005] Finalización de la redención técnica: purgado de `any` en componentes core y optimización de consultas N+1 en reportes anuales.
+- **[EPIC-005] Finalización de la redención técnica**: Purgado de `any` en componentes core y optimización de consultas N+1 en reportes anuales.
 - Centralización de interfaces TypeScript para autenticación y vehículos en `src/types/auth.ts` y nuevos contratos en `src/types/api.ts`.
 - Interfaz `BeforeInstallPromptEvent` para tipado riguroso de instalación PWA.
 
@@ -82,6 +80,7 @@ y este proyecto se adhiere a un versionamiento iterativo interno.
 
 - Scripts duplicados: `sync-prod-db.js` y `test-reset-dev.sh`.
 - **Purga de Logs Residuales Efímeros**: Eliminados archivos `.txt`, `.json` de validación y utilidades temporales TS a nivel de raíz y subdirectorios, manteniendo solo configuraciones estructuralmente requeridas.
+
 
 ## [1.1.0-sanacion] - 2026-03-01
 

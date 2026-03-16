@@ -50,7 +50,7 @@ Meta: Purgado masivo de logs, reportes PDF/Excel, tipado de APIs.
 Meta: Preparar el repositorio para su despliegue y validación continua.
 
 - [x] [TASK-021] Inicializar repositorio Git. - 2026-03-03 10:48:00
-- [ ] [TASK-022] Crear commit inaugural y base.
+- [x] [TASK-022] Crear commit inaugural y base. - 2026-03-15 22:00:00
 - [x] [TASK-023] Generar archivo de configuración Docker. - Completado previamente.
 - [ ] [TASK-024] Opcional: Configurar actions/pipelines de validación continua.
 
@@ -58,33 +58,43 @@ Meta: Preparar el repositorio para su despliegue y validación continua.
 
 Meta: Establecer el bypass de autenticación y la página índice de selección de roles.
 
-- [ ] [TASK-025] Crear página principal `/demo` de selección "Pixel-Perfect".
-- [ ] [TASK-026] Integrar lógica de mock-login (bypass) para cada rol al hacer click.
+- [x] [TASK-025] Crear página principal `/demo` de selección "Pixel-Perfect". - 2026-03-15 22:00:00
+- [x] [TASK-026] Integrar lógica de mock-login (bypass) para cada rol al hacer click. - 2026-03-15 22:00:00
 
 ## [EPIC-008] Desarrollo Modo Demo: Universo Generador
 
 Meta: Maquetar el flujo lógico y KPIs del Productor/Minera (Categoría A/B).
 
-- [ ] [TASK-027] UI de "Panel de Métricas" con data mockeada de avance REP.
-- [ ] [TASK-028] UI formulario "Nueva Solicitud" con validación de Peso Estimado.
+- [x] [TASK-027] UI de "Panel de Métricas" con data mockeada de avance REP. - 2026-03-15 22:00:00
+- [x] [TASK-028] UI formulario "Nueva Solicitud" con validación de Peso Estimado. - 2026-03-15 22:00:00
 
 ## [EPIC-009] Desarrollo Modo Demo: Universo Transportista
 
 Meta: Maquetar la bolsa de trabajo y la logística inversa.
 
-- [ ] [TASK-029] UI de Bolsa de Trabajo y vista del Mapa de Rutas Pendientes.
-- [ ] [TASK-030] Funcionalidad mock de "Aceptar Viaje" y "Reportar Kilo Real".
+- [x] [TASK-029] UI de Bolsa de Trabajo y vista del Mapa de Rutas Pendientes. - 2026-03-15 22:00:00
+- [x] [TASK-030] Funcionalidad mock de "Aceptar Viaje" y "Reportar Kilo Real". - 2026-03-15 22:00:00
 
 ## [EPIC-010] Desarrollo Modo Demo: Universo Gestor (Planta)
 
 Meta: Maquetar el portal de recepción física y certificación final.
 
-- [ ] [TASK-031] UI de "Recepción en Puertas" de vehículos en tránsito.
-- [ ] [TASK-032] Lógica simulada de "Pesaje de Romana" y emisión de QR (Mock).
+- [x] [TASK-031] UI de "Recepción en Puertas" de vehículos en tránsito. - 2026-03-15 22:00:00
+- [x] [TASK-032] Lógica simulada de "Pesaje de Romana" y emisión de QR (Mock). - 2026-03-15 22:00:00
 
 ## [EPIC-011] Desarrollo Modo Demo: Universo Administración y Fiscalización
 
 Meta: Vistas de visualización asimétrica (L5 vs Read-Only).
 
-- [ ] [TASK-033] UI de Admin con opciones "Override" y suspensión de permisos simulados.
-- [ ] [TASK-034] UI Forense de Auditor con candados Read-Only e historial legal en crudo.
+- [x] [TASK-033] UI de Admin con opciones "Override" y suspensión de permisos simulados. - 2026-03-15 22:00:00
+- [x] [TASK-034] UI Forense de Auditor con candados Read-Only e historial legal en crudo. - 2026-03-15 22:00:00
+
+## [EPIC-012] Desarrollo Modo Demo: Sistema de Gestión y Experiencia Guiada
+
+Meta: Consolidar la narrativa de negocio B2B, métricas ESG y flujos interactivos de venta.
+
+- [x] [TASK-035] Implementar motor de simulación de estado (Context + LocalStorage) para el Modo Demo. - 2026-03-15 22:00:00
+- [x] [TASK-036] Integrar simuladores visuales de sistemas externos (SII, SINADER, RETC). - 2026-03-15 22:00:00
+- [x] [TASK-037] Desarrollar perfil "Sistema de Gestión" (SIG) con consolidación de metas nacionales. - 2026-03-15 22:00:00
+- [x] [TASK-038] Incorporar KPIs de Huella de Carbono (CO2e Evitada) y generación de PDF real (jsPDF). - 2026-03-15 22:00:00
+- [x] [TASK-039] Desarrollar Recorrido Guiado ("Tour") con enforced-steps y layout dinámico (pb-72). - 2026-03-15 22:00:00
