@@ -18,10 +18,10 @@ import { format } from "date-fns";
 import { es } from "date-fns/locale";
 
 export default function AdminDashboard() {
-  const { solicitudes, resolverDiscrepancia, kpisGlobales } = useDemo();
+  const { solicitudes, bitacora, emitirCertificado, kpisGlobales, isTourActive, tourStep, markTourStepCompleted } = useDemo();
 
-  // Filter discrepancias
-  const discrepancias = solicitudes.filter((s) => s.status === "PESAJE_DISCREPANTE");
+  const isTourTarget = isTourActive && tourStep === 5;
+  const listosParaCertificar = solicitudes.filter(s => s.status === "TRATADO_Y_FRACCIONADO");
 
   // Calculate progress
   const progressPercentage = Math.min(
@@ -29,25 +29,15 @@ export default function AdminDashboard() {
     100
   );
 
-  const handleResolver = (id: string, pesoAprobado: number) => {
-    resolverDiscrepancia(id, pesoAprobado);
-    toast.success("Discrepancia Resuelta", {
-      description: `El flujo de la solicitud ha sido reactivado con ${pesoAprobado}t y enviado al Gestor para sellado.`,
-      icon: <CheckCircle className="text-emerald-500" />,
+  const handleEmitir = (id: string) => {
+    emitirCertificado(id);
+    toast.success("Certificados Emitidos Exitosamente", {
+      description: "El paquete REP (Retiro, Recepción y Valorización) ha sido firmado e ingresado a la Bitácora.",
     });
+    if (isTourTarget) {
+      markTourStepCompleted();
+    }
   };
-
-  const mockUsers = [
-    {
-      id: 1,
-      name: "Transportes Nacionales",
-      type: "Transportista",
-      status: "Activo",
-      alert: false,
-    },
-    { id: 2, name: "Planta Reciclaje NFU", type: "Gestor", status: "Vencido", alert: true }, // Permiso sanitario vencido
-    { id: 3, name: "Minera Escondida", type: "Generador", status: "Activo", alert: false },
-  ];
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 animate-in fade-in duration-500">
@@ -131,11 +121,11 @@ export default function AdminDashboard() {
               <p className="text-3xl font-bold text-emerald-400">8,592</p>
             </div>
             <div className="bg-slate-800/50 backdrop-blur-md rounded-2xl p-4 border border-slate-700/50">
-              <p className="text-slate-400 text-sm font-medium mb-1">Discrepancias</p>
+              <p className="text-slate-400 text-sm font-medium mb-1">Pendientes de Firma</p>
               <p
-                className={`text-3xl font-bold ${discrepancias.length > 0 ? "text-red-400" : "text-slate-100"}`}
+                className={`text-3xl font-bold ${listosParaCertificar.length > 0 ? "text-yellow-400 animate-pulse" : "text-slate-100"}`}
               >
-                {discrepancias.length}
+                {listosParaCertificar.length}
               </p>
             </div>
             <div className="bg-slate-800/50 backdrop-blur-md rounded-2xl p-4 border border-slate-700/50">
@@ -154,185 +144,102 @@ export default function AdminDashboard() {
 
       <div className="grid lg:grid-cols-2 gap-8">
         {/* Left Column: Discrepancies Juez Panel */}
-        <section>
+        <section data-tour-target="emitir-certificados">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
-              <AlertTriangle
-                className={`w-6 h-6 ${discrepancias.length > 0 ? "text-red-500" : "text-slate-400"}`}
-              />
-              Resolución de Conflictos
+              <FileCheck className="w-6 h-6 text-emerald-500" />
+              Consolidación Documental
             </h2>
-            {discrepancias.length > 0 && (
-              <span className="bg-red-100 text-red-700 text-xs font-bold px-2.5 py-1 rounded-full animate-demo-pulse">
-                {discrepancias.length} Pendientes
-              </span>
-            )}
           </div>
 
-          {discrepancias.length === 0 ? (
-            <div className="bg-white border border-slate-200 rounded-3xl p-8 text-center flex flex-col items-center justify-center">
-              <div className="w-16 h-16 bg-slate-50 border border-slate-100 rounded-2xl flex items-center justify-center mb-4 text-emerald-500">
-                <CheckCircle className="w-8 h-8" />
-              </div>
-              <h3 className="text-lg font-bold text-slate-700">Sin Conflictos de Pesaje</h3>
-              <p className="text-slate-500 text-sm mt-2">
-                No hay registros paralizados que requieran intervención administrativa actualmente.
-              </p>
-            </div>
-          ) : (
-            <div className="space-y-4">
-              {discrepancias.map((disc) => {
-                const diff = Math.abs((disc.tonelajeReal || 0) - disc.tonelajeEstimado);
-                const percent = (diff / disc.tonelajeEstimado) * 100;
+          <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm">
+            <h3 className="text-sm font-bold text-slate-800 mb-4 uppercase tracking-wider">Lotes Listos para Emisión</h3>
 
-                return (
-                  <div
-                    key={disc.id}
-                    className="bg-white border border-red-200 rounded-3xl p-6 shadow-sm ring-4 ring-red-50 relative overflow-hidden"
-                  >
-                    <div className="absolute top-0 right-0 p-3 bg-red-50 text-red-700 font-bold text-sm rounded-bl-3xl border-b border-l border-red-100">
-                      Error {percent.toFixed(1)}%
-                    </div>
-
-                    <div className="font-mono text-sm font-bold text-slate-900 mb-1">{disc.id}</div>
-                    <p className="text-xs text-slate-500 mb-6 flex items-center gap-1.5">
-                      Paralizado el{" "}
-                      {format(new Date(disc.fechaActualizacion), "dd MMM yyyy", { locale: es })}
-                    </p>
-
-                    <div className="grid grid-cols-2 gap-4 mb-6 relative">
-                      {/* Generador Declaration */}
-                      <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100">
-                        <p className="text-xs font-bold text-slate-400 uppercase mb-1">
-                          Declarado (Transporte)
-                        </p>
-                        <p className="text-2xl font-bold text-slate-900">
-                          {disc.tonelajeEstimado}t
-                        </p>
-                        <p className="text-xs text-slate-500 mt-2 line-clamp-1">
-                          {disc.generador.nombre}
-                        </p>
-                      </div>
-
-                      {/* Romana Declaration */}
-                      <div className="bg-red-50 p-4 rounded-2xl border border-red-100">
-                        <p className="text-xs font-bold text-red-400 uppercase mb-1">
-                          Pesado en Romana
-                        </p>
-                        <p className="text-2xl font-bold text-red-700">{disc.tonelajeReal}t</p>
-                        <p className="text-xs text-red-500/80 mt-2 line-clamp-1">
-                          {disc.gestor?.nombre}
-                        </p>
-                      </div>
-
-                      {/* VS separator */}
-                      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white border border-slate-200 rounded-full flex items-center justify-center font-black text-slate-300 text-xs shadow-xs z-10">
-                        VS
-                      </div>
-                    </div>
-
-                    <div className="border-t border-slate-100 pt-5">
-                      <p className="text-sm font-bold text-slate-800 mb-3">
-                        Acción Arbitral (Imponer Peso Fidedigno):
-                      </p>
-                      <div className="flex gap-2">
-                        <button
-                          onClick={() => handleResolver(disc.id, disc.tonelajeEstimado)}
-                          className="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium py-2 px-3 rounded-xl text-sm transition-colors"
-                        >
-                          Usar {disc.tonelajeEstimado}t
-                        </button>
-                        <button
-                          onClick={() => handleResolver(disc.id, disc.tonelajeReal || 0)}
-                          className="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium py-2 px-3 rounded-xl text-sm transition-colors"
-                        >
-                          Usar {disc.tonelajeReal}t
-                        </button>
-                        <button
-                          onClick={() => {
-                            const custom = window.prompt(
-                              "Ingrese el peso acordado tras auditoría (t):"
-                            );
-                            if (custom && !isNaN(Number(custom)))
-                              handleResolver(disc.id, Number(custom));
-                          }}
-                          className="flex-1 bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-3 rounded-xl text-sm transition-colors shadow-sm"
-                        >
-                          Manual...
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          )}
+            {listosParaCertificar.length === 0 ? (
+                <div className="text-center py-8">
+                    <CheckCircle className="w-12 h-12 text-slate-200 mx-auto mb-3" />
+                    <p className="text-slate-500 text-sm">No hay lotes fraccionados pendientes de certificación.</p>
+                </div>
+            ) : (
+                <div className="space-y-4">
+                    {listosParaCertificar.map(sol => (
+                        <div key={sol.id} className="border border-slate-200 rounded-xl p-4 bg-slate-50">
+                            <div className="flex justify-between items-start mb-3">
+                                <div>
+                                    <span className="font-mono text-sm font-bold text-slate-900 block">{sol.id}</span>
+                                    <span className="text-xs text-slate-500">Generador: {sol.titular.nombre}</span>
+                                </div>
+                                <div className="text-right">
+                                    <span className="text-sm font-bold text-slate-900">{sol.tonelajeReal}t</span>
+                                    <span className="block text-xs text-emerald-600 font-medium">{sol.fracciones?.length} Fracciones</span>
+                                </div>
+                            </div>
+                            <button
+                                onClick={() => handleEmitir(sol.id)}
+                                className={`w-full bg-slate-900 hover:bg-slate-800 text-white font-medium py-2 rounded-lg text-sm transition-all ${isTourTarget ? 'ring-4 ring-emerald-500/50 animate-pulse' : ''}`}
+                            >
+                                Emitir Paquete de Cumplimiento REP
+                            </button>
+                        </div>
+                    ))}
+                </div>
+            )}
+          </div>
         </section>
 
-        {/* Right Column: Control de Gremio (Usuarios) */}
+        {/* Right Column: Bitacora Auditoria */}
         <section>
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
               <Users className="w-6 h-6 text-indigo-500" />
-              Control del Gremio Operativo
+              Bitácora Inmutable (Append-Only)
             </h2>
           </div>
 
           <div className="bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-xs">
             <div className="p-5 border-b border-slate-100 bg-slate-50/50">
               <p className="text-sm text-slate-500">
-                Gestión automatizada de credenciales. Si vencen permisos de salud o circulación, el
-                sistema revoca accesos inmediatamente.
+                Registro criptográfico de transacciones. Cada transición de la máquina de estados genera evidencia inalterable.
               </p>
             </div>
 
-            <ul className="divide-y divide-slate-100">
-              {mockUsers.map((user) => (
-                <li
-                  key={user.id}
-                  className={`p-5 flex items-center justify-between transition-colors ${user.alert ? "bg-red-50/30" : "hover:bg-slate-50/50"}`}
-                >
-                  <div className="flex items-center gap-4">
-                    <div
-                      className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${user.alert ? "bg-red-100 text-red-600" : "bg-indigo-100 text-indigo-600"}`}
-                    >
-                      {user.alert ? <Ban className="w-5 h-5" /> : <FileCheck className="w-5 h-5" />}
-                    </div>
-                    <div>
-                      <p className="font-bold text-slate-900">{user.name}</p>
-                      <p className="text-xs font-medium text-slate-500">{user.type}</p>
-                    </div>
-                  </div>
-
-                  <div className="text-right">
-                    {user.alert ? (
-                      <div className="flex flex-col items-end">
-                        <span className="bg-red-100 text-red-700 px-2.5 py-1 rounded-full text-xs font-bold mb-1.5 flex items-center gap-1">
-                          <AlertTriangle className="w-3 h-3" />
-                          Permiso Vencido
-                        </span>
-                        <button
-                          onClick={() => toast("Acción de simulación: Permiso refrendado manual")}
-                          className="text-xs text-indigo-600 hover:underline font-medium"
-                        >
-                          Refrendar
-                        </button>
-                      </div>
-                    ) : (
-                      <span className="bg-emerald-100 text-emerald-700 px-2.5 py-1 rounded-full text-xs font-bold flex items-center gap-1">
-                        <CheckCircle className="w-3 h-3" />
-                        Acreditado
-                      </span>
-                    )}
-                  </div>
-                </li>
-              ))}
-            </ul>
-
-            <div className="p-4 bg-slate-50 text-center border-t border-slate-100">
-              <button className="text-indigo-600 text-sm font-bold hover:underline">
-                Ver Padrón Completo
-              </button>
+            <div className="h-[500px] overflow-y-auto">
+                <ul className="divide-y divide-slate-100">
+                  {bitacora.map((log) => (
+                    <li key={log.id} className="p-4 hover:bg-slate-50 transition-colors">
+                        <div className="flex justify-between items-start mb-2">
+                            <span className="text-xs font-mono text-slate-400">{log.id}</span>
+                            <span className="text-xs font-medium text-slate-500">{format(new Date(log.timestamp_utc), "dd MMM HH:mm:ss", { locale: es })}</span>
+                        </div>
+                        <div className="mb-2">
+                            <span className="inline-block px-2 py-0.5 bg-slate-100 text-slate-600 rounded text-xs font-bold font-mono mr-2">{log.solicitudId}</span>
+                        </div>
+                        <div className="flex items-center gap-2 mb-2 text-sm">
+                            <span className="font-medium text-slate-600 truncate max-w-[120px]" title={log.estadoAnterior || "N/A"}>
+                                {log.estadoAnterior ? log.estadoAnterior.substring(0, 15) + "..." : "INICIO"}
+                            </span>
+                            <span className="text-indigo-500 font-bold">→</span>
+                            <span className="font-bold text-slate-900 truncate max-w-[150px]" title={log.estadoNuevo}>
+                                {log.estadoNuevo.substring(0, 18) + (log.estadoNuevo.length > 18 ? "..." : "")}
+                            </span>
+                        </div>
+                        <div className="flex justify-between items-center mt-3 pt-3 border-t border-slate-100">
+                            <div className="flex items-center gap-1.5 text-xs text-slate-500">
+                                <span className="font-semibold text-slate-700">{log.rolEjecutor}</span>
+                                <span>({log.actorId})</span>
+                            </div>
+                            {log.evidenciaRef && (
+                                <span className="text-[10px] font-mono text-indigo-600 bg-indigo-50 px-1.5 py-0.5 rounded border border-indigo-100">
+                                    Ref: {log.evidenciaRef}
+                                </span>
+                            )}
+                        </div>
+                    </li>
+                  ))}
+                  {bitacora.length === 0 && (
+                      <li className="p-8 text-center text-slate-500 text-sm">El registro de auditoría está vacío.</li>
+                  )}
+                </ul>
             </div>
           </div>
         </section>

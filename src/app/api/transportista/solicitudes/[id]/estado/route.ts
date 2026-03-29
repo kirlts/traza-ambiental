@@ -43,6 +43,15 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
 
     // Validar transiciones de estado permitidas
     const transicionesPermitidas: Record<EstadoSolicitud, EstadoSolicitud[]> = {
+      BORRADOR: ["PENDIENTE_ASIGNACION", "CANCELADA"],
+      PENDIENTE_ASIGNACION: ["TRANSPORTE_ASIGNADO", "CANCELADA"],
+      TRANSPORTE_ASIGNADO: ["EN_TRANSITO", "CANCELADA"],
+      EN_TRANSITO: ["RECEPCIONADO", "CANCELADA"],
+      RECEPCIONADO: ["PESAJE_DISCREPANTE", "TRATADO_Y_FRACCIONADO"],
+      PESAJE_DISCREPANTE: ["RECEPCIONADO"],
+      TRATADO_Y_FRACCIONADO: ["CERRADO_Y_CERTIFICADO"],
+      CERRADO_Y_CERTIFICADO: [],
+      CANCELADA: [],
       PENDIENTE: ["ACEPTADA", "RECHAZADA"],
       ACEPTADA: ["EN_CAMINO", "CANCELADA"],
       EN_CAMINO: ["RECOLECTADA", "CANCELADA"],
@@ -51,7 +60,6 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
       RECIBIDA_PLANTA: ["TRATADA"],
       TRATADA: [], // Estado final
       RECHAZADA: [], // Estado final
-      CANCELADA: [], // Estado final
     };
 
     if (!transicionesPermitidas[solicitudActual.estado]?.includes(estado)) {

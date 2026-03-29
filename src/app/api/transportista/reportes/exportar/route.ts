@@ -107,8 +107,8 @@ export async function GET(request: NextRequest) {
       s.fechaEntregaGestor
         ? format(new Date(s.fechaEntregaGestor), "dd/MM/yyyy HH:mm", { locale: es })
         : "",
-      s.generador.name,
-      s.generador.rut || "",
+      s.generador?.name || "",
+      s.generador?.rut || "",
       s.direccionRetiro,
       s.region,
       s.comuna,

@@ -38,7 +38,7 @@ export async function GET(
     const esIntegro = verificarHashGuia({
       folio: guia.numeroGuia,
       fechaEmision: guia.fechaEmision,
-      rutGenerador: guia.solicitud.generador.rut || 'N/A',
+      rutGenerador: guia.solicitud.generador?.rut || 'N/A',
       rutTransportista: guia.solicitud.transportista?.rut || 'N/A',
       rutGestor: guia.solicitud.gestor?.rut || 'N/A',
       patente: guia.solicitud.vehiculo?.patente || 'N/A',
@@ -61,8 +61,8 @@ export async function GET(
         fechaEmision: guia.fechaEmision,
         estado: 'VIGENTE', // Podría derivarse del estado de la solicitud
         origen: {
-            razonSocial: guia.solicitud.generador.name,
-            rut: guia.solicitud.generador.rut
+            razonSocial: guia.solicitud.generador?.name || 'N/A',
+            rut: guia.solicitud.generador?.rut || 'N/A'
         },
         transporte: {
             empresa: guia.solicitud.transportista?.name,

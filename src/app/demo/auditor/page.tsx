@@ -30,14 +30,14 @@ export default function AuditorDashboard() {
   const [searchTerm, setSearchTerm] = useState("");
 
   const certificadas = solicitudes.filter(
-    (s) => s.status === "CERTIFICADA" || s.status === "TRATADA"
+    (s) => s.status === "CERRADO_Y_CERTIFICADO" || s.status === "TRATADO_Y_FRACCIONADO"
   );
 
   const filtered = certificadas.filter(
     (s) =>
       s.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
       s.certificadoId?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      s.generador.rut.includes(searchTerm)
+      s.titular.rut.includes(searchTerm)
   );
 
   const isTourTarget = isTourActive && tourStep === 4;
@@ -168,7 +168,7 @@ export default function AuditorDashboard() {
                         });
                         generateCertificadoPDF({
                           certificadoId: record.certificadoId!,
-                          generador: record.generador,
+                          generador: { nombre: record.titular.nombre, rut: record.titular.rut },
                           transportista: record.transportista || { nombre: "N/A", patente: "N/A" },
                           gestor: record.gestor || { nombre: "N/A", planta: "N/A" },
                           tonelaje: record.tonelajeReal || record.tonelajeEstimado,
@@ -205,7 +205,7 @@ export default function AuditorDashboard() {
                     <div className="bg-gray-50 border border-gray-200 p-4 rounded-lg shadow-sm">
                       <div className="flex justify-between items-start mb-2">
                         <span className="font-semibold text-gray-900 text-base">
-                          {record.generador.nombre}
+                          {record.titular.nombre} - {record.establecimiento.nombre}
                         </span>
                         <Badge variant="secondary" className="bg-gray-200 text-gray-700 text-[10px]">
                           Origen
@@ -216,7 +216,7 @@ export default function AuditorDashboard() {
                           <p className="text-[10px] text-gray-500 uppercase font-semibold mb-0.5">
                             RUT
                           </p>
-                          <p className="font-mono text-sm text-gray-700">{record.generador.rut}</p>
+                          <p className="font-mono text-sm text-gray-700">{record.titular.rut}</p>
                         </div>
                         <div>
                           <p className="text-[10px] text-gray-500 uppercase font-semibold mb-0.5" title="Volumen registrado inicialmente en la plataforma">

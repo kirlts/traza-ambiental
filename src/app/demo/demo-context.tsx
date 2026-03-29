@@ -2,56 +2,75 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
+import { EstadoSolicitud } from "@prisma/client";
+
 // Type Definitions
-export type SolicitudStatus =
-  | "PENDIENTE" // Generador la creó
-  | "BUSCANDO_TRANSPORTISTA" // Publicada en la bolsa
-  | "ASIGNADA" // Transportista la aceptó
-  | "EN_TRANSITO" // Transportista cargó y va en camino
-  | "RECIBIDA_EN_PLANTA" // Gestor la recibió pero no la ha pesado
-  | "PESAJE_DISCREPANTE" // Hay diferencia > 5% en romana
-  | "TRATADA" // Gestor la valorizó (Finalizada)
-  | "CERTIFICADA"; // Certificado emitido
+export interface Fraccion {
+  id: string;
+  codigoLER: string;
+  peso: number;
+  tipoOperacion: "VALORIZACION" | "ELIMINACION" | "REUTILIZACION";
+}
 
 export interface Solicitud {
   id: string;
-  generador: {
+  titular: {
     nombre: string;
     rut: string;
+  };
+  establecimiento: {
+    nombre: string;
+    codigoVU: string;
     direccion: string;
   };
-  tonelajeEstimado: number; // Declarado por generador
-  tonelajeReal?: number; // Pesado por gestor en romana
+  tonelajeEstimado: number;
+  tonelajeReal?: number;
+  cantidadUnidades: number;
+  codigoLER: string;
   fechaCreacion: string;
   fechaActualizacion: string;
-  status: SolicitudStatus;
+  status: EstadoSolicitud;
   transportista?: {
     nombre: string;
     patente: string;
+    conductor: string;
+    guiaDespachoRef: string;
   };
   gestor?: {
     nombre: string;
     planta: string;
   };
+  fracciones?: Fraccion[];
   certificadoId?: string;
+}
+
+export interface BitacoraRegistro {
+  id: string;
+  solicitudId: string;
+  timestamp_utc: string;
+  actorId: string;
+  rolEjecutor: string;
+  estadoAnterior: EstadoSolicitud | null;
+  estadoNuevo: EstadoSolicitud;
+  evidenciaRef?: string;
 }
 
 interface DemoState {
   solicitudes: Solicitud[];
+  bitacora: BitacoraRegistro[];
   kpisGlobales: {
     metaAnual: number;
     toneladasRecicladas: number;
-    co2Evitado: number; // Toneladas de CO2e evitadas
+    co2Evitado: number;
   };
-  addSolicitud: (tonelaje: number) => void;
-  acceptViaje: (id: string) => void;
+  crearSolicitud: (tonelaje: number, cantidad: number, ler: string) => void;
+  asignarTransporte: (id: string, patente: string, conductor: string, guiaDespachoRef: string) => void;
   iniciarTransito: (id: string) => void;
-  entregarEnPlanta: (id: string) => void;
   registrarPesaje: (id: string, pesoReal: number) => void;
+  subsanarDiscrepancia: (id: string, motivo: string, evidenciaId: string) => void;
+  registrarFraccionamiento: (id: string, fracciones: Omit<Fraccion, "id">[]) => void;
   emitirCertificado: (id: string) => void;
-  resolverDiscrepancia: (id: string, pesoAcordado: number) => void;
   resetSimulation: () => void;
-  // Tour State
   isTourActive: boolean;
   tourStep: number;
   tourStepCompleted: boolean;
@@ -60,61 +79,6 @@ interface DemoState {
   markTourStepCompleted: () => void;
   endTour: () => void;
 }
-
-// Initial Mock Data (The Illusion)
-const MOCK_DATA: Solicitud[] = [
-  {
-    id: "SOL-2026-001",
-    generador: {
-      nombre: "Minera Escondida",
-      rut: "76.123.456-7",
-      direccion: "Ruta 5 Norte Km 1300, Antofagasta",
-    },
-    tonelajeEstimado: 120, // 120 toneladas de NFU gigante OTR
-    fechaCreacion: new Date(Date.now() - 1000 * 60 * 60 * 24 * 5).toISOString(), // 5 days ago
-    fechaActualizacion: new Date(Date.now() - 1000 * 60 * 60 * 24 * 1).toISOString(),
-    status: "CERTIFICADA",
-    transportista: { nombre: "Transportes Nacionales", patente: "KX-JW-44" },
-    gestor: { nombre: "Planta Reciclaje NFU Norte", planta: "Planta Antofagasta" },
-    tonelajeReal: 121.5,
-    certificadoId: "CERT-REP-99882",
-  },
-  {
-    id: "SOL-2026-002",
-    generador: {
-      nombre: "Codelco Chuquicamata",
-      rut: "61.704.000-K",
-      direccion: "Calama, Región de Antofagasta",
-    },
-    tonelajeEstimado: 45,
-    fechaCreacion: new Date(Date.now() - 1000 * 60 * 60 * 4).toISOString(), // 4 hours ago
-    fechaActualizacion: new Date(Date.now() - 1000 * 60 * 60 * 4).toISOString(),
-    status: "BUSCANDO_TRANSPORTISTA",
-  },
-  {
-    id: "SOL-2026-003",
-    generador: { nombre: "Minera Centinela", rut: "77.888.999-1", direccion: "Sierra Gorda" },
-    tonelajeEstimado: 85,
-    fechaCreacion: new Date(Date.now() - 1000 * 60 * 60 * 12).toISOString(),
-    fechaActualizacion: new Date(Date.now() - 1000 * 60 * 60 * 2).toISOString(),
-    status: "EN_TRANSITO",
-    transportista: { nombre: "Logística Circular SPA", patente: "ZZ-AA-11" },
-  },
-  {
-    id: "SOL-2026-004",
-    generador: {
-      nombre: "Anglo American Sur",
-      rut: "76.555.444-3",
-      direccion: "Ruta 5 Norte Km 20",
-    },
-    tonelajeEstimado: 30,
-    fechaCreacion: new Date(Date.now() - 1000 * 60 * 60 * 48).toISOString(),
-    fechaActualizacion: new Date(Date.now() - 1000 * 60 * 30).toISOString(),
-    status: "RECIBIDA_EN_PLANTA",
-    transportista: { nombre: "Transportes Rápidos", patente: "WW-QQ-99" },
-    gestor: { nombre: "Valoriza Chile", planta: "Planta Lampa" },
-  },
-];
 
 const DemoContext = createContext<DemoState | undefined>(undefined);
 
@@ -137,7 +101,15 @@ export function DemoProvider({ children }: { children: ReactNode }) {
       const saved = localStorage.getItem("traza_demo_solicitudes");
       if (saved) return JSON.parse(saved);
     }
-    return MOCK_DATA;
+    return [];
+  });
+
+  const [bitacora, setBitacora] = useState<BitacoraRegistro[]>(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("traza_demo_bitacora");
+      if (saved) return JSON.parse(saved);
+    }
+    return [];
   });
 
   const [isTourActive, setIsTourActive] = useState(() => {
@@ -164,19 +136,20 @@ export function DemoProvider({ children }: { children: ReactNode }) {
   // Calculate KPIs dynamically
   const baseTons = 1250;
   const tonsRecicladas = solicitudes
-    .filter((s) => s.status === "CERTIFICADA" || s.status === "TRATADA")
+    .filter((s) => s.status === "CERRADO_Y_CERTIFICADO")
     .reduce((acc, curr) => acc + (curr.tonelajeReal || curr.tonelajeEstimado), 0) + baseTons;
 
   const kpisGlobales = {
     metaAnual: 5000, // 5000 Tons goal
     toneladasRecicladas: tonsRecicladas,
-    co2Evitado: tonsRecicladas * 2.8, // Factor de conversión aproximado: 2.8 toneladas de CO2e evitadas por tonelada de NFU reciclada
+    co2Evitado: tonsRecicladas * 2.8, // Factor de conversión aproximado
   };
 
   // Sync to localStorage
   useEffect(() => {
     localStorage.setItem("traza_demo_solicitudes", JSON.stringify(solicitudes));
-  }, [solicitudes]);
+    localStorage.setItem("traza_demo_bitacora", JSON.stringify(bitacora));
+  }, [solicitudes, bitacora]);
 
   useEffect(() => {
     localStorage.setItem("traza_demo_tour", String(isTourActive));
@@ -184,17 +157,26 @@ export function DemoProvider({ children }: { children: ReactNode }) {
     localStorage.setItem("traza_demo_tour_completed", String(tourStepCompleted));
   }, [isTourActive, tourStep, tourStepCompleted]);
 
-  // Actions
-  const addSolicitud = (tonelaje: number) => {
-    const newSol: Solicitud = {
-      id: generateId(),
-      generador: { nombre: "Minera Demo S.A.", rut: "99.999.999-9", direccion: "Instalación Demo" },
-      tonelajeEstimado: tonelaje,
-      fechaCreacion: new Date().toISOString(),
-      fechaActualizacion: new Date().toISOString(),
-      status: "BUSCANDO_TRANSPORTISTA",
+  // Log FSM state changes to BitacoraAuditoria
+  const logBitacora = (
+    solicitudId: string,
+    estadoAnterior: EstadoSolicitud | null,
+    estadoNuevo: EstadoSolicitud,
+    actorId: string,
+    rolEjecutor: string,
+    evidenciaRef?: string
+  ) => {
+    const newLog: BitacoraRegistro = {
+      id: `LOG-${Math.floor(Math.random() * 900000) + 100000}`,
+      solicitudId,
+      timestamp_utc: new Date().toISOString(),
+      actorId,
+      rolEjecutor,
+      estadoAnterior,
+      estadoNuevo,
+      evidenciaRef,
     };
-    setSolicitudes((prev) => [newSol, ...prev]);
+    setBitacora((prev) => [newLog, ...prev]);
   };
 
   const updateSolicitud = (id: string, updates: Partial<Solicitud>) => {
@@ -205,20 +187,39 @@ export function DemoProvider({ children }: { children: ReactNode }) {
     );
   };
 
-  const acceptViaje = (id: string) => {
-    updateSolicitud(id, {
-      status: "ASIGNADA",
-      transportista: { nombre: "Mi Flota (Demo)", patente: "DEMO-01" },
-    });
+  // Actions
+  const crearSolicitud = (tonelaje: number, cantidad: number, ler: string) => {
+    const newId = generateId();
+    const newSol: Solicitud = {
+      id: newId,
+      titular: { nombre: "Minera Demo S.A.", rut: "99.999.999-9" },
+      establecimiento: { nombre: "Instalación Demo", codigoVU: "VU-123456", direccion: "Ruta 5 Norte Km 1300" },
+      tonelajeEstimado: tonelaje,
+      cantidadUnidades: cantidad,
+      codigoLER: ler,
+      fechaCreacion: new Date().toISOString(),
+      fechaActualizacion: new Date().toISOString(),
+      status: "PENDIENTE_ASIGNACION",
+    };
+    setSolicitudes((prev) => [newSol, ...prev]);
+    logBitacora(newId, null, "PENDIENTE_ASIGNACION", "USER-GEN-01", "GENERADOR");
   };
 
-  const iniciarTransito = (id: string) => updateSolicitud(id, { status: "EN_TRANSITO" });
-
-  const entregarEnPlanta = (id: string) => {
+  const asignarTransporte = (id: string, patente: string, conductor: string, guiaDespachoRef: string) => {
+    const sol = solicitudes.find(s => s.id === id);
+    if (!sol) return;
     updateSolicitud(id, {
-      status: "RECIBIDA_EN_PLANTA",
-      gestor: { nombre: "Centro Valorizador (Demo)", planta: "Planta Principal" },
+      status: "TRANSPORTE_ASIGNADO",
+      transportista: { nombre: "Mi Flota (Demo)", patente, conductor, guiaDespachoRef },
     });
+    logBitacora(id, sol.status, "TRANSPORTE_ASIGNADO", "USER-TRN-01", "TRANSPORTISTA", guiaDespachoRef);
+  };
+
+  const iniciarTransito = (id: string) => {
+    const sol = solicitudes.find(s => s.id === id);
+    if (!sol) return;
+    updateSolicitud(id, { status: "EN_TRANSITO" });
+    logBitacora(id, sol.status, "EN_TRANSITO", "USER-TRN-01", "TRANSPORTISTA");
   };
 
   const registrarPesaje = (id: string, pesoReal: number) => {
@@ -227,32 +228,67 @@ export function DemoProvider({ children }: { children: ReactNode }) {
 
     // > 5% difference logic
     const diff = Math.abs(sol.tonelajeEstimado - pesoReal);
-    const percentDiff = (diff / sol.tonelajeEstimado) * 100;
+    const percentDiff = diff / sol.tonelajeEstimado;
 
-    if (percentDiff > 5) {
-      updateSolicitud(id, { tonelajeReal: pesoReal, status: "PESAJE_DISCREPANTE" });
+    if (percentDiff > 0.05) {
+      updateSolicitud(id, {
+        tonelajeReal: pesoReal,
+        status: "PESAJE_DISCREPANTE",
+        gestor: { nombre: "Centro Valorizador (Demo)", planta: "Planta Principal" }
+      });
+      logBitacora(id, sol.status, "PESAJE_DISCREPANTE", "USER-GES-01", "GESTOR");
     } else {
-      updateSolicitud(id, { tonelajeReal: pesoReal, status: "TRATADA" });
+      updateSolicitud(id, {
+        tonelajeReal: pesoReal,
+        status: "RECEPCIONADO",
+        gestor: { nombre: "Centro Valorizador (Demo)", planta: "Planta Principal" }
+      });
+      logBitacora(id, sol.status, "RECEPCIONADO", "USER-GES-01", "GESTOR");
     }
   };
 
-  const emitirCertificado = (id: string) => {
-    updateSolicitud(id, {
-      status: "CERTIFICADA",
-      certificadoId: `CERT-REP-${Math.floor(Math.random() * 90000) + 10000}`,
-    });
+  const subsanarDiscrepancia = (id: string, motivo: string, evidenciaId: string) => {
+    const sol = solicitudes.find((s) => s.id === id);
+    if (!sol) return;
+    updateSolicitud(id, { status: "RECEPCIONADO" });
+    // Note: pesoReal was already saved when it went into PESAJE_DISCREPANTE
+    logBitacora(id, sol.status, "RECEPCIONADO", "USER-GES-01", "GESTOR", evidenciaId);
   };
 
-  const resolverDiscrepancia = (id: string, pesoAcordado: number) => {
+  const registrarFraccionamiento = (id: string, fraccionesInput: Omit<Fraccion, "id">[]) => {
+    const sol = solicitudes.find((s) => s.id === id);
+    if (!sol) return;
+
+    const sumaFracciones = fraccionesInput.reduce((sum, f) => sum + f.peso, 0);
+    // Tolerancia muy pequeña para coma flotante
+    if (Math.abs(sumaFracciones - (sol.tonelajeReal || sol.tonelajeEstimado)) > 0.01) {
+       throw new Error(`La suma de las fracciones (${sumaFracciones}t) no coincide con el peso real de la solicitud (${sol.tonelajeReal}t).`);
+    }
+
+    const fracciones = fraccionesInput.map(f => ({ ...f, id: `FRAC-${Math.floor(Math.random() * 90000) + 10000}` }));
+
     updateSolicitud(id, {
-      tonelajeReal: pesoAcordado,
-      status: "TRATADA",
+      status: "TRATADO_Y_FRACCIONADO",
+      fracciones
     });
+    logBitacora(id, sol.status, "TRATADO_Y_FRACCIONADO", "USER-GES-01", "GESTOR");
+  };
+
+  const emitirCertificado = (id: string) => {
+    const sol = solicitudes.find((s) => s.id === id);
+    if (!sol) return;
+    updateSolicitud(id, {
+      status: "CERRADO_Y_CERTIFICADO",
+      certificadoId: `CERT-REP-${Math.floor(Math.random() * 90000) + 10000}`,
+    });
+    logBitacora(id, sol.status, "CERRADO_Y_CERTIFICADO", "USER-ADM-01", "ADMIN");
   };
 
   const resetSimulation = () => {
-    setSolicitudes(MOCK_DATA);
-    localStorage.setItem("traza_demo_solicitudes", JSON.stringify(MOCK_DATA));
+    setSolicitudes([]);
+    setBitacora([]);
+    localStorage.removeItem("traza_demo_solicitudes");
+    localStorage.removeItem("traza_demo_bitacora");
     setIsTourActive(false);
     setTourStep(0);
     setTourStepCompleted(false);
@@ -288,14 +324,15 @@ export function DemoProvider({ children }: { children: ReactNode }) {
     <DemoContext.Provider
       value={{
         solicitudes,
+        bitacora,
         kpisGlobales,
-        addSolicitud,
-        acceptViaje,
+        crearSolicitud,
+        asignarTransporte,
         iniciarTransito,
-        entregarEnPlanta,
         registrarPesaje,
+        subsanarDiscrepancia,
+        registrarFraccionamiento,
         emitirCertificado,
-        resolverDiscrepancia,
         resetSimulation,
         isTourActive,
         tourStep,

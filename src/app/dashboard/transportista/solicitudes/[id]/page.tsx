@@ -110,7 +110,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
                 <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">
                   Empresa Generadora
                 </p>
-                <p className="font-semibold text-emerald-700">{solicitud.generador.name}</p>
+                <p className="font-semibold text-emerald-700">{solicitud.generador?.name || "N/A"}</p>
               </div>
             </div>
           </div>

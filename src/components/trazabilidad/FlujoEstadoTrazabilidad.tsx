@@ -1,15 +1,6 @@
 import React from "react";
 
-export type EstadoSolicitud =
-  | "PENDIENTE"
-  | "ACEPTADA"
-  | "EN_CAMINO"
-  | "RECOLECTADA"
-  | "ENTREGADA_GESTOR"
-  | "RECIBIDA_PLANTA"
-  | "TRATADA"
-  | "RECHAZADA"
-  | "CANCELADA";
+import { EstadoSolicitud } from "@prisma/client";
 
 interface Props {
   estado: EstadoSolicitud;
