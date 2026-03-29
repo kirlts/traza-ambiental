@@ -29,32 +29,32 @@ import { Badge } from "@/components/ui/badge";
 import DashboardLayout from "@/components/layout/DashboardLayout";
 
 export default function TransportistaDashboard() {
-  const { solicitudes, acceptViaje, iniciarTransito, entregarEnPlanta, isTourActive, tourStep, markTourStepCompleted } = useDemo();
+  const { solicitudes, asignarTransporte, iniciarTransito, isTourActive, tourStep, markTourStepCompleted } = useDemo();
 
-  const disponibles = solicitudes.filter((s) => s.status === "BUSCANDO_TRANSPORTISTA");
+  const disponibles = solicitudes.filter((s) => s.status === "PENDIENTE_ASIGNACION");
   const misViajesActivos = solicitudes.filter(
     (s) =>
-      (s.status === "ASIGNADA" || s.status === "EN_TRANSITO") &&
+      (s.status === "TRANSPORTE_ASIGNADO" || s.status === "EN_TRANSITO") &&
       s.transportista?.nombre === "Mi Flota (Demo)"
   );
 
   const completados = solicitudes.filter(
     (s) =>
-      (s.status === "RECIBIDA_EN_PLANTA" ||
+      (s.status === "RECEPCIONADO" ||
         s.status === "PESAJE_DISCREPANTE" ||
-        s.status === "TRATADA" ||
-        s.status === "CERTIFICADA") &&
+        s.status === "TRATADO_Y_FRACCIONADO" ||
+        s.status === "CERRADO_Y_CERTIFICADO") &&
       s.transportista?.nombre === "Mi Flota (Demo)"
   );
 
   const isTourTarget = isTourActive && tourStep === 2;
-  const isTargetLoad = isTourTarget && misViajesActivos.some(v => v.status === "ASIGNADA");
+  const isTargetLoad = isTourTarget && misViajesActivos.some(v => v.status === "TRANSPORTE_ASIGNADO");
   const isTargetDeliver = isTourTarget && misViajesActivos.some(v => v.status === "EN_TRANSITO");
   // Accept target applies if there are no active trips in tour mode.
   const isTargetAccept = isTourTarget && misViajesActivos.length === 0;
 
   const handleAccept = (id: string, ton: number) => {
-    acceptViaje(id);
+    asignarTransporte(id, "DEMO-01", "Juan Pérez", "GD-999123");
     toast.success("Viaje Aceptado", {
       description: `Se ha asignado una carga de ${ton} toneladas a su flota. Diríjase al origen.`,
       icon: <Briefcase className="text-blue-500" />,
@@ -71,16 +71,9 @@ export default function TransportistaDashboard() {
   };
 
   const handleDeliver = (id: string) => {
-    entregarEnPlanta(id);
-    toast.success("Entrega Registrada", {
-      description:
-        "Carga entregada en instalaciones. Pendiente de validación de pesaje en romana.",
-      icon: <PackageCheck className="text-emerald-500" />,
+    toast.error("Permiso Denegado", {
+        description: "El Transportista no está autorizado para registrar la recepción. Esta acción debe realizarla el Centro de Valorización."
     });
-
-    if (isTourTarget) {
-      markTourStepCompleted();
-    }
   };
 
   return (
@@ -215,7 +208,7 @@ export default function TransportistaDashboard() {
                     <CardContent className="p-6">
                       <div className="flex items-center gap-3 mb-6">
                         <Badge variant="outline" className="bg-emerald-50 text-emerald-700 border-emerald-200 uppercase tracking-wide">
-                          {viaje.status === "ASIGNADA" ? "1. Ir a Cargar" : "2. En Tránsito a Planta"}
+                          {viaje.status === "TRANSPORTE_ASIGNADO" ? "1. Ir a Cargar" : "2. En Tránsito a Planta"}
                         </Badge>
                         <span className="text-sm font-medium text-gray-500 font-mono">
                           {viaje.id}
@@ -235,12 +228,12 @@ export default function TransportistaDashboard() {
                             <Building2 className="w-4 h-4 text-gray-400 shrink-0 mt-0.5" />
                             <div>
                               <p className="font-semibold text-gray-900">
-                                {viaje.generador.nombre}
+                                {viaje.establecimiento.nombre}
                               </p>
-                              <p className="text-gray-500 text-sm">{viaje.generador.direccion}</p>
+                              <p className="text-gray-500 text-sm">{viaje.establecimiento.direccion}</p>
                             </div>
                           </div>
-                          {viaje.status === "ASIGNADA" && (
+                          {viaje.status === "TRANSPORTE_ASIGNADO" && (
                             <Button
                               onClick={() => handleLoad(viaje.id)}
                               className={`mt-4 bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm gap-2 ${
@@ -274,16 +267,10 @@ export default function TransportistaDashboard() {
                             </div>
                           </div>
                           {viaje.status === "EN_TRANSITO" && (
-                            <Button
-                              onClick={() => handleDeliver(viaje.id)}
-                              className={`mt-4 bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm gap-2 ${
-                                isTargetDeliver ? "ring-2 ring-emerald-500 animate-demo-pulse" : ""
-                              }`}
-                              title="Confirme que ha entregado el material en la planta de destino"
-                            >
-                              <PackageCheck className="w-4 h-4" />
-                              Registrar Entrega en Planta
-                            </Button>
+                            <div className="mt-4 p-3 bg-gray-50 border border-gray-200 rounded-md text-sm text-gray-600 flex items-start gap-2">
+                              <Info className="w-4 h-4 shrink-0 mt-0.5 text-gray-400" />
+                              <p>El vehículo se encuentra en ruta. La recepción final debe ser registrada por el Centro de Valorización.</p>
+                            </div>
                           )}
                         </div>
                       </div>
@@ -316,7 +303,7 @@ export default function TransportistaDashboard() {
                       <tr key={comp.id}>
                         <td className="px-6 py-4 font-mono text-gray-500 text-xs">{comp.id}</td>
                         <td className="px-6 py-4 font-medium text-gray-900">
-                          {comp.generador.nombre}
+                          {comp.establecimiento.nombre}
                         </td>
                         <td className="px-6 py-4">
                           <span className="font-semibold text-gray-900">
@@ -324,7 +311,7 @@ export default function TransportistaDashboard() {
                           </span>
                         </td>
                         <td className="px-6 py-4">
-                          {comp.status === "RECIBIDA_EN_PLANTA" && (
+                          {comp.status === "RECEPCIONADO" && (
                             <Badge variant="outline" className="bg-yellow-50 text-yellow-700 border-yellow-200">
                               Pendiente Pesaje
                             </Badge>
@@ -334,7 +321,7 @@ export default function TransportistaDashboard() {
                               <AlertTriangle className="w-3 h-3" /> Discrepancia
                             </Badge>
                           )}
-                          {(comp.status === "TRATADA" || comp.status === "CERTIFICADA") && (
+                          {(comp.status === "TRATADO_Y_FRACCIONADO" || comp.status === "CERRADO_Y_CERTIFICADO") && (
                             <Badge variant="outline" className="bg-emerald-50 text-emerald-700 border-emerald-200">
                               Pesaje Validado
                             </Badge>
@@ -392,11 +379,11 @@ export default function TransportistaDashboard() {
                       </div>
 
                       <h3 className="font-semibold text-gray-900 text-base mb-1">
-                        {viaje.generador.nombre}
+                        {viaje.establecimiento.nombre}
                       </h3>
                       <p className="text-gray-500 text-sm mb-4 line-clamp-1 flex items-center gap-1.5" title="Ubicación donde debe realizarse el retiro de la carga">
                         <MapPin className="w-3.5 h-3.5 shrink-0" />
-                        {viaje.generador.direccion}
+                        {viaje.establecimiento.direccion}
                       </p>
 
                       <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">

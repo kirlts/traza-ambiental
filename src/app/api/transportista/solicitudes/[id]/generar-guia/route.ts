@@ -164,7 +164,7 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
     const hashIntegridad = generarHashGuia({
       folio,
       fechaEmision: new Date(),
-      rutGenerador: solicitud.generador.rut || "N/A",
+      rutGenerador: solicitud.generador?.rut || "N/A",
       rutTransportista: solicitud.transportista?.rut || "N/A",
       rutGestor: solicitud.gestor?.rut || "N/A",
       patente: solicitud.vehiculo?.patente || "N/A",
@@ -203,10 +203,10 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
       },
       qrCode: qrCodeBase64,
       generador: {
-        name: solicitud.generador.name,
-        rut: solicitud.generador.rut,
-        direccion: solicitud.generador.direccion,
-        idRETC: solicitud.generador.idRETC,
+        name: solicitud.generador?.name || null,
+        rut: solicitud.generador?.rut || null,
+        direccion: solicitud.generador?.direccion || null,
+        idRETC: solicitud.generador?.idRETC || null,
       },
       transportista: solicitud.transportista
         ? {

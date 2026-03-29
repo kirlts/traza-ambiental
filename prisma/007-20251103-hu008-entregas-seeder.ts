@@ -92,7 +92,7 @@ export async function main() {
       console.log("\n📋 Detalles de entregas disponibles:");
       recolectadas.forEach((sol, index) => {
         console.log(`   ${index + 1}. ${sol.folio}`);
-        console.log(`      📍 Generador: ${sol.generador.name}`);
+        console.log(`      📍 Generador: ${sol.generador?.name || "N/A"}`);
         console.log(`      🚛 Transportista: ${sol.transportista?.name || "No asignado"}`);
         console.log(`      📦 Peso: ${sol.pesoReal}kg | Cantidad: ${sol.cantidadReal} unidades`);
         console.log(

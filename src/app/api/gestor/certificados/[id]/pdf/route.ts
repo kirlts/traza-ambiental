@@ -78,8 +78,8 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
         };
       }),
       generador: {
-        name: certificado.solicitud.generador.name || "No especificado",
-        rut: certificado.solicitud.generador.rut || "No especificado",
+        name: certificado.solicitud.generador?.name || "No especificado",
+        rut: certificado.solicitud.generador?.rut || "No especificado",
         direccion: certificado.solicitud.direccionRetiro || undefined,
       },
       gestor: certificado.gestor

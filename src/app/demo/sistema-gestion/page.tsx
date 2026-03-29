@@ -167,13 +167,13 @@ export default function SistemaGestionDashboard() {
                 {solicitudes.slice(0, 5).map((solicitud) => (
                   <tr key={solicitud.id} className="hover:bg-gray-50 transition-colors">
                     <td className="px-6 py-4 font-medium text-gray-900">
-                      {solicitud.generador.nombre}
+                      {solicitud.titular.nombre}
                     </td>
                     <td className="px-6 py-4 font-semibold text-gray-700">
                       {solicitud.tonelajeReal || solicitud.tonelajeEstimado} t
                     </td>
                     <td className="px-6 py-4">
-                      {solicitud.status === "CERTIFICADA" ? (
+                      {solicitud.status === "CERRADO_Y_CERTIFICADO" ? (
                         <Badge variant="outline" className="text-emerald-700 bg-emerald-50 border-emerald-200 gap-1">
                           <CheckCircle2 className="w-3 h-3" />
                           Completado

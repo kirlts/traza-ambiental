@@ -178,15 +178,17 @@ export async function POST(request: NextRequest, context: RouteParams) {
       });
 
       // Crear notificación básica (sin envío real ya que EPIC-4 no está implementado)
-      await tx.notificacion.create({
-        data: {
-          userId: solicitud.generadorId,
-          tipo: "entrega_confirmada",
-          titulo: "Entrega Confirmada",
-          mensaje: `La entrega de tu solicitud ${solicitud.folio} ha sido confirmada al gestor ${gestor.name}`,
-          referencia: solicitudId,
-        },
-      });
+      if (solicitud.generadorId) {
+          await tx.notificacion.create({
+            data: {
+              userId: solicitud.generadorId,
+              tipo: "entrega_confirmada",
+              titulo: "Entrega Confirmada",
+              mensaje: `La entrega de tu solicitud ${solicitud.folio} ha sido confirmada al gestor ${gestor.name}`,
+              referencia: solicitud.id
+            }
+          });
+      }
 
       // Nota: No se crea notificación al gestor porque EPIC-4 no está implementado
       // En el futuro, cuando EPIC-4 esté implementado, se agregará:

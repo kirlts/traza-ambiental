@@ -24,16 +24,18 @@ import { Button } from "@/components/ui/button";
 import DashboardLayout from "@/components/layout/DashboardLayout";
 
 export default function GeneradorDashboard() {
-  const { solicitudes, addSolicitud, isTourActive, tourStep, markTourStepCompleted } = useDemo();
+  const { solicitudes, crearSolicitud, isTourActive, tourStep, markTourStepCompleted } = useDemo();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [tonelaje, setTonelaje] = useState<number | "">("");
+  const [unidades, setUnidades] = useState<number | "">("");
+  const [ler, setLer] = useState<string>("");
 
   const mySolicitudes = solicitudes.filter(
-    (s) => s.generador.nombre === "Minera Demo S.A." || s.generador.nombre === "Minera Escondida"
+    (s) => s.titular.nombre === "Minera Demo S.A." || s.titular.nombre === "Minera Escondida"
   );
 
   const totalReciclado = mySolicitudes
-    .filter((s) => s.status === "CERTIFICADA" || s.status === "TRATADA")
+    .filter((s) => s.status === "CERRADO_Y_CERTIFICADO" || s.status === "TRATADO_Y_FRACCIONADO")
     .reduce((acc, curr) => acc + (curr.tonelajeReal || curr.tonelajeEstimado), 0);
 
   const metaAnual = 1500;
@@ -43,16 +45,25 @@ export default function GeneradorDashboard() {
 
   const handleCreateRequest = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!tonelaje || isNaN(Number(tonelaje)) || Number(tonelaje) <= 0) {
-      toast.error("Por favor ingrese un tonelaje válido", {
-        description: "Debe ser un número mayor a 0.",
-      });
+    if (!tonelaje || isNaN(Number(tonelaje)) || Number(tonelaje) <= 0 || !unidades || !ler) {
+      toast.error("Por favor complete todos los campos requeridos.");
       return;
     }
 
-    addSolicitud(Number(tonelaje));
+    if (isAddTarget) {
+        if (Number(tonelaje) !== 48.0 || Number(unidades) !== 120 || ler !== "16 01 03") {
+            toast.error("Datos incorrectos para la simulación", {
+                description: "Para este recorrido, ingrese: 120 unidades, Código LER 16 01 03 (NFU) y 48.0t estimadas."
+            });
+            return;
+        }
+    }
+
+    crearSolicitud(Number(tonelaje), Number(unidades), ler);
     setIsModalOpen(false);
     setTonelaje("");
+    setUnidades("");
+    setLer("");
 
     toast.success("Declaración de Residuos Exitosa", {
       description: `Solicitud de retiro por ${tonelaje} t creada y publicada.`,
@@ -65,17 +76,17 @@ export default function GeneradorDashboard() {
   };
 
   const statusMap: Record<string, { label: string; color: string; icon: LucideIcon }> = {
-    PENDIENTE: {
+    BORRADOR: {
       label: "Borrador",
       color: "text-gray-600 bg-gray-100 ring-gray-200",
       icon: AlertCircle,
     },
-    BUSCANDO_TRANSPORTISTA: {
+    PENDIENTE_ASIGNACION: {
       label: "Buscando Flota",
       color: "text-blue-700 bg-blue-100 ring-blue-200",
       icon: Activity,
     },
-    ASIGNADA: {
+    TRANSPORTE_ASIGNADO: {
       label: "Transportista Asignado",
       color: "text-indigo-700 bg-indigo-100 ring-indigo-200",
       icon: Truck,
@@ -85,7 +96,7 @@ export default function GeneradorDashboard() {
       color: "text-purple-700 bg-purple-100 ring-purple-200",
       icon: Truck,
     },
-    RECIBIDA_EN_PLANTA: {
+    RECEPCIONADO: {
       label: "Recibida en Planta",
       color: "text-amber-700 bg-amber-100 ring-amber-200",
       icon: Factory,
@@ -95,12 +106,12 @@ export default function GeneradorDashboard() {
       color: "text-red-700 bg-red-100 ring-red-200",
       icon: AlertCircle,
     },
-    TRATADA: {
+    TRATADO_Y_FRACCIONADO: {
       label: "Valorización Completa",
       color: "text-emerald-700 bg-emerald-100 ring-emerald-200",
       icon: CheckCircle2,
     },
-    CERTIFICADA: {
+    CERRADO_Y_CERTIFICADO: {
       label: "Certificado Emitido",
       color: "text-emerald-800 bg-emerald-100 ring-emerald-300",
       icon: FileText,
@@ -292,7 +303,7 @@ export default function GeneradorDashboard() {
                 <p className="text-sm font-medium text-gray-500">Solicitudes en Curso</p>
                 <h3 className="text-2xl font-bold text-gray-900 mt-1">
                   {
-                    mySolicitudes.filter((s) => s.status !== "CERTIFICADA" && s.status !== "TRATADA")
+                    mySolicitudes.filter((s) => s.status !== "CERRADO_Y_CERTIFICADO" && s.status !== "TRATADO_Y_FRACCIONADO")
                       .length
                   }
                 </h3>
@@ -314,7 +325,7 @@ export default function GeneradorDashboard() {
               <div>
                 <p className="text-sm font-medium text-gray-500">Certificados Emitidos</p>
                 <h3 className="text-2xl font-bold text-gray-900 mt-1">
-                  {mySolicitudes.filter((s) => s.status === "CERTIFICADA").length}
+                  {mySolicitudes.filter((s) => s.status === "CERRADO_Y_CERTIFICADO").length}
                 </h3>
               </div>
               <div className="p-2 bg-emerald-100 text-emerald-600 rounded-lg">
@@ -378,7 +389,7 @@ export default function GeneradorDashboard() {
                       </span>
                     </td>
                     <td className="px-6 py-4 text-right">
-                      {solicitud.status === "CERTIFICADA" ? (
+                      {solicitud.status === "CERRADO_Y_CERTIFICADO" ? (
                         <button
                           onClick={() =>
                             toast.info("Descargando Certificado...", {
@@ -433,35 +444,73 @@ export default function GeneradorDashboard() {
                 Ingrese el volumen estimado de Neumáticos Fuera de Uso que requiere recolección.
               </p>
 
-              <form onSubmit={handleCreateRequest}>
-                <div className="mb-6">
-                  <label
-                    htmlFor="tonelaje"
-                    className="block text-sm font-medium text-gray-700 mb-2"
-                  >
-                    Volumen Estimado (t)
-                  </label>
-                  <div className="relative">
+              <form onSubmit={handleCreateRequest} data-tour-target="form-creacion">
+                <div className="space-y-4 mb-6">
+                  <div>
+                    <label
+                      htmlFor="unidades"
+                      className="block text-sm font-medium text-gray-700 mb-2"
+                    >
+                      Cantidad de Unidades
+                    </label>
                     <input
                       type="number"
-                      id="tonelaje"
-                      value={tonelaje}
-                      onChange={(e) => setTonelaje(e.target.value ? Number(e.target.value) : "")}
-                      className={`block w-full rounded-md border-gray-300 py-2.5 px-3 text-gray-900 bg-white border focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm outline-none transition-all ${
-                        isAddTarget ? "ring-2 ring-emerald-500 animate-demo-pulse" : ""
-                      }`}
-                      placeholder="Ej: 50"
+                      id="unidades"
+                      value={unidades}
+                      onChange={(e) => setUnidades(e.target.value ? Number(e.target.value) : "")}
+                      className="block w-full rounded-md border-gray-300 py-2.5 px-3 text-gray-900 bg-white border focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm outline-none transition-all"
+                      placeholder="Ej: 120"
                       min="1"
                       autoFocus
                     />
-                    <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                      <span className="text-gray-400 sm:text-sm">Toneladas</span>
-                    </div>
                   </div>
-                  <p className="mt-2 text-xs text-gray-500 flex items-start gap-1">
-                    <Info className="w-3.5 h-3.5 shrink-0 mt-0.5" />
-                    El peso real será validado formalmente en la romana del Centro de Valorización.
-                  </p>
+
+                  <div>
+                    <label
+                      htmlFor="ler"
+                      className="block text-sm font-medium text-gray-700 mb-2"
+                    >
+                      Código LER (Listado Europeo de Residuos)
+                    </label>
+                    <select
+                      id="ler"
+                      value={ler}
+                      onChange={(e) => setLer(e.target.value)}
+                      className="block w-full rounded-md border-gray-300 py-2.5 px-3 text-gray-900 bg-white border focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm outline-none transition-all"
+                    >
+                      <option value="">Seleccione código...</option>
+                      <option value="16 01 03">16 01 03 - Neumáticos Fuera de Uso (NFU)</option>
+                      <option value="15 01 01">15 01 01 - Envases de papel y cartón</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="tonelaje"
+                      className="block text-sm font-medium text-gray-700 mb-2"
+                    >
+                      Volumen Estimado (t)
+                    </label>
+                    <div className="relative">
+                      <input
+                        type="number"
+                        id="tonelaje"
+                        step="0.1"
+                        value={tonelaje}
+                        onChange={(e) => setTonelaje(e.target.value ? Number(e.target.value) : "")}
+                        className="block w-full rounded-md border-gray-300 py-2.5 px-3 text-gray-900 bg-white border focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm outline-none transition-all"
+                        placeholder="Ej: 48.0"
+                        min="0.1"
+                      />
+                      <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                        <span className="text-gray-400 sm:text-sm">Toneladas</span>
+                      </div>
+                    </div>
+                    <p className="mt-2 text-xs text-gray-500 flex items-start gap-1">
+                      <Info className="w-3.5 h-3.5 shrink-0 mt-0.5" />
+                      El peso real será validado formalmente en la romana del Centro de Valorización.
+                    </p>
+                  </div>
                 </div>
 
                 <div className="flex gap-3 justify-end mt-8">

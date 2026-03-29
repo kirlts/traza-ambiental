@@ -91,15 +91,17 @@ export async function POST(request: NextRequest, context: RouteParams) {
         OTRO: "Otro motivo",
       };
 
-      await tx.notificacion.create({
-        data: {
-          userId: solicitud.generadorId,
-          tipo: "solicitud_rechazada",
-          titulo: "Solicitud Rechazada",
-          mensaje: `Tu solicitud ${solicitud.folio} ha sido rechazada. Motivo: ${motivoTexto[motivo]}${detalles ? ` - ${detalles}` : ""}`,
-          referencia: solicitudId,
-        },
-      });
+      if (solicitud.generadorId) {
+          await tx.notificacion.create({
+            data: {
+              userId: solicitud.generadorId,
+              tipo: "solicitud_rechazada",
+              titulo: "Solicitud Rechazada",
+              mensaje: `Tu solicitud ${solicitud.folio} ha sido rechazada. Motivo: ${motivoTexto[motivo]}${detalles ? ` - ${detalles}` : ""}`,
+              referencia: solicitudId,
+            },
+          });
+      }
 
       return updated;
     });
