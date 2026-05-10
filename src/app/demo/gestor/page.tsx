@@ -124,7 +124,7 @@ export default function GestorDashboard() {
 
       <div className="grid lg:grid-cols-2 gap-6">
         {/* Left Column: Recepción en Puertas (Pesaje Romana) */}
-        <Card className="border border-gray-200 shadow-sm flex flex-col">
+        <Card className="border border-gray-200 shadow-sm flex flex-col" data-tour-target="input-romana">
           <CardHeader className="bg-emerald-50 border-b border-emerald-100 pb-4 pt-5 px-6">
             <div className="flex justify-between items-center">
               <div className="flex items-center gap-3">

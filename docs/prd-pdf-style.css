@@ -1,0 +1,119 @@
+/* PDF generation CSS for PRD */
+* {
+    hyphens: none !important;
+    -webkit-hyphens: none !important;
+}
+
+body {
+    font-family: "Helvetica Neue", "Arial", sans-serif;
+    font-size: 11pt;
+    line-height: 1.5;
+    color: #1a1a1a;
+    margin: 2cm;
+}
+
+h1 {
+    page-break-before: always;
+    page-break-after: avoid;
+    font-size: 22pt;
+    margin-top: 3em;
+    margin-bottom: 0.8em;
+    color: #0d3b66;
+    border-bottom: 3px solid #0d3b66;
+    padding-bottom: 0.4em;
+}
+
+h2 {
+    page-break-before: always;
+    page-break-after: avoid;
+    font-size: 16pt;
+    margin-top: 2em;
+    margin-bottom: 0.6em;
+    color: #14507a;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 0.3em;
+}
+
+h3 {
+    page-break-before: always;
+    page-break-after: avoid;
+    font-size: 13pt;
+    margin-top: 1.5em;
+    margin-bottom: 0.4em;
+    color: #1a6ea1;
+}
+
+h4, h5, h6 {
+    page-break-after: avoid;
+    margin-top: 1em;
+    margin-bottom: 0.3em;
+    color: #333;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1em 0;
+    font-size: 9pt;
+    page-break-inside: avoid;
+}
+
+th, td {
+    border: 1px solid #bbb;
+    padding: 6px 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #e8f0fe;
+    font-weight: bold;
+    color: #0d3b66;
+}
+
+code {
+    font-family: "Courier New", monospace;
+    font-size: 9pt;
+    background-color: #f4f4f4;
+    padding: 1px 4px;
+    border-radius: 2px;
+}
+
+pre {
+    background-color: #f4f4f4;
+    padding: 10px;
+    font-size: 9pt;
+    page-break-inside: avoid;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+blockquote {
+    border-left: 4px solid #0d3b66;
+    margin: 1em 0;
+    padding: 0.5em 1em;
+    background-color: #f8f9fa;
+    page-break-inside: avoid;
+}
+
+hr {
+    border: none;
+    border-top: 2px solid #0d3b66;
+    margin: 2em 0;
+    page-break-after: always;
+}
+
+p {
+    page-break-inside: avoid;
+    margin-bottom: 0.6em;
+    orphans: 2;
+    widows: 2;
+}
+
+ul, ol {
+    margin: 0.5em 0;
+    padding-left: 1.5em;
+}
+
+li {
+    margin-bottom: 0.2em;
+}

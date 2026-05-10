@@ -147,6 +147,7 @@ export default function GeneradorDashboard() {
           {/* Card: Nueva Solicitud */}
           <div
             onClick={() => setIsModalOpen(true)}
+            data-tour-target="nueva-solicitud"
             className={`group relative bg-white border rounded-2xl p-6 hover:shadow-xl hover:shadow-emerald-100/50 transition-all duration-300 cursor-pointer overflow-hidden ${
               isAddTarget ? "border-emerald-500 ring-2 ring-emerald-500 animate-demo-pulse" : "border-emerald-200 hover:border-emerald-300"
             }`}

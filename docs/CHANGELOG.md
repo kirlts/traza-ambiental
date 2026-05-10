@@ -39,9 +39,15 @@ y este proyecto se adhiere a un versionamiento iterativo interno.
 - **Migración Visual**: Transición de diagramas D2 (dark mode) a DOM-rendered (light mode) purgando anglicismos e introduciendo terminología nativa de negocio (Ley REP).
 - **Seguridad Centralizada**: Migración de la lógica de protección de rutas y RBAC al `middleware.ts`, eliminando la necesidad de validaciones redundantes en componentes cliente.
 - **Arquitectura de Administración**: Extracción de componentes `UserTable`, `UserModal` y unificación de tipos en el módulo de usuarios para cumplimiento del MASTER-SPEC.
+- **Suite de Sanity Checks E2E (Playwright)**: 32 tests de humo cubriendo carga de las 6 vistas Demo, navegación, elementos clave de UI, responsive (mobile/tablet), overlay del tour guiado, contrato `data-tour-target`, y manejo de errores 404 (`e2e/sanity_check.spec.ts`).
+- **Tests de Contrato del Tour Guiado (Jest)**: 10 unit tests validando la presencia de `data-tour-target` en cada página, la configuración de `pointer-events: none` en el backdrop, y el estado de la máquina de tour (`src/__tests__/components/GuidedTour.test.tsx`).
 
 ### Fixed
 
+- 💥 **Sorpresa Operativa (clip-path ≠ pointer-events)**: El backdrop del tour guiado usaba `clip-path` para recortar un agujero visual, pero mantenía `pointer-events: auto` en toda la superficie, bloqueando la interacción con la página subyacente. El agujero era cosmético, no funcional. Corregido cambiando a `pointer-events: none` en `guided-tour.tsx`.
+- **Tour Guiado — Target Fantasma (Paso 1)**: El `targetSelector` del Paso 1 apuntaba a `[data-tour-target="form-creacion"]`, un formulario dentro de un modal cerrado. `querySelector` retornaba `null`, dejando al usuario sin guía visual ni forma de avanzar. Corregido apuntando a `[data-tour-target="nueva-solicitud"]` en la tarjeta visible del dashboard del Generador.
+- **Tour Guiado — Targets Faltantes (Pasos 2-3)**: Los atributos `data-tour-target` para Transportista (`card-transporte`) y Gestor (`input-romana`) no existían en el DOM. Añadidos a los componentes Card correspondientes en `transportista/page.tsx` y `gestor/page.tsx`.
+- **Mock de Lucide-React Incompleto**: Añadidos 17 iconos faltantes (`Factory`, `PlusCircle`, `Activity`, `Recycle`, `Scale`, etc.) y el type export `LucideIcon` al mock global `__tests__/__mocks__/lucide-react.ts`, evitando `undefined` al renderizar páginas Demo en tests.
 - 💥 **Sorpresa Operativa (Hydration Mismatch)**: Resolución de advertencias de hidratación servidor/cliente en `demo-context.tsx` corrigiendo el diseño de estados iniciales atados a hooks `useEffect`.
 - **Efecto Cortina UX**: Adición de `padding-bottom` (pb-72) condicional al layout base del demo para evitar que componentes flotantes tapen botones de acción clave en pantallas menores.
 - **Integridad Infrarroja**: Saneamiento quirúrgico de `validar-recepcion`, `kpis`, `export/excel` y `generar-certificado` tras purga de logs. Resolución de 40+ errores sintácticos (bloques `try-catch` mal cerrados, funciones duplicadas y expresiones huérfanas).

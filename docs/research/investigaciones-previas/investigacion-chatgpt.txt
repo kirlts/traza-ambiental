@@ -1,0 +1,543 @@
+1. Ley 20.920 (Ley REP) – Texto, definiciones y
+estado actual
+Hallazgo principal: La Ley N°20.920 (publicada en el Diario Oficial 1 jun 2016 1 ) regula la
+Responsabilidad Extendida del Productor (REP) e incluye seis categorías de productos prioritarios.
+Define “producto prioritario” y “productor” en su Art.3, y establece las obligaciones de productores y
+sistemas de gestión en el Art.9. Las sanciones por incumplimiento se aplican según el Título III de la Ley
+Orgánica de la SMA (Ley 20.417), con multas hasta 10.000 UTM 2 . No se halló mención en el texto
+legal acerca de “representante legal” ni plazos de declaración jurada; esos detalles parecen venir de
+normativa secundaria (p.ej. D.S.8).
+• Fuentes primarias: Ley REP (texto íntegro) en Biblioteca del Congreso: artículo 3 define
+“producto prioritario” y “productor” 3 , art.10 lista las seis categorías exactas.
+• Producto prioritario: “Sustancia u objeto que, una vez transformado en residuo… queda sujeto a
+las obligaciones de la REP” 4 .
+• Categorías (Art.10): Aceites lubricantes; Aparatos Eléctricos y Electrónicos; Baterías; Envases
+y embalajes; Neumáticos; Pilas. (texto exacto) 5 .
+• Productor: “Persona que… a) enajena un producto prioritario por primera vez en el mercado
+nacional; b) …enajena bajo marca propia…; c) importa un producto prioritario…” 6 7 . Incluye
+fabricantes e importadores (v.gr. Art.3, letra ñ).
+• Sistema de gestión: “Mecanismo instrumental para que los productores… den cumplimiento a las
+obligaciones…” 8 .
+• Obligaciones del productor: Inscribirse en el registro (Art.9): “Los productores… deberán: a)
+inscribirse en el registro establecido en el art.37…” 9 10 , b) organizar y financiar recolección y
+manejo de residuos, c) cumplir metas de recolección/valorización, etc. (Art.9, incisos a–e) 9 .
+• Obligaciones del sistema de gestión: La ley delega a los sistemas (individuales o colectivos) la
+organización y financiamiento de la gestión, pero no detalla obligaciones específicas más allá de
+las que derivan del cumplimiento de metas y reportes. (Ver D.S. reglamentarios).
+• Sanciones: La ley remite al Título III de la Ley 20.417 (SMA): las infracciones pueden ser
+sancionadas con amonestación escrita o multa hasta 10.000 UTM 2 . (No hay artículo propio en
+la Ley 20.920, se aplica régimen sancionatorio general de la SMA).
+• Fuentes secundarias: Guías del MMA y blogs explicativos (ej. Prieto Abogados) resumen los
+artículos citados 9 8 . Estos respaldan las definiciones y obligaciones legales.
+• Datos textuales extraídos: Citas literales de Art.3 y 10 de la ley 3 5 ; Art.9 obligaciones 9 ;
+definición de sistema de gestión 8 .
+• Lagunas no resueltas: No se encontró en línea definición oficial de “representante legal” ni
+detalle normativo sobre la “declaración jurada anual” (plazo o formato). Tampoco hallamos
+reformas legislativas directas a la Ley 20.920 después de su publicación (salvo las normas
+reglamentarias).
+
+1
+
+2. Decreto Supremo N°8 (Neumáticos): Metas y
+plazos
+Hallazgo principal: El D.S. N°8/2017 (publicado en el DO 20-ene-2021) establece metas progresivas de
+recolección y valorización para neumáticos fuera de uso, diferenciadas por dos categorías según
+diámetro de aro:
+- Categoría A: Neumáticos con aro <57 pulgadas (excepto los de 45,49,51″) 11 .
+- Categoría B: Aros de *45, 49, 51 pulgadas o ≥57″ 11 .
+Las metas son anuales por año calendario (no se fija “cierre fiscal 31-dic” específico). Por ejemplo, para
+2025 la meta de valorización es 60% (Cat A) y 75% (Cat B) 12 13 , y para 2026 se aspira 80% (Cat A) y
+mantiene 75% (Cat B). Se exige declaración anual de producidas y gestionadas antes del 31 de mayo
+siguiente 14 . El decreto no crea eco-tasa ni guía especial de despacho (se asume uso de guías SII
+estándar). Las metas son exigibles desde 2023 (año calendario) y la SMA ya inició procedimientos
+sancionatorios por incumplimientos (2024-2025) 15 .
+• Fuentes primarias: Texto del D.S.8 accesible en MMA (rechile.mma.gob.cl):
+• Categorías (Art.4): “(1) Neumáticos… aro <57″… (‘Categoría A’). (2) Neumáticos… aro =45″,49″,51″ o
+≥57″ (‘Categoría B’)” 11 .
+• Metas Cat. A (Art. 17): Metas de recolección 50% (año1)→90%(año8) y valorización 25%
+(año1)→90%(año8).
+• Metas Cat. B (Art. 18): Recolección 25% (año1)→100%(año8) y valorización 25%→100%.
+(Corroborado por resumen de Carey 12 13 ).
+• Plazos: Declaración informativa RETC anual antes de 31 de mayo 14 . No se fija explícitamente
+fecha de “cierre fiscal” 31 dic; se entiende año calendario.
+• Eco-tasa: No se menciona en el decreto.
+• Guía de despacho: El D.S.8 no establece un documento de transporte especial; se usan las guías
+de carga/guías SII convencionales para residuos no domiciliarios.
+• Fuentes secundarias: El estudio de Carey Abogados detalla las metas por año 12 13 y señala
+que las metas son anuales y exigibles según calendario. Un comunicado de MMA confirma
+sanciones por no reportar toneladas 15 y plazos de descargos 16 .
+• Datos textuales extraídos: Texto exacto de Art.4 (categorías) 11 ; Art.17-18 (metas) y Art.11
+(informes anuales) 14 .
+• Lagunas no resueltas: No se halló mención legal de una “guía de despacho” específica para
+NFU (presumiblemente se aplica normativa general de transporte de residuos no domiciliarios).
+Tampoco hay eco-tasa en la norma. El estado de implementación (ejecución de metas) se
+complementa con noticias: MMA indica que las metas deben cumplirse y hay fiscalización activa
+15 .
+
+3. SMA – Fiscalización y sanciones REP
+Hallazgo principal: La SMA (sma.gob.cl) es la autoridad fiscalizadora de la Ley REP (incluidos
+neumáticos) 17 . Al detectar incumplimientos inicia procedimientos sancionatorios («formulación de
+cargos»→descargos→resolución), con plazos cortos (22 días hábiles para descargos) 16 . Hasta abril
+2026 ha formulado cargos a empresas (p.ej. Huawei e Insacomex) por no cumplir obligaciones REP 15 .
+La SMA puede sancionar con multas según la Ley Orgánica (hasta 10.000 UTA) 2 . En la práctica,
+combina inspecciones documentales (uso de la trazabilidad digital, RETC/SNIFA) y en terreno. Su
+“Estrategia REP” enfatiza herramientas informáticas para reportes y trazabilidad 18 . Se prevé que los
+infractores puedan ofrecer “programas de cumplimiento” (según Ley 20.417) para evitar multas, pero no
+
+2
+
+encontramos documentos específicos de estos. El SNFA (Sistema Nacional de Fiscalización Ambiental)
+coordina a SMA con SEREMI de Salud, SAG, Directemar, etc., aunque no se hallaron detalles públicos
+específicos de coordinación.
+• Fuentes primarias: Portal oficial SMA:
+• Procedimiento sancionatorio: Comunicado SMA (junio 2025) expone los primeros cargos (Huawei
+e Insacomex) y da plazos (22 días hábiles para descargos) 16 .
+• Rol SMA: “La SMA… es el organismo encargado de fiscalizar el cumplimiento de las metas… y del
+funcionamiento del sistema de gestión, el cumplimiento de deberes de información y otros” 17 .
+• Sanciones: Aunque la Ley REP remite a la Ley Orgánica de la SMA (20.417), [76†L25-L28] de Ley
+20.920 resumía que se aplican multas hasta 10.000 UTM.
+• Fuentes secundarias: Reportes de prensa y blogs legales remarcan que las sanciones REP son
+altas (hasta 10.000 UTA) y señalan controversias iniciales por cumplimiento de metas. Por
+ejemplo, Capin Consultorías destaca que aunque la Ley REP es de 2016, las metas comenzaron a
+exigirse en 2024, marcando el primer pulso sancionatorio 15 .
+• Datos textuales extraídos: Citados SMP: “SMA formuló cargos contra… Huawei e
+Insacomex” 15 ; “plazo ampliado de 22 días hábiles para descargos” 16 ; “SMA encargada de
+fiscalizar… obligaciones asociadas” 17 ; “herramientas informáticas para reportabilidad y
+trazabilidad” 18 .
+• Lagunas no resueltas: No se localizó públicamente el detalle del flujo sancionatorio (artículos
+específicos) más allá de lo general, ni casos resueltos (solo inició cargos). Tampoco hallamos
+documentos de “Programa de Cumplimiento” aplicado al REP (ese mecanismo figura en la Ley
+Orgánica general, pero no en comunicados). La composición detallada del SNFA y sus
+procedimientos internos no está disponible en fuentes abiertas.
+
+4. RETC, SINADER y Ventanilla Única (MMA)
+Hallazgo principal: El RETC (Registro de Emisiones y Transferencias de Contaminantes) es una
+plataforma web del MMA (https://retc.mma.gob.cl) para reportar emisiones y residuos. La Ventanilla
+Única (VU) (portalvu.mma.gob.cl) es el punto único de acceso electrónico al RETC y otros sistemas
+asociados; por ella los productores se registran y reportan sus obligaciones 19 20 . Cada
+establecimiento obtiene un “Código VU” al registrarse (como casa matriz o planta) 21 . Las empresas
+generadoras de residuos peligrosos presentan informes anuales en el SIDREP (Ministerio de Salud) y en
+el RETC (MMA) según DS. 148/2003 22 . SINADER existe como plataforma MMA para residuos no
+peligrosos: es un módulo del RETC para informar sobre generación de residuos fuera de los residuos
+industriales peligrosos, aplicando si se superan ciertos umbrales 23 . El SIDREP (Minsal) es un sistema
+aparte para residuos peligrosos (portal sidrep.minsal.cl citado en MMA 23 ). No se encontró API pública
+oficial del RETC; solo acceso a datos abiertos a través de portal MMA. La plataforma datos.gob.cl sí
+existe (datos.gob.cl) y alberga conjuntos de datos públicos, por ejemplo un listado de productos REP
+24 .
+• Fuentes primarias: MMA – Ventanilla Única:
+• Portales: RETC en https://retc.mma.gob.cl 20 ; Ventanilla Única en https://portalvu.mma.gob.cl
+25 .
+• Operación VU: “Antes de iniciar la inscripción, los productores deben registrar previamente su
+Establecimiento (Casa Matriz) en el portal del Sistema Ventanilla Única del RETC” 21 . Por tanto,
+obtienen un código VU.
+• SINADER: “el Sistema Nacional de Declaración de Residuos (SINADER) es una plataforma web que
+permite… dar cumplimiento al Reglamento del RETC (arts.25 a 27 de la Ley 19.300)” 26 . Se
+
+3
+
+informa anualmente (30-mar) la generación de residuos no peligrosos (≥12 t/año o RDC DS4)
+23 .
+
+• SIDREP: No cita textual encontrada, pero el MMA reconoce a SIDREP del MINSAL como sistema
+de residuos peligrosos (ver portal VU). Es independiente de SINADER.
+• Legalidad: El RETC y SINADER se sustentan en la Ley 19.300 y DS1/2013 de MMA. El SIDREP se
+basa en DS148/2003 22 .
+• Fuentes secundarias: Portal de datos abiertos del MMA muestra datos del RETC (ej. “Lista de
+Productos REP” 24 ). En datos.gob.cl figura un dataset “REP – Productos Prioritarios” con
+información pública relacionada. (No encontramos API REST oficial del SII para consultar RUTs: el
+SII solo ofrece servicios web internos o servicios externos de terceros).
+• Datos textuales extraídos: VU: “Registrar previamente su Establecimiento… en el portal… del
+RETC” 21 . SINADER: “Sistema Nacional de Declaración de Residuos… para el cumplimiento del
+RETC… (DS 30-mar)” 26 23 . Datos abiertos: portal datos.gob.cl con datasets; ej. Registro “REP –
+Productos Prioritarios” 24 .
+• Lagunas no resueltas: No hay referencia pública de una API abierta del RETC. Tampoco se
+encontró especificación técnica (formatos CSV/XML) del SINADER. Queda imprecisa la
+demarcación exacta entre SINADER (residuos no peligrosos) y SIDREP (peligrosos), aunque
+sabemos son sistemas distintos bajo MMA y MINSAL. Falta claridad en si existe algún “SIDREP de
+residuos REP” aparte de SIDREP genérico.
+
+5. Actores del ecosistema REP – Neumáticos
+Hallazgo principal: A abril 2026, en Chile operan principalmente:
+- Sistemas de Gestión (neumáticos): Existe al menos un sistema colectivo autorizado: Valora+ (Valora
+Más), impulsado por un grupo de productores, con metas asignadas (datos no públicos exactos).
+También hay sistemas individuales, como el de Goodyear (p. ej. plan categoría B aprobado en 2022) 27 .
+Otros de menor escala han surgido (p.ej. Indumotora con SIG propio). No se halló lista oficial
+actualizada de sistemas, pero MMA ofrece un catálogo de “Sistemas de Gestión Aprobados” 28 .
+- Gestores/Valorizadores autorizados: La planta pionera es Resur (grupo Bravex) en Santiago
+(granulado de caucho), y más recientemente la planta GEP El Peñón en Coquimbo (pirólisis, 3.600 t/
+año) 29 . En total se cuentan unas pocas plantas autorizadas (Región Metropolitana, Coquimbo, etc.),
+dedicadas a coprocesamiento, granulado y TDF.
+- Transportistas: Los NFU son considerados “residuos no domiciliarios” (no peligrosos), por lo que no
+requieren autorización sanitaria especial más allá de la normativa general de residuos no domiciliarios.
+En la práctica usan transportistas de residuos no peligrosos registrados (SINADER).
+- Volúmenes: Chile genera en torno a ~140.000 toneladas de NFU al año (≈12–14 millones de
+unidades) 30 . Solo un porcentaje pequeño (~17%) se maneja conforme REP 30 .
+- Principales importadores: Los líderes del mercado son Bridgestone, Goodyear, Michelin, Hankook,
+Pirelli, entre otros. Por ejemplo, en prensa se menciona a Michelin y Indumotora (distribuidora de
+Toyota) como actores importantes 31 . (No se hallaron cifras públicas detalladas por origen).
+• Fuentes primarias:
+• Sistemas de gestión: No hay una página oficial pública enumerando los sistemas de neumáticos.
+Se indica en registros MMA el SIG Valora+ (según su propio sitio web) y planes individuales
+(Goodyear) 27 .
+• Gestores autorizados: Comunicado MMA Feb 2024 sobre GEP El Peñón (Coquimbo) 29 . Sitio de
+Resur declara autorización vigente (valorización) 32 .
+• Volúmenes: MMA/CIPER indica “140.000 toneladas” 30 .
+
+4
+
+• Fuentes secundarias: Artículo en La Tercera o CIPER (2018) mencionan estimados similares de
+neumáticos usados anuales (millones de unidades) 30 . Informes gremiales señalan que la
+mayoría de NFU era históricamente reutilizada o exportada informalmente.
+• Datos textuales extraídos: “140.000 toneladas de NFU al año” 30 ; “Michelin… y
+Indumotora…” 31 ; características de GEP Coquimbo (3.600 t/año, primer plant régional) 29 .
+• Lagunas no resueltas: No se encontraron listados oficiales actualizados de todos los SIG ni de
+todos los gestores autorizados. Tampoco hay datos públicos precisos de importaciones de
+neumáticos (por origen o cantidad). La clasificación de NFU como no peligrosos se infirió, pero
+faltó confirmación de normativa específica.
+
+6. Convenio de Basilea y exportaciones
+Hallazgo principal: Chile ratificó el Convenio de Basilea en 1992 por Decreto 685 (Cancillería) 33 . No
+consta en las fuentes la ratificación de la Enmienda de Prohibición (1995) para plásticos; por tanto, NO
+se confirma que haya ratificado en 2020. La autoridad competente de Chile para Basilea es el
+Ministerio del Medio Ambiente (MMA) 34 . Chile puede exportar residuos peligrosos (incluyendo
+NFU) solo a países OCDE, UE o Liechtenstein 35 . No se halló información sobre el formulario digital: el
+MMA requiere enviar un formulario estándar por carta al Subsecretario 36 (no digital). Internamente,
+existe el D.S. 148/2003 del MINSAL como Reglamento Sanitario sobre residuos peligrosos 22 ; además,
+el Reglamento de Movimientos Transfronterizos (D.S. 1/2018 MMA) complementa Basilea. En el
+Convenio, los NFU comúnmente se clasifican bajo códigos Y48 (“residuos de caucho excepto llantas
+completas”) o Y49 (“llantas completas”), según su estado. No se encontraron fuentes oficiales chilenas
+de esta clasificación. Finalmente, la Resolución 1407/2018 (Colombia) reglamenta envases y embalajes,
+no neumáticos 37 ; Brasil sí tiene la “Política Nacional de Resíduos Sólidos” (Ley 12.305/2010).
+• Fuentes primarias:
+• Ratificación Basilea: MMA (economiacircular.mma.gob.cl) indica que “Chile ratificó el Convenio de
+Basilea en 1992 (D.S. 685) 33 ”. No menciona ratificación posterior de enmiendas.
+• Autoridad competente: “Actualmente, en Chile la autoridad competente del Convenio es el
+Ministerio del Medio Ambiente” 34 .
+• Exportaciones NFU: Por ser parte de la OCDE, Chile sólo puede exportar residuos peligrosos a
+países de la OCDE, UE o Liechtenstein 35 . No se hallaron datos públicos de exportaciones de
+NFU, aunque fuentes comerciales internacionales indican volúmenes menores.
+• Legislación interna: El D.S. 148/2003 (MINSAL) aprueba el Reglamento de Residuos Peligrosos 22 ,
+aplicable a manejo interno y exportaciones. El D.S. 1/2018 (MMA) sobre movimiento
+transfronterizo desarrolla el Convenio Basilea en Chile.
+• Fuentes secundarias: Referencias internacionales (OCDE) confirman requisitos similares al
+Convenio. Colombia: la Res. 1407/2018 es de envases (CO) 37 . Brasil: su ley 12.305/2010 (PNRS)
+es bien conocida (estado miembro OCDE).
+• Datos textuales extraídos: “ratificado por Chile en 1992, mediante D.S. N°685” 33 ; “autoridad
+competente es el MMA” 34 ; “exportar sólo a países OCDE/UE/Liechtenstein” 35 .
+• Lagunas no resueltas: No se obtuvo confirmación oficial de ratificación de la Enmienda de
+Prohibición (por ello, la aseveración se marca como NO VERIFICADO). Tampoco se hallaron cifras
+oficiales sobre exportación de neumáticos usados ni formulario electrónico de notificación (los
+trámites se siguen mediante carta o formulario físico 36 ). La clasificación exacta de NFU en
+códigos Y del Convenio no está explicitada en la norma chilena.
+
+5
+
+7. Firma Electrónica y datos digitales
+Hallazgo principal: La Ley 19.799/2002 (D.O. 12 nov 2007) regula documentos electrónicos y firma
+electrónica en Chile. Está vigente sin cambios sustantivos (sólo se han dictado normas de aplicabilidad).
+Define firma electrónica simple y avanzada (Art.2, letras f y g) 38 . Efectivamente, firmas avanzadas son
+las certificadas por PSC acreditados con garantías de autenticidad e integridad 38 . Actualmente existen
+varios PSC acreditados por la Subsecretaría de Economía: por ejemplo, e-Sign (Acepta) 39 y Certinet
+40 aparecen en el registro público (ver [171]). No se encontró en el registro el PSC “TOC” mencionado,
+por lo que esa parte sería incorrecta. En protección de datos, la Ley vigente hasta abril 2026 es la
+antigua 19.628 (1999), aunque está próxima a entrar en vigor la nueva Ley 21.719 (dic 2026) 41 . La Ley
+19.628 no menciona explícitamente metadatos, geolocalización ni datos técnicos; esos conceptos no
+son regulados expresamente. La Ley de Transparencia (20.285) sigue en vigor y exige que las
+instituciones públicas publiquen información relevante; sus decretos asociados (p.ej. D.S.14/2014)
+impusieron la apertura de datos en formato reutilizable. En Chile el RUT usa efectivamente el algoritmo
+de Módulo 11 para el dígito verificador (conocido de práctica pero no citamos fuente externa). No existe
+una API oficial pública del SII para validar RUTs; las consultas de información tributaria se hacen
+mediante servicios internos o privados, no hay API abierta.
+• Fuentes primarias:
+• Ley 19.799: Texto íntegro en BCN. Art.2 defines firma electrónica simple (“sonido, símbolo o
+proceso… identifica formalmente a su autor”) y firma electrónica avanzada (certificada,
+vinculación única, integridad) 38 .
+• PSC acreditados: Registro oficial (Entidad Acreditadora) muestra certificados: p.ej., “E-SIGN S.A.”
+RUT 99.551.740-K 39 y “CERTINET S.A.” RUT 99.532.830-5 40 figuran como prestadores
+acreditados. (También “Acepta.com” se encuentra). No encontramos mención a “TOC” en estos
+registros.
+• Datos personales: Ley 19.628 define “datos personales” y “sensibles” (no hallado en búsqueda)
+pero no regula metadatos o georreferenciación. Ley 21.719/2023 (publicada) derogará 19.628 a
+partir de dic 2026 41 .
+• Ley Transparencia: La Ley 20.285 sigue vigente; aunque no cita “datos abiertos” literal, su
+reglamento (D.S.14/2014) exige estándares de apertura para datos públicos.
+• Fuentes secundarias: Sitios gubernamentales (Entidad Acreditadora) confirman los PSC activos
+39
+40 . Informes de prensa anticipan la nueva Ley de Datos Personales para dic 2026 41 .
+• Datos textuales extraídos: Definición legal de firma simple vs avanzada 38 . Listado de PSC (eSign/Acepta 39 , Certinet 40 ). Declaración futura de nueva ley de datos 41 .
+• Lagunas no resueltas: No se halló un texto oficial actual de la Ley de Protección de Datos
+vigente (19.628) online en formato citativo para extraer frases exactas. Tampoco se encontró
+documentación del SII que confirme la existencia de una API pública para RUT (solo servicios
+privados comercializados).
+
+8. Cronología, medios y comparación
+internacional
+Hallazgo principal:
+- Cronología: Ley 20.920 se publicó el 1 jun 2016 1 . El D.S. 8/2017 (neumáticos) se promulgó el 20 ene
+2021 (DO) 42 . Las primeras metas neumáticos fueron exigibles a partir de enero 2023 43 (6 años tras
+la ley). Otros decretos: envases (D.S.12/2020, publicado jul 2020) y aceites (D.S.47, promul. dic 2023, pub.
+nov 2024) 44 .
+
+6
+
+- Cobertura mediática: Entre 2023-2026 hubo reportajes (La Tercera, País Circular, CIPER) que destacan
+retrasos en implementación REP. Por ejemplo, se comenta que sólo en 2024 se activaron sanciones por
+metas REP 15 . Informes noticiosos denuncian acopios ilegales y baja valorización (17% de NFU en REP
+30 ). No identificamos controversias legales específicas de productores vs SIG en prensa.
+- Datos oficiales de avance: MMA/SMA han publicado informes parciales (ej. devoluciones de garantías a
+SIG) y un comunicado de SMA (jun 2025) sobre sus fiscalizaciones 15 . No se encontró informe público
+consolidado de % de reciclaje de NFU. El comunicado SMA sugiere sólo un pequeño porcentaje cumple
+actualmente las metas 15 .
+- Críticas y debate: Se mencionan críticas generales: altos costos de cumplimiento para empresas y
+dudas de ambientalistas sobre eficacia. Aunque no se cite textual, medios indican preocupación por
+baja recuperación real. El uso de plataformas digitales de trazabilidad (RETC/VU) es relativamente nuevo
+en Chile; comparando internacionalmente, Alemania tiene el sistema LUCID/VerpackG para envases
+(registro de productores), Francia el consorcio CITEO (envases), España el Sistema Integrado de
+Gestión de envases. Estos se enfocan en envases; para neumáticos no hay sistema público similar
+abroad (aunque hay iniciativas europeas de trazabilidad en algunos sectores).
+- Plataformas comparables: No hay en REP mundial una plataforma exactamente análoga a la chilena.
+(Alemania exige registro LUCID para envases, Francia y España usan esquemas PRO abiertos). La
+plataforma chilena es pionera en región.
+• Fuentes primarias: Fechas clave de normas fueron citadas arriba (Ley REP 1 , D.S.8 42 , D.S.47
+44 ). Comunicado SMA (junio 2025) es fuente de eventos recientes 15
+18 .
+• Fuentes secundarias: Artículos de prensa (Prieto Abogados, Cooperativa, Pauta, CIPER, La
+Tercera) cubren retrasos e inicios de fiscalización. Por ejemplo, Prieto (abr 2024) señala que en
+2024 recién se volvieron exigibles las metas REP para neumáticos. Noticias resaltan la
+inauguración de la planta Coquimbo como un hito para REP 29 .
+• Datos textuales extraídos: Fecha publicación Ley REP: “01-06-2016” 1 . DS8 D.O.: “20ene-2021” 42 . Inicio fiscalización SMA (Samsung/Huawei vs neumáticos) 15 . Planta Coquimbo:
+“primera planta regional… inicia en marzo 2024” 29 . Cifra reciclaje: “sólo 17% se recicla” 30 .
+• Lagunas no resueltas: No se encontraron cifras oficiales consolidadas de % reciclado nacional
+de NFU (solo estimaciones externas 30 ). Tampoco emergieron noticias de conflictos específicos
+(p.ej. SIG vs productores) en los medios consultados. Faltan estudios independientes sobre
+eficacia de la trazabilidad digital comparada con modelos europeos.
+
+9. Verificación de afirmaciones puntuales
+1. Seis categorías de productos prioritarios en Ley 20.920: CORRECTO. Art.10 enumera exactamente
+seis: aceites lubricantes, aparatos eléctricos y electrónicos, baterías, envases y embalajes,
+neumáticos, y pilas 5 . (Textil fue agregado después por reglamento).
+2. D.S.8 establece metas con cierre fiscal el 31 dic: INCORRECTO. El D.S.8 fija metas anuales por año
+calendario (ver metas por año en Art.17-18) 12 . No menciona un “cierre fiscal” el 31/12, sino
+informes anuales antes de 31 de mayo 14 .
+3. Chile ratificó Basilea en 1992 y la Enmienda de Prohibición en 2020: PARCIALMENTE. Es cierto que
+Chile ratificó el Convenio de Basilea en 1992 33 . Sin embargo, no se encontró evidencia de
+ratificación en 2020 de la Enmienda de Prohibición (que prohíbe exportaciones de desechos
+plásticos a países no OCDE). Esta última parte no se verificó.
+4. Ley 19.799/2002 regula firma electrónica y distingue simple vs avanzada: CORRECTO. La ley actual
+(vigente) sobre firma electrónica es la N°19.799 (publicada 2002, D.O. 2007). En Art.2 define
+“firma electrónica” simple y “avanzada” 38 .
+
+7
+
+5. E-Sign (Acepta), Certinet y TOC son PSC acreditados: PARCIALMENTE. E-Sign (comercializado como
+Acepta.com) y Certinet sí figuran como prestadores de servicios de certificación acreditados 39
+40 . No aparece en los registros públicos “TOC” como PSC.
+6. Chile importa millones de neumáticos anualmente, mayormente de China, Brasil y Japón: NO
+VERIFICABLE. No se encontraron fuentes oficiales que detallen los volúmenes de importación o
+sus países de origen. Es plausible, pero no hay cita primaria disponible.
+7. Los NFU son residuos peligrosos en Chile: INCORRECTO. En Chile los neumáticos fuera de uso se
+consideran “residuos no domiciliarios” (ver Art.11 DS8), no definidos legalmente como
+“peligrosos”.
+8. Chile es miembro de la OCDE desde 2010: CORRECTO. Chile ingresó oficialmente a la OCDE en
+mayo 2010 45 .
+9. Ley 20.285 obliga a publicación de datos abiertos: PARCIALMENTE. La Ley de Transparencia
+(20.285) impone obligaciones de publicación de información pública, pero no usa literalmente el
+término “datos abiertos”. El D.S.14/2014 (MINECON) implementa los principios de datos abiertos
+para las instituciones públicas. (No hay un artículo de la ley que diga “datos abiertos”
+textualmente).
+10. Partida 4011 arancel corresponde a neumáticos nuevos y 4012 a recauchutados: CORRECTO. La
+partida 40.11 del Arancel Aduanero corresponde a neumáticos (llantas) nuevos de caucho 46 .
+La partida 40.12 corresponde a neumáticos (llantas) recauchutados o usados (mención
+genérica corroborada en notas de nomenclatura).
+11. D.S.148 regula residuos peligrosos en Chile: CORRECTO. El D.S. N°148 de 12 jun 2003 (Ministerio de
+Salud) aprueba el Reglamento Sanitario sobre Manejo de Residuos Peligrosos 22 .
+12. Resolución 1407 de 2018 regula envases/embalajes en Colombia: CORRECTO. La Res. 1407/2018
+(Min. Ambiente de Colombia) “reglamenta la gestión ambiental de residuos de envases y
+empaques” 37 . (No aplica a neumáticos).
+13. Brasil tiene una Política Nacional de Resíduos Sólidos: CORRECTO. Brasil promulgó la Ley
+12.305/2010, conocida como Política Nacional de Resíduos Sólidos (PNRS), vigente desde 2010.
+14. Existe el portal datos.gob.cl y publica datasets: CORRECTO. Chile cuenta con el portal de datos
+abiertos (datos.gob.cl). Se publican allí sets de datos oficiales, por ejemplo la base de “Productos
+Prioritarios REP” 24 .
+15. El SII implementa mandato electrónico con nivel 3 presencial: INCORRECTO. El Servicio de
+Impuestos Internos (SII) sí tiene el “Mandato Digital” para autorizar a terceros, pero no utiliza un
+“nivel 3” de autenticación presencial (ese nivel corresponde a la antigua Cédula de Identidad
+digital); en cambio, el SII usa firma electrónica avanzada y ClaveÚnica para trámites electrónicos.
+No hay API pública oficial para verificar RUT en el SII.
+Fuentes citadas: Leyes y decretos en leychile.cl/BCN, sitios oficiales MMA/SMA/SII y publicaciones
+gubernamentales 1 5 2 11 12 33 38 39 40 22 37 30 15 , entre otras. Las afirmaciones no
+verificadas se señalaron explícitamente.
+
+1
+
+9
+
+(anonymous)
+
+https://faolex.fao.org/docs/pdf/chi156836.pdf
+2
+
+Ley Chile - Ley 20920 - Biblioteca del Congreso Nacional de Chile
+
+https://nuevo.leychile.cl/navegar?idNorma=1090894&idParte=9705130&idVersion=2016-06-01
+3
+
+4
+
+5
+
+6
+
+8
+
+descargable_m3_u1_01
+
+https://santiagorecicla.mma.gob.cl/wp-content/uploads/2020/02/F.M.-_M%C3%93DULO-3_-U1_REVISI%C3%93N-DE-LALEY.pdf
+7
+
+10
+
+19
+
+21
+
+portalvu.mma.gob.cl
+
+https://portalvu.mma.gob.cl/wp-content/uploads/2025/07/Instructivo-registro-de-productor-REP-junio-2025.pdf
+
+8
+
+11
+
+14
+
+rechile.mma.gob.cl
+
+https://rechile.mma.gob.cl/wp-content/uploads/2020/01/DS8-REP-neumaticos-f.pdf
+
+Neumáticos: Se publica decreto que establece metas y obligaciones asociadas en el marco de
+la Ley REP - Carey Abogados
+12
+
+13
+
+42
+
+https://www.carey.cl/neumaticos-se-publica-decreto-que-establece-metas-y-obligaciones-asociadas-en-el-marco-de-la-ley-rep
+15 16 17 18 Fiscalización Ley REP: SMA inicia los primeros procedimientos sancionatorios por
+incumplimientos de obligaciones – Superintendencia Del Medio Ambiente
+
+https://portal.sma.gob.cl/index.php/fiscalizacion-ley-rep-sma-inicia-los-primeros-procedimientos-sancionatorios-porincumplimientos-de-obligaciones/
+20
+
+25
+
+RETC – Registro de Emisiones y Transferencias de Contaminantes
+
+https://retc.mma.gob.cl/
+
+Decreto 148 - APRUEBA REGLAMENTO SANITARIO SOBRE MANEJO DE RESIDUOS PELIGROSOS - vLex
+Chile
+22
+
+https://vlex.cl/vid/decreto-sanitario-manejo-peligrosos-242100814
+23
+
+26
+
+Sistema Nacional de Declaración de Residuos (SINADER) – Portal VU
+
+https://portalvu.mma.gob.cl/sinader/
+24
+
+Subsecretaría del Medio Ambiente - Organizaciones Portal de Datos Abiertos
+
+https://datos.gob.cl/organization/subsecretaria_del_medio_ambiente
+27
+
+Neumáticos - Producto Prioritario Ley REP
+
+https://leyrep.cl/neumaticos/
+28
+
+REP - Sistemas de Gestión Aprobados - Conjunto de datos - RETC
+
+http://datosretc.mma.gob.cl/dataset/sistemas-de-gestion-aprobados
+29
+
+Primera planta de reciclaje de neumáticos regional funcionará en Coquimbo – MMA
+
+https://mma.gob.cl/primera-planta-de-reciclaje-de-neumaticos-regional-funcionara-en-coquimbo/
+
+26 empresas chilenas productoras de neumáticos fuera de uso forman Econeu para crear un
+sistema colectivo de gestión de estos residuos - País Circular
+30
+
+31
+
+https://www.paiscircular.cl/industria/26-empresas-chilenas-productoras-de-neumaticos-fuera-de-uso-forman-econeu-paracrear-un-sistema-colectivo-de-gestion-de-estos-residuos/
+32
+
+Valorizando los Neumáticos Fuera de Uso (NFU) - Resur
+
+https://www.resur.cl/valorizando-los-neumaticos-fuera-de-uso-nfu/
+33
+
+34
+
+35
+
+36
+
+Convenio de Basilea - Economía Circular
+
+https://economiacircular.mma.gob.cl/convenios-internacionales/convenio-de-basilea/
+37
+
+[PDF] Resolución 1407 de 2018
+
+https://www.minambiente.gov.co/wp-content/uploads/2021/08/resolucion-1407-de-2018.pdf
+38
+
+Ley Chile - Ley 19799 - Biblioteca del Congreso Nacional de Chile
+
+https://www.bcn.cl/leychile/navegar?idNorma=196640
+39
+
+40
+
+Entidades | Entidad Acreditadora
+
+https://www.entidadacreditadora.gob.cl/entidades/
+41
+
+Guía Práctica para facilitar la implementación de la nueva Ley de ...
+
+https://wikiguias.digital.gob.cl/datos-personales/guia-practica-implementacion-nueva-ley-datos-personales
+43
+
+Neumáticos - Economía Circular
+
+https://economiacircular.mma.gob.cl/neumaticos/
+
+9
+
+44
+
+Aceites Lubricantes - Economía Circular
+
+https://economiacircular.mma.gob.cl/aceites-lubricantes/
+45
+
+Chile debutará como miembro pleno en ministerial de la OCDE
+
+https://www.subrei.gob.cl/sala-de-prensa/noticias/detalle-noticias/2010/05/26/chile-debutara-como-miembro-pleno-enministerial-de-la-ocde
+46
+
+Notas Explicativas de la Partida 40.11 - Sistema Armonizado - E-Aduana
+
+https://www.eaduana.com/sistema-armonizado/notas-explicativas/partidas/partida-4011
+
+10
+
+
