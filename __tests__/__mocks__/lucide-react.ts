@@ -57,3 +57,27 @@ export const XOctagon = () => null;
 export const RefreshCw = () => null;
 export const Loader = () => null;
 export const Loader2 = () => null;
+
+// Demo pages icons
+export const Factory = () => null;
+export const PlusCircle = () => null;
+export const Activity = () => null;
+export const Recycle = () => null;
+export const Scale = () => null;
+export const ArrowRightCircle = () => null;
+export const Building = () => null;
+export const Building2 = () => null;
+export const Navigation2 = () => null;
+export const CheckSquare = () => null;
+export const PackageCheck = () => null;
+export const Briefcase = () => null;
+export const BarChart3 = () => null;
+export const BarChart4 = () => null;
+export const Ban = () => null;
+export const ShieldCheck = () => null;
+export const FileCheck = () => null;
+
+// Type export (LucideIcon is used as a type in generador page)
+export type LucideIcon = React.FC;
+import React from "react";
+

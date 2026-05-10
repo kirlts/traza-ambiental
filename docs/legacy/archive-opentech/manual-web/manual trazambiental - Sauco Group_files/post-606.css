@@ -1,0 +1,17 @@
+.elementor-606 .elementor-element.elementor-element-47b4ba8 {
+  --display: flex;
+  --justify-content: center;
+  --align-items: center;
+  --container-widget-width: calc((1 - var(--container-widget-flex-grow)) * 100%);
+}
+.elementor-606 .elementor-element.elementor-element-933ece9 {
+  --display: flex;
+  --flex-direction: column;
+  --container-widget-width: calc((1 - var(--container-widget-flex-grow)) * 100%);
+  --container-widget-height: initial;
+  --container-widget-flex-grow: 0;
+  --container-widget-align-self: initial;
+  --flex-wrap-mobile: wrap;
+  --justify-content: center;
+  --align-items: center;
+}

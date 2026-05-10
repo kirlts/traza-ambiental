@@ -236,7 +236,7 @@ export default function EntregasPage() {
                             Peso Real
                           </p>
                           <p className="text-xl font-bold text-[#459e60]">
-                            {solicitud.pesoReal || "—"}
+                            {solicitud.pesoReal || "-"}
                           </p>
                           <p className="text-[10px] text-[#2b3b4c]/70">kilogramos</p>
                         </div>
@@ -245,7 +245,7 @@ export default function EntregasPage() {
                             Peso Declarado
                           </p>
                           <p className="text-lg font-bold text-[#2b3b4c]/80">
-                            {solicitud.pesoTotalEstimado || "—"}
+                            {solicitud.pesoTotalEstimado || "-"}
                           </p>
                           <p className="text-[10px] text-[#2b3b4c]/70">kilogramos</p>
                         </div>
@@ -258,7 +258,7 @@ export default function EntregasPage() {
                             Cantidad Real
                           </p>
                           <p className="text-xl font-bold text-[#459e60]">
-                            {solicitud.cantidadReal || "—"}
+                            {solicitud.cantidadReal || "-"}
                           </p>
                           <p className="text-[10px] text-[#2b3b4c]/70">unidades</p>
                         </div>
@@ -267,7 +267,7 @@ export default function EntregasPage() {
                             Cant. Declarada
                           </p>
                           <p className="text-lg font-bold text-[#2b3b4c]/80">
-                            {solicitud.cantidadTotal || "—"}
+                            {solicitud.cantidadTotal || "-"}
                           </p>
                           <p className="text-[10px] text-[#2b3b4c]/70">unidades</p>
                         </div>

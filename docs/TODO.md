@@ -17,6 +17,8 @@ Meta: Alcanzar 0 errores en `eslint` y `tsc`.
 
 Meta: Migración a TanStack Query, Turbopack, limpieza de useEffect.
 
+> Nota: Las TASKs 009-020 fueron completadas en sesiones pre-Git (~2026-02-28 a 2026-03-02). El timestamp `2026-03-01 12:00:00` es una marca retroactiva de cierre de bloque, no la hora exacta de completitud de cada tarea.
+
 - [x] [TASK-009] Reemplazar fetching manual con TanStack Query en dashboards. - 2026-03-01 12:00:00
 - [x] [TASK-010] Habilitar configuración para Turbopack. - 2026-03-01 12:00:00
 - [x] [TASK-011] Purgar masivamente useEffects no deterministas. - 2026-03-01 12:00:00
@@ -50,7 +52,7 @@ Meta: Purgado masivo de logs, reportes PDF/Excel, tipado de APIs.
 Meta: Preparar el repositorio para su despliegue y validación continua.
 
 - [x] [TASK-021] Inicializar repositorio Git. - 2026-03-03 10:48:00
-- [x] [TASK-022] Crear commit inaugural y base. - 2026-03-15 22:00:00
+- [x] [TASK-022] Crear commit inaugural y base. - 2026-03-03 13:45:00
 - [x] [TASK-023] Generar archivo de configuración Docker. - Completado previamente.
 - [ ] [TASK-024] Opcional: Configurar actions/pipelines de validación continua.
 
@@ -98,3 +100,12 @@ Meta: Consolidar la narrativa de negocio B2B, métricas ESG y flujos interactivo
 - [x] [TASK-037] Desarrollar perfil "Sistema de Gestión" (SIG) con consolidación de metas nacionales. - 2026-03-15 22:00:00
 - [x] [TASK-038] Incorporar KPIs de Huella de Carbono (CO2e Evitada) y generación de PDF real (jsPDF). - 2026-03-15 22:00:00
 - [x] [TASK-039] Desarrollar Recorrido Guiado ("Tour") con enforced-steps y layout dinámico (pb-72). - 2026-03-15 22:00:00
+
+## [EPIC-013] Estabilización Modo Demo: Tour Guiado y Sanity Checks
+
+Meta: Corregir bugs críticos de interactividad en el recorrido guiado y establecer una red de seguridad E2E para las vistas Demo.
+
+- [x] [TASK-040] Fix Guided Tour: backdrop `pointer-events: none`, corregir `targetSelector` Paso 1 (`nueva-solicitud`), añadir `data-tour-target` faltantes en Transportista y Gestor. - 2026-03-29 22:15:00
+- [x] [TASK-041] Crear suite de 32 sanity checks Playwright (`e2e/sanity_check.spec.ts`): hub, 5 dashboards, navegación, responsive, overlay del tour, contrato data-tour-target, 404. - 2026-03-29 22:15:00
+- [x] [TASK-042] Crear 10 unit tests de contrato Jest (`GuidedTour.test.tsx`): presencia de targets, pointer-events en source, estado de la máquina de tour. - 2026-03-29 22:15:00
+- [x] [TASK-043] Ampliar mock global lucide-react con 17 iconos faltantes y type export `LucideIcon`. - 2026-03-29 22:15:00

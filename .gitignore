@@ -70,3 +70,6 @@ tsc_errors.txt
 
 # Archive
 docs/archive-opentech/
+
+# Archivos internos educativos — no para deploy ni git
+internal/

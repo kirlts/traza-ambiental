@@ -351,7 +351,7 @@ export default function TransportistaDashboard() {
 
         {/* Right Column: Bolsa de Cargas */}
         <div className="lg:col-span-5 mb-10">
-          <Card className="border border-gray-200 shadow-sm sticky top-24 overflow-hidden">
+          <Card className="border border-gray-200 shadow-sm sticky top-24 overflow-hidden" data-tour-target="card-transporte">
             <div className="bg-gray-50 p-5 border-b border-gray-200">
               <div className="flex justify-between items-center mb-1">
                 <h2 className="text-lg font-bold flex items-center gap-2 text-gray-900">
