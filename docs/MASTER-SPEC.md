@@ -85,8 +85,8 @@
 8. **Separación inviolable Construcción / Auditoría:** La instanciación de nodos Khaos (Fase 1) y la auditoría de vacíos (Fase 2) son operaciones independientes. En Fase 1, Antigravity estructura exclusivamente la información aportada por el humano dentro de la plantilla. Todo campo sin información permanece **estructuralmente vacío** — esto significa celda vacía, sección sin contenido, o lista sin ítems. Está explícitamente prohibido: texto placeholder (ej. `[Por definir]`, `[Vacío]`, `TBD`), preguntas embebidas (ej. `¿Se requiere validación?`), sugerencias (ej. `Considerar X`), o cualquier contenido no aportado por el humano. Los vacíos son el producto diseñado del sistema. En Fase 2, Antigravity recorre los vacíos y busca resolución en Kratos.
 9. **Mutabilidad estructural gobernada:** La estructura de Khaos es un árbol vivo, no un documento congelado. Nueva información puede crear, fusionar, dividir o eliminar nodos, y modificar relaciones padre/hijo. Toda mutación queda registrada en Git con un motivo trazable. La mutación es el comportamiento esperado, no una excepción.
 10. **Khaos solo referencia Kratos:** Los nodos en `khaos/` solo pueden referenciar nodos en `kratos/` como sustento factual. No pueden referenciar documentos fuera de la KB (`docs/`, `Docs/`, archivos externos). Las referencias internas entre nodos Khaos (padre/hijo) son permitidas.
-11. **Compatibilidad nativa con Obsidian:** Toda referencia entre nodos usa wikilinks (`[[Nombre del Nodo]]`). Obsidian resuelve wikilinks por nombre de archivo globalmente dentro del vault. Cuando se necesiten enlaces estándar Markdown, se usan rutas relativas (`../kratos/nombre.md`), nunca absolutas. `kratos/` y `khaos/` son directorios hermanos dentro de `knowledge-base/`. Todo nodo KB incluye `cssclasses: [kb-node]` en su frontmatter YAML para activar el snippet CSS que renderiza texto justificado sin hyphenation. El vault de Obsidian apunta a `knowledge-base/`.
-12. **Fuente de verdad exclusiva en la KB:** Solo `knowledge-base/kratos/` y `knowledge-base/khaos/` contienen información autorizada. Los directorios `info/`, `work/`, y cualquier otro archivo fuera de `knowledge-base/` son **material crudo no verificado**. La IA no puede: (a) citar contenido de estos directorios como hecho verificado, (b) copiar texto directamente desde ellos a un nodo KB sin reestructuración, ni (c) tratar informes de deep research como fuente factual — primero deben pasar por el workflow `/estructurar-kratos` con confirmación humana.
+11. **Compatibilidad nativa con Obsidian:** Toda referencia entre nodos usa wikilinks (`[[Nombre del Nodo]]`). Obsidian resuelve wikilinks por nombre de archivo globalmente dentro del vault. **Bajo ninguna circunstancia se deben envolver los wikilinks en backticks (ej. `[[Nodo]]`)**, ya que esto formatea el texto como código en línea y desactiva el ruteo del grafo. Cuando se necesiten enlaces estándar Markdown, se usan rutas relativas (`../kratos/nombre.md`), nunca absolutas. `kratos/` y `khaos/` son directorios hermanos dentro de `knowledge-base/`. Todo nodo KB incluye `cssclasses: [kb-node]` en su frontmatter YAML para activar el snippet CSS que renderiza texto justificado sin hyphenation. El vault de Obsidian apunta a `knowledge-base/`.
+12. **Fuente de verdad exclusiva en la KB:** Solo `knowledge-base/kratos/` y `knowledge-base/khaos/` contienen información autorizada. Los directorios `info/`, `work/`, y cualquier otro archivo fuera de `knowledge-base/` son **material crudo no verificado**. La IA no puede: (a) citar contenido de estos directorios como hecho verificado, (b) copiar texto directamente desde ellos a un nodo KB sin reestructuración, (c) tratar informes de deep research como fuente factual — primero deben pasar por el workflow `/estructurar-kratos` con confirmación humana, ni (d) citar informes de investigación (deep research) como `evidencia` en ningún nodo Kratos. Si no existe una fuente o evidencia REAL verificable (ley, decreto, web oficial), el campo `evidencia` DEBE quedar explícitamente en blanco.
 > Nota: Las restricciones aquí registradas se duplican defensivamente en `.agents/rules/05-constraints.md` para sobrevivir a la degradación de contexto en sesiones largas.
 
 ---
@@ -146,20 +146,20 @@
 
 ### 7.2. Khaos — El Reino de la Planificación y Construcción del MVP
 
-**Propósito:** Motor de diseño, arquitectura y gestión del proyecto de software. Representa cómo Trazambiental resuelve las obligaciones impuestas por Kratos, estructurado como una red jerárquica de nodos Markdown bajo un paradigma de gestión de conocimiento determinista.
+**Propósito:** Motor de diseño, arquitectura y gestión del proyecto de software. Representa cómo Trazambiental resuelve las obligaciones impuestas por Kratos, estructurado como una red jerárquica de conceptos Markdown bajo un paradigma de gestión de conocimiento determinista.
 
 **Ubicación:** `/knowledge-base/khaos/`
 
 **Estado actual:** Vacío. Lienzo de trabajo principal para la ideación del SaaS.
 
 **Paradigma estructural:**
-- **Red jerárquica de responsabilidades MECE:** Cada nodo representa exactamente una responsabilidad concreta y distinguible del MVP frente al dominio. La descomposición es jerárquica: la responsabilidad de un nodo padre se descompone en sub-responsabilidades hijas que son mutuamente exclusivas entre sí y colectivamente exhaustivas respecto al padre.
-- **Criterio de frontera de nodo:** Información nueva se agrega (append) a un nodo existente cuando elabora, restringe o clarifica la misma responsabilidad. Un nuevo nodo se crea cuando aparece una responsabilidad distinguible que no cabe en ningún nodo existente sin romper la exclusividad mutua. La falla de exhaustividad colectiva (la suma de hijos no cubre al padre) señala nodos faltantes.
-- **Nomenclatura legible por humanos:** Los nodos se nombran en español, en lenguaje natural autoexplicativo (ej. `Declaración de NFU por Generador`). En Obsidian, el nombre del archivo es el wikilink: `[[Declaración de NFU por Generador]]`. No se utilizan identificadores crípticos.
+- **Red jerárquica de responsabilidades MECE:** Cada concepto representa exactamente una responsabilidad concreta y distinguible del MVP frente al dominio. La descomposición es jerárquica: una responsabilidad se descompone en sub-responsabilidades que son mutuamente exclusivas entre sí y colectivamente exhaustivas respecto a la responsabilidad de la cual se derivan.
+- **Criterio de frontera:** Información nueva se agrega (append) a un concepto existente cuando elabora, restringe o clarifica la misma responsabilidad. Un nuevo concepto se crea cuando aparece una responsabilidad distinguible que no cabe en ningún concepto existente sin romper la exclusividad mutua. La falla de exhaustividad colectiva (la suma de las responsabilidades derivadas no cubre a la responsabilidad de origen) señala responsabilidades faltantes.
+- **Nomenclatura legible por humanos:** Los conceptos se nombran en español, en lenguaje natural autoexplicativo (ej. `Declaración de NFU por Generador`). En Obsidian, el nombre del archivo es el wikilink: `[[Declaración de NFU por Generador]]`. No se utilizan identificadores crípticos.
 - **Optimización LLM-First:** La estructura está diseñada para que Antigravity pueda parsear, analizar y predecir el árbol de relaciones sin alucinaciones, utilizando el formato Markdown que maximiza la fidelidad de adherencia del mecanismo de atención.
 - **Plantilla autorreplicable:** Independiente del nivel de anidación. La misma estructura sirve para una responsabilidad de alto nivel y una responsabilidad atómica. Definición completa en §7.5.
 - **Revelación orgánica de lagunas:** La plantilla no detecta vacíos — los induce. Su estructura fuerza la existencia de campos que deben contener información. Si el humano no la proporcionó, los campos quedan vacíos. Esos vacíos son el producto diseñado del sistema, no un defecto.
-- **Interdependencia por diseño:** Si un nodo requiere sustento legal, la plantilla fuerza el campo correspondiente. Un campo vacío activa la Fase 2 (auditoría), que busca resolución en Kratos.
+- **Interdependencia por diseño:** Si un concepto requiere sustento legal, la plantilla fuerza el campo correspondiente. Un campo vacío activa la Fase 2 (auditoría), que busca resolución en Kratos.
 
 **Dependencias:** `/knowledge-base/kratos/` (dependencia estructural obligatoria por diseño).
 
@@ -218,7 +218,7 @@ Un nodo Khaos no es un documento ni una especificación técnica. Es una **unida
 **Criterio MECE para gestión de nodos:**
 - **Nuevo nodo:** Cuando aparece una responsabilidad distinguible que no pertenece a ningún nodo existente (Mutuamente Exclusiva).
 - **Append a nodo existente:** Cuando la información elabora, restringe o clarifica una responsabilidad ya representada.
-- **Señal de vacío CE:** Cuando la suma de las responsabilidades hijas no cubre la responsabilidad del padre (falla de Exhaustividad Colectiva), el sistema identifica nodos faltantes.
+- **Señal de vacío CE:** Cuando la suma de las responsabilidades derivadas no cubre la responsabilidad de la cual se derivan (falla de Exhaustividad Colectiva), el sistema identifica responsabilidades faltantes.
 
 **Nomenclatura:** Cada nodo se nombra en español, en lenguaje natural autoexplicativo. El nombre del archivo Markdown es el wikilink de Obsidian: `[[Declaración de NFU por Generador]]`. No se utilizan identificadores crípticos.
 
@@ -228,13 +228,17 @@ Secciones obligatorias. Los nombres de campo son en español y autoexplicativos:
 
 | Sección | Propósito | Consumidor principal |
 |---|---|---|
-| `que_es` | Descripción ejecutiva en una frase de la responsabilidad del nodo | Humano |
-| `por_que_existe` | Wikilink al nodo padre o a la fuente en Kratos que origina esta responsabilidad | Humano + Grafo |
+| `que_es` | Descripción ejecutiva en una frase de la responsabilidad | Humano |
+| `por_que_existe` | Párrafo narrativo explicando de dónde se deriva esta responsabilidad y por qué es relevante. No es solo un wikilink: es la justificación causal de la relación vertical | Humano + Grafo |
+| `logica_de_descomposicion` | Párrafo explicando el criterio MECE por el cual esta responsabilidad se subdivide en los elementos listados en `se_descompone_en`. Vacío si no se descompone | Humano + Antigravity |
 | `compromisos` | Tabla de compromisos verificables: Actor · Acción en el sistema · Sustento (wikilink a Kratos — puede ser norma legal, decisión del humano, regla de negocio, requisito técnico o factor externo) | Humano + Antigravity |
+| `relaciones_horizontales` | Párrafo por cada elemento en `se_relaciona_con`, explicando la naturaleza de la conexión (flujo de datos, dependencia temporal, fricción, complementariedad) | Humano + Antigravity |
 | `que_falta` | Sección siempre presente. Registra lagunas detectadas durante la auditoría (Fase 2). Vacía hasta que la auditoría la popule | Antigravity |
-| `se_descompone_en` | Wikilinks a nodos hijos (sub-responsabilidades) | Grafo |
-| `depende_de` | Wikilink al nodo padre | Grafo |
+| `se_descompone_en` | Wikilinks a sub-responsabilidades derivadas | Grafo |
+| `se_relaciona_con` | Wikilinks a responsabilidades transversales (flujos de datos/dependencias) | Grafo |
+| `depende_de` | Wikilink a la responsabilidad de la cual se deriva | Grafo |
 | `estado` | `borrador` · `con_vacios` · `completo` · `validado` | Antigravity |
+| `justificacion_de_estado` | Párrafo explicando por qué tiene su `estado` actual y qué falta para avanzar al siguiente | Humano + Antigravity |
 
 **Mecánica de compromisos:** La plantilla fuerza las **columnas** de la tabla (Actor, Acción, Sustento). El humano llena las **filas** con la información que posee. Las celdas sin información permanecen vacías. La auditoría CE verifica si las filas existentes cubren la totalidad de la responsabilidad del nodo.
 
@@ -287,22 +291,27 @@ Un nodo Kratos es una **unidad de hecho verificable**. No interpreta, no infiere
 **Criterio MECE para gestión de nodos:**
 - **Nuevo nodo:** Cuando aparece un hecho distinguible que no pertenece a ningún nodo existente (distinta fuente, distinto alcance, o distinta autoridad).
 - **Append a nodo existente:** Cuando nueva información elabora o precisa un hecho ya registrado, proveniente de la misma fuente y con el mismo alcance.
-- **Jerarquía factual:** Los hechos pueden descomponerse jerárquicamente (ej. una ley contiene artículos, un artículo contiene incisos). Los nodos hijos son ME entre sí y CE respecto al padre.
+- **Jerarquía factual:** Los hechos pueden descomponerse jerárquicamente (ej. una ley contiene artículos, un artículo contiene incisos). Los conceptos derivados son ME entre sí y CE respecto al concepto del cual se derivan.
 
-**Nomenclatura:** Lenguaje natural autoexplicativo en español. Ejemplo: `[[Ley REP - Artículo 24 - Obligaciones del Generador]]`.
+**Nomenclatura:** Lenguaje natural autoexplicativo en español, evitando prefijar el nombre del concepto de origen en los conceptos derivados para mantener wikilinks limpios (anti-solapamiento). Ejemplo: `[[Obligaciones del Generador]]` (en lugar de `Ley REP - Artículo 24 - Obligaciones del Generador`). **Excepción:** Los conceptos estructurales genéricos (ej. Artículos, Capítulos) sí deben incluir el prefijo de su cuerpo normativo para garantizar unicidad global en Obsidian (ej. `[[Ley 20.920 - Artículo 3]]`, nunca `[[Artículo 3]]`).
 
 #### 7.6.2. Estructura de la Plantilla
 
 | Sección | Propósito | Consumidor principal |
 |---|---|---|
 | `que_dice` | El hecho expresado en lenguaje natural. No es la cita textual de la fuente (eso va en `evidencia`), sino una síntesis legible | Humano |
+| `por_que_existe` | Párrafo narrativo explicando de dónde se deriva este concepto y por qué es relevante para Trazambiental. Si es un concepto de primer nivel (institución, ley matriz), explicar su existencia autónoma | Humano + Antigravity |
+| `logica_de_descomposicion` | Párrafo explicando el criterio MECE por el cual este concepto se subdivide en los elementos listados en `se_descompone_en`. Vacío si no se descompone | Humano + Antigravity |
+| `relaciones_horizontales` | Párrafo por cada elemento en `se_relaciona_con`, explicando la naturaleza de la conexión (fricción normativa, complementariedad regulatoria, dependencia operativa) | Humano + Antigravity |
 | `tipo` | Categoría del hecho: `norma_legal` · `decision_del_humano` · `regla_de_negocio` · `requisito_tecnico` · `factor_externo` | Antigravity |
 | `fuente_original` | Identificación de la fuente: nombre de la ley, número de decreto, fecha de decisión, URL | Humano |
-| `evidencia` | Enlace al material crudo que respalda el hecho: ruta a PDF, URL, imagen, o cita textual en blockquote | Antigravity + Humano |
+| `evidencia` | Enlace a la fuente REAL (URL oficial, ley, decreto). IMPORTANTE: NINGÚN concepto Kratos debe citar informes de investigación internos (ej. deep research) ni directa ni indirectamente. Si no hay fuente real, el campo DEBE quedar en blanco. | Antigravity + Humano |
 | `vigencia` | Estado temporal del hecho: `vigente` · `derogado` · `por_verificar` | Antigravity |
-| `depende_de` | Wikilink al nodo padre (para hechos jerárquicos) | Grafo |
-| `se_descompone_en` | Wikilinks a nodos hijos | Grafo |
+| `depende_de` | Wikilink al concepto del cual se deriva (para hechos jerárquicos) | Grafo |
+| `se_descompone_en` | Wikilinks a conceptos derivados | Grafo |
+| `se_relaciona_con` | Wikilinks a conceptos transversales (conexiones horizontales/fricciones) | Grafo |
 | `estado` | `borrador` · `verificado` · `obsoleto` | Antigravity |
+| `justificacion_de_estado` | Párrafo explicando por qué tiene su `estado` actual y qué falta para avanzar al siguiente | Humano + Antigravity |
 
 **Mecánica de evidencia:** La evidencia es el ancla de verificabilidad del nodo. Un nodo Kratos sin evidencia es equivalente a un campo vacío en Khaos — un vacío que la auditoría debe resolver. La regla de factualidad 100% (§4.3) exige que toda afirmación en `que_dice` tenga respaldo en `evidencia`.
 

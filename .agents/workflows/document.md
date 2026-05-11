@@ -44,11 +44,11 @@ For each file in `knowledge-base/kratos/` (excluding `external-research/`):
 | Type | Detection | Severity |
 |---|---|---|
 | Broken Kratos reference | Khaos node references a Kratos node that doesn't exist | High — missing factual backing |
-| Orphan Khaos node | Node with no `depende_de` and is not the root | Medium — disconnected from hierarchy |
-| Unidirectional link | Parent lists child but child doesn't reference parent (or vice versa) | Medium — graph integrity |
-| Orphan Kratos node | Kratos node exists but no Khaos node references it | Low — unused fact (may be fine) |
+| Topological Orphan | ANY node (Khaos or Kratos) with an empty `depende_de` field that is NOT a legitimate root entity | High — disconnected from hierarchy |
+| Unidirectional link | Parent lists child but child doesn't reference parent (or vice versa) in ANY node (Kratos or Khaos) | High — graph integrity |
+| Unused Kratos node | Kratos node exists but no Khaos node references it | Low — unused fact (may be fine) |
 
-**Output:** Traceability report with broken links and orphans.
+**Output:** Traceability and Topological Integrity report with broken links, graph mismatches, and orphans.
 
 ---
 

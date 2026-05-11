@@ -12,6 +12,19 @@ This workflow processes MVP responsibility information from the human and instan
 
 ---
 
+## Phase 0: Propose and Confirm
+
+**Objective:** Secure human authorization before any modification.
+
+1. **Propose:** Present a complete inventory of ALL side effects to the user. The proposal MUST explicitly cover, for each responsibility:
+   - **Action type:** New node / Append / Mutation.
+   - **Target node(s):** Exact filename(s) that will be created or modified.
+   - **Hierarchy changes:** Which parent's `se_descompone_en` will be updated (bidirectional).
+   - **Lateral relations — new:** Any new `se_relaciona_con` entries to be added to the new or mutated node, with a brief description of the relation type.
+   - **Lateral relations — inverse:** Any existing node whose `se_relaciona_con` YAML and `## Relaciones Horizontales` body must be updated to reflect the inverse link.
+2. **Confirm:** Wait for the user to explicitly confirm ("sí", "dale", "ok"). 
+> **[FATAL WARNING]** Proceeding to Phase 1 without explicit user confirmation is a severe protocol violation. Do NOT write to `knowledge-base/khaos/` until authorized.
+
 ## Phase 1: Extraction
 
 **Objective:** Identify the responsibility described by the human.
@@ -41,13 +54,14 @@ For each responsibility:
 
 **Objective:** Create or update the Khaos node(s).
 
-1. For new nodes: copy `.agents/templates/khaos-nodo.md` into `knowledge-base/khaos/` with a human-readable filename in Spanish.
-2. Populate YAML frontmatter: `estado: borrador`, `depende_de: [[parent]]`, `se_descompone_en: []`.
-3. Populate `## Qué es` with the responsibility in one phrase — only if the human provided this information.
-4. Populate `## Por qué existe` with a wikilink to the parent node or Kratos source — only if known.
-5. Populate `## Compromisos` table: fill **only** the rows the human explicitly described. The columns (Actor, Acción, Sustento) are always present. Cells without information remain **structurally empty**.
-6. `## Qué falta` remains empty. This section is populated exclusively by Phase 2 audits (auditar-vacios workflow).
-7. **Transcription rule (INVIOLABLE):** Antigravity transcribes exclusively what the human said. No speculative content, no placeholder text, no suggested completions. Empty cells are the product.
+1. For new nodes: copy `.agents/templates/khaos-nodo.md` into `knowledge-base/khaos/` with a human-readable filename in Spanish. **Naming rule (Anti-solapamiento):** Filenames must be clean and concise. Do not prefix child nodes with their parent's name. Hierarchy is maintained strictly via `depende_de`.
+2. Populate YAML frontmatter: `estado: borrador`, `depende_de: [[parent]]`, `se_descompone_en: []`, `se_relaciona_con: []`, `cssclasses: [kb-node]` (mandatory for formatting).
+3. **Formatting rule (INVIOLABLE):** NEVER wrap wikilinks in backticks (e.g., `[[Node]]`). Backticks format the text as inline code, breaking Obsidian's bidirectional graph detection. All links must be plain `[[Node]]`.
+4. Populate `## Qué es` with the responsibility in one phrase — only if the human provided this information.
+5. Populate `## Por qué existe` with a wikilink to the parent node or Kratos source — only if known.
+6. Populate `## Compromisos` table: fill **only** the rows the human explicitly described. The columns (Actor, Acción, Sustento) are always present. Cells without information remain **structurally empty**.
+7. **Exhaustividad Inducida (INVIOLABLE):** Rellenar la sección `## Qué falta` evaluando críticamente la responsabilidad descrita. Si no hay vacíos evidentes detectados por la auditoría, Antigravity DEBE proponer **hipótesis de vacíos** (ej. casos límite no contemplados, riesgos regulatorios latentes, integraciones futuras necesarias). Esta sección NUNCA debe quedar vacía.
+8. **Transcription rule:** Antigravity transcribe fielmente lo que dice el humano para la esencia y los compromisos, pero **DEBE actuar como co-arquitecto crítico** en la redacción de la sección `## Qué falta`, aportando visión y especulación sobre lo que podría estar obviándose.
 
 **Output:** Khaos node(s) created or updated in `knowledge-base/khaos/`.
 
@@ -61,7 +75,18 @@ For each responsibility:
 
 **Output:** Confirmation that no deferred topics were re-raised.
 
-## Phase 5: Gate
+## Phase 5: Enriquecimiento Kratos y Reality Check
+
+**Objective:** Ensure extreme architectural rigor by crossing the new Khaos node with the existing Kratos foundation and evaluating its pragmatic viability.
+
+1. **Kratos Cross-Reference:** Antigravity MUST proactively search the existing `kratos/` directory for facts (laws, constraints, operational standards like `OIML R76-1` or `Ley 21.719`) that apply to the responsibility but were not explicitly mentioned by the human. Enrich the `## Compromisos` table with these findings.
+2. **Deep Hypotheses (True Gaps):** When filling `## Qué falta` (Phase 3, Step 7), Antigravity MUST push past superficial gaps and formulate hypotheses about *true structural gaps* in Kratos (e.g., "Kratos does not specify the legal protocol if X fails"). Every hypothesis must be grounded in a Kratos reality.
+3. **Pragmatic Reality Check:** Silently evaluate the updated Khaos architecture against 6 perspectives: Filosófica (Middleware purity), Económica (B2B value/cost), Técnica (AI buildability vs Deadline), Regulatoria (Strict compliance vs nice-to-have), Práctica (Field friction), and Pragmática (Scope creep).
+4. **Challenge Rule:** If the Reality Check reveals severe scope creep, field friction, or risk to the timeline, Antigravity MUST challenge the human in the chat response, explicitly proposing simplifications or deferrals.
+
+**Output:** Enriched node and critical evaluation ready for chat response.
+
+## Phase 6: Gate
 
 Verify before completing:
 
@@ -69,8 +94,11 @@ Verify before completing:
 |---|---|
 | Fidelity | Does the node reflect EXCLUSIVELY what the human said? |
 | No speculation | Are there any AI-generated suggestions, questions, or placeholder text in the node? If yes → remove. |
-| Naming | Is the filename human-readable and self-explanatory in Spanish? |
-| Hierarchy | If child: is parent's `se_descompone_en` updated? If mutation: are affected nodes updated? |
+| Naming | Is the filename human-readable and self-explanatory in Spanish, without redundant parent prefixes? |
+| Hierarchy (Orphans) | Is the node linked to a parent via `depende_de` (unless it is a legitimate root entity)? |
+| Hierarchy (Bidirectional) | If child: is parent's `se_descompone_en` updated? If mutation: are affected nodes updated? |
+| Lateral Relations (Outgoing) | Are all new `se_relaciona_con` entries captured in YAML and explained in `## Relaciones Horizontales`? |
+| Lateral Relations (Incoming) | For every new lateral relation, has the REMOTE node's `se_relaciona_con` YAML and `## Relaciones Horizontales` been updated to reflect the inverse link? |
 | Deferrals | Were all vigent deferrals respected? |
 
 If any check fails, correct before proceeding.

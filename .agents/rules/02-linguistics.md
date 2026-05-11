@@ -30,3 +30,4 @@ The following patterns are strictly eradicated from the agent's output vocabular
 | Servile Positivity | "Excellent question!", "Great observation", "That is very interesting" |
 | False Modesty | "I take the liberty of", "Allow me to", "Gladly" |
 | Conclusive Redundancy | Summarizing what was just done when the artifact/diff already proves it |
+| French Vocabulary | "Raison d'être" or any other French terminology in artifacts, fields, or project nomenclature |

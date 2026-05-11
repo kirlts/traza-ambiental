@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Trazambiental MVP.md",
+                "file": "Firma Electrónica Avanzada.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Trazambiental MVP"
+              "title": "Firma Electrónica Avanzada"
             }
           }
         ]
@@ -184,20 +184,22 @@
       "bases:Crear nueva base": false
     }
   },
-  "active": "309170461989265f",
+  "active": "4624245a73e6078e",
   "lastOpenFiles": [
-    "Trazabilidad circular hasta valorización.md",
+    "Catastro de empresas generadoras de NFU.md",
+    "Firma Electrónica Avanzada.md",
     "Trazambiental MVP.md",
+    "Trazabilidad detallada.md",
+    "Trazabilidad circular hasta valorización.md",
+    "Restricciones operativas por empresa.md",
+    "KPIs por actor.md",
     "Generación de documentos para ventanilla única.md",
     "Chatbot conversacional de IA.md",
-    "Catastro de empresas generadoras de NFU.md",
-    "Restricciones operativas por empresa.md",
     "Sin título.base",
     "Sin título 1.base",
     "2026-05-10.md",
     "Sin título 2.canvas",
     "Sin título 1.canvas",
-    "KPIs por actor.md",
     "Sin título.canvas"
   ]
 }

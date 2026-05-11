@@ -41,7 +41,9 @@ In addition to static rules, the agent possesses specialized skills for complex 
 
 ## [RULE: KNOWLEDGE BASE MODIFICATION GATE]
 
-This is the formal entry point for all modifications to `knowledge-base/`. The AI never writes to the KB autonomously — every modification requires explicit human confirmation.
+> **[FATAL WARNING]** This is the formal entry point for all modifications to `knowledge-base/`. The AI NEVER writes to the KB autonomously. It is a PROTOCOL VIOLATION to create, modify, or append any concept in `knowledge-base/kratos/` or `knowledge-base/khaos/` without EXPLICIT human confirmation. You MUST wait for the user to say "yes", "proceed", "dale", etc.
+
+> **[CRITICAL: SEPARATE AUTHORIZATION]** Kratos and Khaos are independent authorization domains. Approval to modify one does NOT extend to the other. The agent MUST obtain separate, explicit confirmation for each domain. A session authorized to populate Kratos CANNOT modify Khaos without a new, distinct approval — and vice versa. Cross-domain modifications (e.g., adding wikilinks from Khaos to Kratos during a Kratos-only session) are a protocol violation.
 
 **Protocol:**
 
@@ -50,12 +52,13 @@ This is the formal entry point for all modifications to `knowledge-base/`. The A
    - **Responsibility** → proposes executing `desplegar-khaos` workflow
    - **Decision/Preference** → proposes USER-DECISIONS entry
    - **Ambiguous** → asks the human for clarification before proceeding
-2. **Propose:** The AI presents to the human:
+2. **Propose (domain-specific):** The AI presents to the human:
+   - Which **specific domain** will be modified (`kratos/`, `khaos/`, or both)
    - Which workflow it intends to execute
-   - What modifications it will make (new node, append, mutation, child creation)
-   - The content it plans to write (node name, fields to populate, fields left empty)
-3. **Confirm:** The human confirms ("sí", "dale", "ok", or equivalent) before the AI writes anything to `knowledge-base/`.
-4. **Execute:** Only after confirmation, the AI executes the workflow and writes the node(s).
+   - What modifications it will make (new concept, append, mutation)
+   - The content it plans to write (concept name, fields to populate, fields left empty)
+3. **Confirm (per domain):** The human confirms SEPARATELY for each domain. If both domains are affected, the AI requests two distinct confirmations. A blanket "dale" only covers the domain explicitly discussed.
+4. **Execute:** Only after confirmation for the specific domain, the AI executes the workflow and writes the concept(s).
 5. **Report:** After execution, the AI reports what was created/modified with wikilinks.
 
 **Exception:** Modifications to `docs/` (USER-DECISIONS, MASTER-SPEC, MEMORY, REPOMAP) follow their own protocols and do not require this gate, though USER-DECISIONS entries still require human confirmation per the Operational Memory Protocol.

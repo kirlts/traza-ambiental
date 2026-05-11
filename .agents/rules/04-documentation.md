@@ -88,6 +88,7 @@ All files in `knowledge-base/` must adhere to this formatting standard. The prin
 ### Cross-References (anti Cat-9: Flat Architecture)
 
 - All references between nodes use wikilinks: `[[Node Name]]`.
+- **No backticks around wikilinks:** Never wrap wikilinks in backticks (e.g., `[[Node]]`). Backticks format the text as inline code, which completely disables Obsidian's link detection and breaks the graph.
 - **Body is authoritative for graph:** Wikilinks MUST appear in the Markdown body to be detected by Obsidian's graph view. YAML frontmatter links are metadata only — they are NOT rendered as graph edges.
 - **Child nodes must link to parent in body:** Every child node's `## Por qué existe` section must contain `[[Parent Name]]`. An empty `Por qué existe` in a child node is a formatting violation — it breaks the bidirectional graph link between parent and child. This was a session-0 error that must not recur.
 - **`## Se descompone en` lists wikilinks in body:** The body section mirrors the YAML `se_descompone_en` list. This redundancy is intentional: YAML serves machine parsing, body serves Obsidian graph.
@@ -103,8 +104,8 @@ All files in `knowledge-base/` must adhere to this formatting standard. The prin
 
 ### YAML Frontmatter
 
-- Fields: `cssclasses`, `estado`, `depende_de`, `se_descompone_en`.
-- `cssclasses: [kb-node]` — **mandatory on every KB node.** Activates the Obsidian CSS snippet (`trazambiental.css`) that renders justified text without hyphenation.
+- Fields: `cssclasses`, `estado`, `depende_de`, `se_descompone_en`, `se_relaciona_con`.
+- `cssclasses: [kb-node]` — **mandatory on every KB node.** Activates the Obsidian CSS snippet (`trazambiental.css`) that renders justified text without hyphenation. Omitting this field is a formatting violation.
 - `estado` values: `borrador` · `con_vacios` · `completo` · `validado`.
 - `depende_de`: wikilink string to parent (`"[[Parent Name]]"`) or empty for root.
 - `se_descompone_en`: YAML list of wikilink strings, or `[]` if no children.
