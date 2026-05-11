@@ -27,7 +27,7 @@ Este concepto es atómico y no requiere mayor descomposición.
 - [[SINADER]]: **Obligación Operativa:** Los gestores de residuos son los actores responsables de inyectar la data final de valorización o disposición en la plataforma SINADER, cerrando la trazabilidad.
 - [[Secretaría Regional Ministerial de Salud]]: **Dependencia Operativa:** Un Gestor no puede operar físicamente instalaciones sin RCA y permisos otorgados por la SEREMI de Salud.
 - [[Oficio Ordinario 606]]: **Gravamen Económico:** El Oficio 606 dictamina que la actividad del Gestor es un 'proceso industrial', obligándolo a pagar IVA.
-- [[Firma Electrónica Avanzada]]: **Exención Operativa:** Para sus operarios en terreno y personal de patio, el Gestor no está obligado a proveer Firma Electrónica Avanzada individual. La operación diaria se valida mediante credenciales y ACL estándar delegadas, reservando la FEA exclusivamente para la firma corporativa de reportes consolidados por parte de su Representante Legal.
+- [[Firma Electrónica Avanzada]]: **Exención Operativa:** Para sus operarios en terreno y personal de patio, el Gestor no está obligado a proveer Firma Electrónica Avanzada individual. La FEA solo es requerida para la emisión de DTEs ante el SII (facturas, guías de despacho), no para reportes ambientales al SISREP o SINADER. La operación diaria se valida mediante credenciales y ACL estándar delegadas por el Representante Legal.
 - [[Certificado de Valorización]]: **Emisor Exclusivo:** El Gestor es el único actor facultado jurídicamente para emitir este certificado una vez finalizado el proceso de reciclaje físico.
 
 ## Fuente original

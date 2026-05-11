@@ -28,7 +28,7 @@ Este concepto no posee relaciones horizontales directas modeladas en el sistema.
 
 ## Fuente original
 
-Informe Técnico de Auditoría 2026.
+Observación derivada de la arquitectura del RETC y SINADER (hecho negativo sin fuente normativa).
 
 ## Evidencia
 

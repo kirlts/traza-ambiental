@@ -4,7 +4,7 @@ tipo: norma_legal
 vigencia: por_verificar
 depende_de: "[[Ministerio de Hacienda]]"
 se_descompone_en: ["[[Oficio Ordinario 606]]", "[[Resolución Exenta 154]]"]
-se_relaciona_con: ["[[Firma Electrónica Avanzada]]", "[[SISREP]]", "[[Resolución Exenta 2084]]", "[[Sistema de Gestión]]"]
+se_relaciona_con: ["[[Firma Electrónica Avanzada]]", "[[SISREP]]", "[[Resolución Exenta 2084]]", "[[Sistema de Gestión]]", "[[Ingreso Manual de Folio DTE]]"]
 cssclasses: [kb-node]
 ---
 
@@ -29,6 +29,7 @@ Se descompone en dos conceptos: [[Oficio Ordinario 606]], que contiene un dictam
 - [[SISREP]]: **Acoplamiento Tributario-Ambiental:** El SISREP exige el costo exacto en pesos chilenos y el folio del DTE, obligando a calzar la contabilidad financiera con la trazabilidad ambiental.
 - [[Resolución Exenta 2084]]: **Conciliación Financiera:** El anexo de la Res 2084 exige explícitamente reportar "Costo CLP" y "Folio DTE SII".
 - [[Sistema de Gestión]]: **Desacoplamiento de ERP y Trazabilidad:** Para propósitos de la Ley REP, no se exige que el software de trazabilidad ambiental de un Sistema de Gestión opere simultáneamente como el ERP financiero de recaudación homologado por el SII. Es jurídicamente válido mantener sistemas desacoplados, siempre que se garantice la trazabilidad vincular inter-transaccional mediante la indexación del folio DTE en los registros de toneladas.
+- [[Ingreso Manual de Folio DTE]]: **Desacoplamiento Operativo:** Esta decisión del CEO materializa la separación entre la trazabilidad ambiental y el ERP tributario. El folio DTE se ingresa como campo de texto libre en el MVP, funcionando como clave foránea manual que vincula ambos mundos sin requerir integración técnica con los sistemas del SII.
 
 ## Fuente original
 

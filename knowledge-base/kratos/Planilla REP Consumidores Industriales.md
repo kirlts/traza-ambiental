@@ -27,7 +27,7 @@ Este concepto es atómico y no requiere mayor descomposición.
 
 ## Relaciones Horizontales
 
-- [[Sistema de Gestión]]: **Crédito de Tonelajes:** Interacción donde la valorización lograda autónomamente por un Consumidor Industrial puede asociarse legalmente a un GRANSIC para imputar tonelajes a las metas del productor.
+- [[Sistema de Gestión]]: **Crédito de Tonelajes:** Interacción donde la valorización lograda autónomamente por un Consumidor Industrial puede asociarse legalmente a un Sistema de Gestión Colectivo para imputar tonelajes a las metas del productor.
 - [[Consumidor Industrial]]: **Diccionario de datos para flujos CI:** Es el instrumento normativo rígido a través del cual este actor en particular rinde cuenta de sus operaciones in-situ.
 
 ## Fuente original

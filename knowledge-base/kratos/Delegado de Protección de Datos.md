@@ -4,7 +4,7 @@ tipo: norma_legal
 vigencia: por_verificar
 depende_de: "[[Ley 21.719]]"
 se_descompone_en: []
-se_relaciona_con: ["[[Sistema de Gestión]]"]
+se_relaciona_con: ["[[Sistema de Gestión]]", "[[Sistema de Gestión Colectivo]]"]
 cssclasses: [kb-node]
 ---
 
@@ -16,7 +16,7 @@ Figura obligatoria para organizaciones que traten datos personales a gran escala
 
 ## Por qué existe
 
-Este concepto se deriva de [[Ley 21.719]] porque la figura del Delegado es creada y regulada por dicha ley. Para Trazambiental, la necesidad de un DPO depende del volumen de datos procesados. Los GRANSIC (Sistemas de Gestión colectivos) que procesan información de miles de actores probablemente necesitan un DPO; Trazambiental como empresa SaaS deberá evaluar si su escala de tratamiento activa esta obligación.
+Este concepto se deriva de [[Ley 21.719]] porque la figura del Delegado es creada y regulada por dicha ley. Para Trazambiental, la necesidad de un DPO depende del volumen de datos procesados. Los Sistemas de Gestión Colectivos que procesan información de miles de actores probablemente necesitan un DPO; Trazambiental como empresa SaaS deberá evaluar si su escala de tratamiento activa esta obligación.
 
 ## Lógica de descomposición
 
@@ -24,7 +24,8 @@ Este concepto es atómico y no requiere mayor descomposición.
 
 ## Relaciones Horizontales
 
-- [[Sistema de Gestión]]: **Mitigación de Riesgos:** Al procesar información de miles de actores, un GRANSIC se convierte en un procesador a gran escala, haciendo vital la designación de un DPO.
+- [[Sistema de Gestión]]: **Mitigación de Riesgos:** Al procesar información de miles de actores, un Sistema de Gestión Colectivo se convierte en un procesador a gran escala, haciendo vital la designación de un DPO.
+- [[Sistema de Gestión Colectivo]]: **Escala de Tratamiento:** El Sistema de Gestión Colectivo es el caso concreto donde la designación de un DPO se vuelve operativamente necesaria, dado que procesa datos personales de miles de generadores, transportistas y gestores afiliados.
 
 ## Fuente original
 

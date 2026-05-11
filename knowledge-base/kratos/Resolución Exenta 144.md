@@ -4,7 +4,7 @@ tipo: norma_legal
 vigencia: por_verificar
 depende_de: "[[Ministerio del Medio Ambiente]]"
 se_descompone_en: []
-se_relaciona_con: []
+se_relaciona_con: ["[[RETC]]", "[[Validación de Identidad por Buena Fe]]", "[[Firma Electrónica Avanzada]]"]
 cssclasses: [kb-node]
 ---
 
@@ -24,7 +24,9 @@ Este concepto es atómico y no requiere mayor descomposición.
 
 ## Relaciones Horizontales
 
-Este concepto no posee relaciones horizontales directas modeladas en el sistema.
+- [[RETC]]: **Mecanismo de Acceso:** La Res. 144 norma el acceso al RETC (incluyendo SINADER), exigiendo ClaveÚnica como mecanismo exclusivo de autenticación. Esto confirma que la plataforma estatal NO requiere FEA para el ingreso de reportes ambientales.
+- [[Validación de Identidad por Buena Fe]]: **Límite de Responsabilidad:** La Res. 144 exige que el MMA valide al "Encargado de Establecimiento", pero no impone esta carga sobre middlewares privados como Trazambiental, reforzando la decisión de buena fe.
+- [[Firma Electrónica Avanzada]]: **Exclusión Explícita:** La existencia de la Res. 144 (autenticación vía ClaveÚnica) confirma que la FEA no es parte del flujo de reportabilidad ambiental.
 
 ## Fuente original
 

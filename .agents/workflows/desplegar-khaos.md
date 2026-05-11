@@ -54,7 +54,7 @@ For each responsibility:
 
 **Objective:** Create or update the Khaos node(s).
 
-1. For new nodes: copy `.agents/templates/khaos-nodo.md` into `knowledge-base/khaos/` with a human-readable filename in Spanish. **Naming rule (Anti-solapamiento):** Filenames must be clean and concise. Do not prefix child nodes with their parent's name. Hierarchy is maintained strictly via `depende_de`.
+1. For new nodes: copy `.agents/templates/khaos-nodo.md` into `knowledge-base/khaos/` with a human-readable filename in Spanish. **Naming rule (Namespacing Ontológico):** Filenames MUST be action-oriented phrases representing system responsibilities or capabilities (e.g., `Gestión de Generadores`, `Módulo de Trazabilidad`, `Validación de...`). NEVER use just the noun of the entity it manages. This prevents naming collisions with Kratos. Do not prefix child nodes with their parent's name. Hierarchy is maintained strictly via `depende_de`.
 2. Populate YAML frontmatter: `estado: borrador`, `depende_de: [[parent]]`, `se_descompone_en: []`, `se_relaciona_con: []`, `cssclasses: [kb-node]` (mandatory for formatting).
 3. **Formatting rule (INVIOLABLE):** NEVER wrap wikilinks in backticks (e.g., `[[Node]]`). Backticks format the text as inline code, breaking Obsidian's bidirectional graph detection. All links must be plain `[[Node]]`.
 4. Populate `## Qué es` with the responsibility in one phrase — only if the human provided this information.
@@ -94,7 +94,8 @@ Verify before completing:
 |---|---|
 | Fidelity | Does the node reflect EXCLUSIVELY what the human said? |
 | No speculation | Are there any AI-generated suggestions, questions, or placeholder text in the node? If yes → remove. |
-| Naming | Is the filename human-readable and self-explanatory in Spanish, without redundant parent prefixes? |
+| Naming | Is the filename an action-oriented phrase (responsibility/capability), NOT just a noun? |
+| Phantom Nodes | Was the node created using the proper template and NOT as an empty 0-byte file? |
 | Hierarchy (Orphans) | Is the node linked to a parent via `depende_de` (unless it is a legitimate root entity)? |
 | Hierarchy (Bidirectional) | If child: is parent's `se_descompone_en` updated? If mutation: are affected nodes updated? |
 | Lateral Relations (Outgoing) | Are all new `se_relaciona_con` entries captured in YAML and explained in `## Relaciones Horizontales`? |

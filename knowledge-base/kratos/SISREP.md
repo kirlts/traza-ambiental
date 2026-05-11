@@ -4,7 +4,7 @@ tipo: requisito_tecnico
 vigencia: por_verificar
 depende_de: "[[Resolución Exenta 2084]]"
 se_descompone_en: ["[[Registro Público de Sistemas de Gestión]]"]
-se_relaciona_con: ["[[Consumidor Industrial]]", "[[Registro de Actividades de Tratamiento]]", "[[Servicio de Impuestos Internos]]", "[[OIML R76-1]]"]
+se_relaciona_con: ["[[Consumidor Industrial]]", "[[Registro de Actividades de Tratamiento]]", "[[Servicio de Impuestos Internos]]", "[[OIML R76-1]]", "[[Regla del Penúltimo Mes]]", "[[Rectificabilidad de Reportes Mensuales]]", "[[Formato Dinámico Anexo Neumáticos]]", "[[Habilitación Etapa 3 Consumidores Industriales]]"]
 cssclasses: [kb-node]
 ---
 
@@ -32,6 +32,10 @@ Se descompone en: [[Registro Público de Sistemas de Gestión]], que es el mecan
 - [[Registro de Actividades de Tratamiento]]: **Inventario de Flujos:** El SISREP obliga a recopilar rutas, costos y RUTs. Esta ingesta debe quedar mapeada dentro del RAT exigido por la Ley de Privacidad.
 - [[Consumidor Industrial]]: **Vía Alternativa de Cumplimiento:** Los Consumidores Industriales utilizan canales de rendición paralelos (Google Forms) para acreditar valorización in-situ.
 - [[OIML R76-1]]: **Unidad de medición macroscópica:** El tonelaje reportado en SISREP requiere respaldo metrológico fundamentado en romanas certificadas según esta norma, no en cálculos teóricos de desgaste o registro individual por SKU.
+- [[Regla del Penúltimo Mes]]: **Recalibración de Plazos:** La Res. 2279 modificó la ventana de declaración mensual al SISREP, pasando de "mes anterior" a "penúltimo mes contado desde la fecha del reporte".
+- [[Rectificabilidad de Reportes Mensuales]]: **Diseño de Versionado:** Los reportes mensuales enviados al SISREP pueden ser rectificados o complementados tantas veces como sea necesario hasta la remisión del informe final anual.
+- [[Formato Dinámico Anexo Neumáticos]]: **Brecha Tecnológica:** La estructura del Anexo Neumáticos que ingesta el SISREP es dinámica y discrecional de la SMA, no publicada estáticamente en ley.
+- [[Habilitación Etapa 3 Consumidores Industriales]]: **Cronología Diferenciada:** La Etapa 3 del SISREP para Consumidores Industriales se habilitó en junio 2025 con obligación de regularización retroactiva.
 
 ## Fuente original
 

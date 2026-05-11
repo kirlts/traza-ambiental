@@ -1,6 +1,6 @@
 ---
 cssclasses: [kb-node]
-estado: completo
+estado: con_vacios
 depende_de: "[[Trazambiental MVP]]"
 se_descompone_en: []
 se_relaciona_con: ["[[Trazabilidad detallada]]"]
@@ -39,8 +39,12 @@ Este concepto es atómico y no requiere mayor descomposición.
 
 ## Qué falta
 
+**Hipótesis de vacíos operativos:**
+1. **Responsabilidad Legal de las Notas:** No está definido quién es responsable si un accidente ocurre porque las notas operativas estaban desactualizadas o incompletas. ¿Trazambiental se exime vía TyC, o la nota genera una obligación trazable?
+2. **Interacción con DS 298:** Si un retiro involucra NFU en condiciones peligrosas, las restricciones operativas deberían reflejar las condiciones del [[Decreto Supremo 298]] (transporte de carga peligrosa). El campo de notas libres no es suficiente para codificar restricciones normativas de este nivel.
+
 
 
 ## Justificación de estado
 
-Avanza a `completo` porque su tabla de compromisos está íntegramente sustentada en la regla de negocio operativa documentada en Kratos y no presenta lagunas lógicas para la funcionalidad simple del MVP.
+Retrocede a `con_vacios` porque se identificaron hipótesis de vacíos operativos sobre responsabilidad legal de las notas e interacción con el DS 298 para NFU peligrosos. Los compromisos base siguen sustentados en Kratos.

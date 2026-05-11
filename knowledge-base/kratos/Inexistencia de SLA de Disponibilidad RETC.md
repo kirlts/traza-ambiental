@@ -31,7 +31,7 @@ Este concepto es atómico y no requiere mayor descomposición.
 
 ## Fuente original
 
-Informe Técnico de Auditoría 2026.
+Observación derivada de la arquitectura del RETC y SINADER (hecho negativo sin fuente normativa).
 
 ## Evidencia
 

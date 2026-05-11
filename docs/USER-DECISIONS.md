@@ -164,3 +164,30 @@ Las plantillas en `.agents/templates/` y las especificaciones en MASTER-SPEC §7
 **Contexto:** El Estado cambia los formatos Excel sin avisar mediante SLAs formales.
 **Decisión:** El Administrador de Trazambiental será el responsable operativo de monitorear manualmente los canales del Estado y actualizar los formatos de generación en el sistema.
 **Condiciones de reversión:** El MMA implementa un feed de notificaciones para desarrolladores.
+
+---
+
+## [UD-027] 💡 Folio DTE como ingreso manual (sin integración ERP)
+
+**Fecha:** 2026-05-11
+**Contexto:** La Resolución Exenta 2084 exige reportar el folio DTE del SII en cada operación de manejo. Se evaluó si el sistema requiere integración directa con el ERP del cliente o con los sistemas del SII.
+**Decisión:** El folio DTE se ingresa como campo de texto libre por el usuario. No se requiere integración con ERP ni con SII para el MVP. El sistema acepta el número bajo principio de buena fe. Concepto Kratos creado: [[Ingreso Manual de Folio DTE]].
+**Condiciones de reversión:** Para post-MVP se evaluará integración automática con sistemas del SII, pero está fuera del scope MVP.
+
+---
+
+## [UD-028] ✅ Verificación de obligatoriedad de FEA para reportes al MMA — RESUELTA
+
+**Fecha:** 2026-05-11
+**Contexto:** El nodo Kratos [[Firma Electrónica Avanzada]] afirmaba que la FEA era obligatoria para reportes finales al MMA. La contradicción interna fue una alucinación arquitectónica confirmada.
+**Resolución:** Verificado contra Resolución Exenta 2084, manuales SINADER y Resolución Exenta 144: la FEA **NO es obligatoria** para reportes ambientales (SISREP/SINADER). El mecanismo oficial es ClaveÚnica vía Ventanilla Única del RETC. La FEA solo es requerida para DTEs ante el SII y contratos entre actores. Todos los nodos Kratos y Khaos afectados fueron corregidos (Ministerio de Economía, Gestor, Ley 21.719 Art. 13, Requisitos PSC, Generación de documentos). Se añadieron relaciones bidireccionales con [[Resolución Exenta 144]] como nodo de confirmación.
+**Fecha de resolución:** 2026-05-11
+
+---
+
+## [UD-029] 💡 Productor y Comercializador fuera del scope de usuarios del MVP
+
+**Fecha:** 2026-05-11
+**Contexto:** El nodo raíz de Khaos listaba al Productor ("Importadores/Fabricantes") como actor con la acción "Introducir producto prioritario y financiar recolección". Sin embargo, tres nodos Kratos ([[Productor]], [[Obligaciones de los Productores]], [[Ley 20.920 - Artículo 9]]) confirman de forma convergente que "el usuario directo del MVP es el Generador (no el Productor)" y que las obligaciones del Productor "crean la demanda de mercado" sin interactuar con el software. El [[Comercializador]] opera en la misma lógica upstream.
+**Decisión:** El Productor y el Comercializador NO son usuarios del software. Se eliminaron de la tabla de compromisos del nodo raíz de Khaos. Su rol ecosistémico se documenta en la sección "Por qué existe" del MVP raíz como los actores cuyas obligaciones legales crean la demanda de mercado que el MVP explota.
+**Condiciones de reversión:** Si el CEO decide ampliar el scope del MVP para incluir módulos de Productor (ej. reportabilidad de introducción al mercado, equivalencia SKU-Peso).

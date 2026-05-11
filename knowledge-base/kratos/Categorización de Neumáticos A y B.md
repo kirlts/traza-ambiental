@@ -4,7 +4,7 @@ tipo: norma_legal
 vigencia: por_verificar
 depende_de: "[[Decreto Supremo 8]]"
 se_descompone_en: []
-se_relaciona_con: ["[[Declaración Jurada REP Neumáticos]]", "[[Convenio de Basilea - Anexo IX]]"]
+se_relaciona_con: ["[[Declaración Jurada REP Neumáticos]]", "[[Convenio de Basilea - Anexo IX]]", "[[Decreto Supremo 29]]", "[[Sistema de Gestión Individual]]"]
 cssclasses: [kb-node]
 ---
 
@@ -26,6 +26,8 @@ Este concepto es atómico y no requiere mayor descomposición.
 
 - [[Declaración Jurada REP Neumáticos]]: **Complementariedad Documental:** La Declaración Jurada REP debe especificar la categoría (A o B) del neumático importado, vinculando el instrumento aduanero con la clasificación del DS 8.
 - [[Convenio de Basilea - Anexo IX]]: **Tipificación aduanera:** En sistemas aduaneros y para el comercio internacional, estas categorías (A o B) deben mapearse e integrarse bajo el código B3140 de no peligrosidad.
+- [[Decreto Supremo 29]]: **Habilitación de Coprocesamiento (Cat B):** El DS 29 regula los parámetros de emisión bajo los cuales las plantas cementeras pueden coprocesar NFU Cat B como combustible alternativo (valorización energética).
+- [[Sistema de Gestión Individual]]: **Restricción de Modalidad:** Solo Cat B puede operar bajo sistema de gestión individual. Cat A está obligado a operar bajo sistema colectivo, lo que hace de esta categorización el criterio determinante para la elegibilidad de modalidad.
 
 ## Fuente original
 

@@ -9,6 +9,9 @@ se_relaciona_con:
 - '[[Sistema de Gestión]]'
 - '[[Planilla REP Consumidores Industriales]]'
 - '[[Decreto Supremo 8]]'
+- '[[Regla del Penúltimo Mes]]'
+- '[[Habilitación Etapa 3 Consumidores Industriales]]'
+- '[[Sistema de Gestión Individual]]'
 cssclasses:
 - kb-node
 ---
@@ -36,6 +39,9 @@ Este concepto es atómico y no requiere mayor descomposición.
 - [[Sistema de Gestión]]: **Convenios de Asociación.** En su matriz operativa, el Consumidor Industrial debe declarar con qué Sistemas de Gestión mantiene convenios vigentes (ej. Neuvol, Valora Más) para que sus toneladas valorizadas in-situ se imputen a las metas de los productores.
 - [[Planilla REP Consumidores Industriales]]: **Diccionario de datos para flujos CI:** Las planillas (CIA0, CIB1, CIB2) constituyen el formato exacto en el cual este actor debe vaciar sus operaciones ante el Estado.
 - [[Decreto Supremo 8]]: **Relación Bidireccional:** Vínculo estructurado para mantener la simetría del grafo.
+- [[Regla del Penúltimo Mes]]: **Ventana de Declaración:** La regla del "penúltimo mes" aplica tanto a Sistemas de Gestión como a Consumidores Industriales que reportan al SISREP.
+- [[Habilitación Etapa 3 Consumidores Industriales]]: **Cronología Diferenciada:** La Etapa 3 del SISREP se habilitó en junio 2025 específicamente para Consumidores Industriales, con obligación de regularización retroactiva.
+- [[Sistema de Gestión Individual]]: **Vía de Cumplimiento Autónomo:** El Consumidor Industrial que valoriza in-situ típicamente se asocia a un Sistema de Gestión Individual para imputar sus tonelajes a las metas del productor, constituyendo el caso de uso principal de esta modalidad.
 
 
 ## Fuente original

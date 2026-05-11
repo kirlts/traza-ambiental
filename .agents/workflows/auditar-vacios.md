@@ -20,12 +20,13 @@ This workflow traverses the Khaos tree to detect structural gaps, filters them a
 
 1. Traverse every node in `knowledge-base/khaos/`.
 2. For each node, inspect:
+   - **Is it a phantom node?** (0 bytes or missing YAML frontmatter) → FLAG FOR IMMEDIATE DELETION.
    - `## Qué es` — empty?
    - `## Por qué existe` — empty or broken wikilink?
    - `## Compromisos` — empty rows? Rows with empty Actor, Acción, or Sustento cells?
    - `se_descompone_en` — listed children that don't exist as files?
    - `depende_de` — parent that doesn't exist as file?
-3. Record every gap with its node, field, and nature (empty / broken link / missing file).
+3. Record every gap with its node, field, and nature (empty / broken link / missing file / phantom node).
 
 **Output:** Gap inventory table.
 

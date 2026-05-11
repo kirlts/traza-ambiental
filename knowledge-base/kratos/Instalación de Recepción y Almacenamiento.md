@@ -4,7 +4,7 @@ tipo: norma_legal
 vigencia: por_verificar
 depende_de: "[[Ley 20.920 - Artículo 3]]"
 se_descompone_en: []
-se_relaciona_con: ["[[Decreto Supremo 29]]"]
+se_relaciona_con: []
 cssclasses: [kb-node]
 ---
 
@@ -24,7 +24,7 @@ Este concepto es atómico y no requiere mayor descomposición.
 
 ## Relaciones Horizontales
 
-- [[Decreto Supremo 29]]: **Regulación Sanitaria:** Es la norma que clasifica a los patios de acopio intermedio como IRAR, obligándolos a dividirse logísticamente si superan las 12 toneladas anuales.
+Este concepto no posee relaciones horizontales directas modeladas en el sistema.
 
 ## Fuente original
 

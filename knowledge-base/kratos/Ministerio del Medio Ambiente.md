@@ -3,7 +3,7 @@ estado: borrador
 tipo: factor_externo
 vigencia: por_verificar
 depende_de: 
-se_descompone_en: ["[[Ley 20.920]]", "[[Decreto Supremo 8]]", "[[Decreto Supremo 1]]", "[[Decreto Supremo 9]]", "[[RETC]]", "[[Resolución Exenta 144]]", "[[Inexistencia de Regulación End of Waste]]"]
+se_descompone_en: ["[[Ley 20.920]]", "[[Decreto Supremo 8]]", "[[Decreto Supremo 1]]", "[[Decreto Supremo 9]]", "[[Decreto Supremo 29]]", "[[RETC]]", "[[Resolución Exenta 144]]", "[[Inexistencia de Regulación End of Waste]]"]
 se_relaciona_con: ["[[Superintendencia del Medio Ambiente]]"]
 cssclasses: [kb-node]
 ---
@@ -20,7 +20,7 @@ Esta es una institución de primer nivel en la base de conocimiento. No se deriv
 
 ## Lógica de descomposición
 
-Se descompone en siete conceptos que cubren de forma exhaustiva los instrumentos relevantes para el MVP: [[Ley 20.920]] (el marco legal general de responsabilidad extendida del productor), [[Decreto Supremo 8]] (la regulación específica para neumáticos con metas cuantitativas), [[Decreto Supremo 1]] (reglamento del RETC), [[Decreto Supremo 9]] (reglamento de movimientos transfronterizos), [[Resolución Exenta 144]] (declaración de residuos peligrosos), [[RETC]] (la infraestructura tecnológica de declaración), y [[Inexistencia de Regulación End of Waste]] (el límite de jurisdicción del ministerio). Juntos, estos conceptos representan las dimensiones normativa, reglamentaria y tecnológica del dominio ambiental bajo jurisdicción del MMA relevantes para el MVP.
+Se descompone en ocho conceptos que cubren de forma exhaustiva los instrumentos relevantes para el MVP: [[Ley 20.920]] (el marco legal general de responsabilidad extendida del productor), [[Decreto Supremo 8]] (la regulación específica para neumáticos con metas cuantitativas), [[Decreto Supremo 1]] (reglamento del RETC), [[Decreto Supremo 9]] (reglamento de movimientos transfronterizos), [[Decreto Supremo 29]] (norma de emisión para incineración, coincineración y coprocesamiento), [[Resolución Exenta 144]] (declaración de residuos peligrosos), [[RETC]] (la infraestructura tecnológica de declaración), y [[Inexistencia de Regulación End of Waste]] (el límite de jurisdicción del ministerio). Juntos, estos conceptos representan las dimensiones normativa, reglamentaria y tecnológica del dominio ambiental bajo jurisdicción del MMA relevantes para el MVP.
 
 
 ## Relaciones Horizontales

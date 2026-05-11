@@ -87,6 +87,8 @@
 10. **Khaos solo referencia Kratos:** Los nodos en `khaos/` solo pueden referenciar nodos en `kratos/` como sustento factual. No pueden referenciar documentos fuera de la KB (`docs/`, `Docs/`, archivos externos). Las referencias internas entre nodos Khaos (padre/hijo) son permitidas.
 11. **Compatibilidad nativa con Obsidian:** Toda referencia entre nodos usa wikilinks (`[[Nombre del Nodo]]`). Obsidian resuelve wikilinks por nombre de archivo globalmente dentro del vault. **Bajo ninguna circunstancia se deben envolver los wikilinks en backticks (ej. `[[Nodo]]`)**, ya que esto formatea el texto como código en línea y desactiva el ruteo del grafo. Cuando se necesiten enlaces estándar Markdown, se usan rutas relativas (`../kratos/nombre.md`), nunca absolutas. `kratos/` y `khaos/` son directorios hermanos dentro de `knowledge-base/`. Todo nodo KB incluye `cssclasses: [kb-node]` en su frontmatter YAML para activar el snippet CSS que renderiza texto justificado sin hyphenation. El vault de Obsidian apunta a `knowledge-base/`.
 12. **Fuente de verdad exclusiva en la KB:** Solo `knowledge-base/kratos/` y `knowledge-base/khaos/` contienen información autorizada. Los directorios `info/`, `work/`, y cualquier otro archivo fuera de `knowledge-base/` son **material crudo no verificado**. La IA no puede: (a) citar contenido de estos directorios como hecho verificado, (b) copiar texto directamente desde ellos a un nodo KB sin reestructuración, (c) tratar informes de deep research como fuente factual — primero deben pasar por el workflow `/estructurar-kratos` con confirmación humana, ni (d) citar informes de investigación (deep research) como `evidencia` en ningún nodo Kratos. Si no existe una fuente o evidencia REAL verificable (ley, decreto, web oficial), el campo `evidencia` DEBE quedar explícitamente en blanco.
+13. **Prohibición de nodos completamente vacíos (Phantom Nodes):** Un vacío en el sistema se representa siempre como un **campo vacío dentro de un nodo debidamente instanciado** con su plantilla base (Kratos o Khaos). Está **estrictamente prohibida** la creación de archivos `.md` completamente vacíos (0 bytes o sin contenido YAML/Markdown válido) producto de resoluciones automáticas de wikilinks. Todo nodo referenciado que no exista debe ser tratado como una laguna de información y creado formalmente mediante los workflows `estructurar-kratos` o `desplegar-khaos`, nunca instanciado como un archivo en blanco.
+14. **Prevención de Colisiones (Namespacing Ontológico):** Obsidian utiliza un namespace global para los wikilinks, por lo que está **estrictamente prohibido** que un nodo Khaos comparta el mismo nombre de archivo que un nodo Kratos. La prevención de colisiones se logra por diseño ontológico: Kratos almacena hechos y entidades (sustantivos puros: `Generador`, `Ventanilla Única`), mientras que Khaos almacena responsabilidades del sistema (acciones o capacidades: `Gestión de Generadores`, `Integración con Ventanilla Única`).
 > Nota: Las restricciones aquí registradas se duplican defensivamente en `.agents/rules/05-constraints.md` para sobrevivir a la degradación de contexto en sesiones largas.
 
 ---
@@ -131,14 +133,15 @@
 
 **Ubicación:** `/knowledge-base/kratos/`
 
-**Estado actual:** Volcado de información cruda en `external-research/` (9 documentos de investigación + datasets de referencia). Pendiente de estructuración en nodos atómicos mediante la plantilla de §7.6.
+**Estado actual:** 122 nodos atómicos estructurados. Incluye 11 instituciones raíz (Ministerios, servicios públicos, organismos internacionales), 6 marcos legales principales (Ley 20.920, DS 8, Ley 21.719, DS 148, DS 298, Convenio de Basilea), y 105 conceptos derivados que cubren normas legales, actores del ecosistema NFU (Generador, Productor, Gestor, Comercializador, Consumidor Industrial, Sistema de Gestión Colectivo/Individual, Transportista), plataformas estatales (RETC, SINADER, SISREP, SICEX), y factores externos. Todos los nodos de tipo `norma_legal` permanecen en estado `borrador` pendientes de enlace de evidencia primaria (UD-019).
 
-**Contenido exclusivo (a estructurar):**
-- Textos legales y normativas (Ley REP, decretos asociados)
-- Reglas prácticas de negocio
-- Decisiones del CEO
-- Definiciones inmutables de actores del ecosistema NFU (generadores, sistemas de gestión, gestores, disposición final — por definir explícitamente)
-- Requerimientos técnicos y reglamentarios de plataformas gubernamentales
+**Contenido estructurado:**
+- Textos legales y normativas (Ley REP, DS 8, DS 29, DS 148, DS 298, Res 134, Res 144, Res 2084, Ley 19.799, Ley 20.285, Ley 21.719 y artículos derivados)
+- Reglas prácticas de negocio (Estrategia B2B, Monitoreo Manual, Ingreso Manual DTE, Validación por Buena Fe)
+- Decisiones del CEO (UD-001 a UD-028)
+- Definiciones inmutables de actores del ecosistema NFU (Generador, Productor, Gestor, Comercializador, Consumidor Industrial, Sistema de Gestión Colectivo, Sistema de Gestión Individual, Transportista, Instalación de Recepción y Almacenamiento)
+- Requerimientos técnicos de plataformas gubernamentales (RETC, SINADER, SISREP, SICEX, ClaveÚnica)
+- Hechos negativos (ausencia de APIs, SLAs, protocolos de cambio, regulación End of Waste, etc.)
 
 **Dependencias:** Ninguna. Kratos es autosuficiente.
 
@@ -150,7 +153,7 @@
 
 **Ubicación:** `/knowledge-base/khaos/`
 
-**Estado actual:** Vacío. Lienzo de trabajo principal para la ideación del SaaS.
+**Estado actual:** 8 nodos instanciados. 1 raíz (`Trazambiental MVP`) + 7 responsabilidades: Catastro de empresas generadoras de NFU, KPIs por actor, Trazabilidad detallada, Trazabilidad circular hasta valorización, Generación de documentos para ventanilla única, Restricciones operativas por empresa, y Soporte a Sistemas de Gestión. Todos en estado `con_vacios` o `borrador`, con hipótesis de vacíos operativos documentadas en cada nodo.
 
 **Paradigma estructural:**
 - **Red jerárquica de responsabilidades MECE:** Cada concepto representa exactamente una responsabilidad concreta y distinguible del MVP frente al dominio. La descomposición es jerárquica: una responsabilidad se descompone en sub-responsabilidades que son mutuamente exclusivas entre sí y colectivamente exhaustivas respecto a la responsabilidad de la cual se derivan.
@@ -220,7 +223,7 @@ Un nodo Khaos no es un documento ni una especificación técnica. Es una **unida
 - **Append a nodo existente:** Cuando la información elabora, restringe o clarifica una responsabilidad ya representada.
 - **Señal de vacío CE:** Cuando la suma de las responsabilidades derivadas no cubre la responsabilidad de la cual se derivan (falla de Exhaustividad Colectiva), el sistema identifica responsabilidades faltantes.
 
-**Nomenclatura:** Cada nodo se nombra en español, en lenguaje natural autoexplicativo. El nombre del archivo Markdown es el wikilink de Obsidian: `[[Declaración de NFU por Generador]]`. No se utilizan identificadores crípticos.
+**Nomenclatura (Namespacing Ontológico):** Para evitar colisiones en el namespace global de Obsidian con nodos Kratos, los nodos Khaos **siempre deben nombrarse como responsabilidades, capacidades o acciones del sistema** (ej. `Gestión de Generadores`, `Validación de ClaveÚnica`, `Módulo de Trazabilidad`). Nunca deben nombrarse usando solo el sustantivo de la entidad que gestionan. El nombre del archivo Markdown es el wikilink de Obsidian: `[[Declaración de NFU por Generador]]`. No se utilizan identificadores crípticos.
 
 #### 7.5.2. Estructura de la Plantilla
 
@@ -293,7 +296,7 @@ Un nodo Kratos es una **unidad de hecho verificable**. No interpreta, no infiere
 - **Append a nodo existente:** Cuando nueva información elabora o precisa un hecho ya registrado, proveniente de la misma fuente y con el mismo alcance.
 - **Jerarquía factual:** Los hechos pueden descomponerse jerárquicamente (ej. una ley contiene artículos, un artículo contiene incisos). Los conceptos derivados son ME entre sí y CE respecto al concepto del cual se derivan.
 
-**Nomenclatura:** Lenguaje natural autoexplicativo en español, evitando prefijar el nombre del concepto de origen en los conceptos derivados para mantener wikilinks limpios (anti-solapamiento). Ejemplo: `[[Obligaciones del Generador]]` (en lugar de `Ley REP - Artículo 24 - Obligaciones del Generador`). **Excepción:** Los conceptos estructurales genéricos (ej. Artículos, Capítulos) sí deben incluir el prefijo de su cuerpo normativo para garantizar unicidad global en Obsidian (ej. `[[Ley 20.920 - Artículo 3]]`, nunca `[[Artículo 3]]`).
+**Nomenclatura (Namespacing Ontológico):** Lenguaje natural autoexplicativo en español, utilizando **sustantivos o frases nominales que representen entidades, leyes o hechos inmutables** (ej. `Generador`, `ClaveÚnica`, `Resolución 2084`). Esto previene colisiones con Khaos (que usa acciones). Se debe evitar prefijar el nombre del concepto de origen en los conceptos derivados para mantener wikilinks limpios (anti-solapamiento). Ejemplo: `[[Obligaciones del Generador]]` (en lugar de `Ley REP - Artículo 24 - Obligaciones del Generador`). **Excepción:** Los conceptos estructurales genéricos (ej. Artículos, Capítulos) sí deben incluir el prefijo de su cuerpo normativo para garantizar unicidad global en Obsidian (ej. `[[Ley 20.920 - Artículo 3]]`, nunca `[[Artículo 3]]`).
 
 #### 7.6.2. Estructura de la Plantilla
 

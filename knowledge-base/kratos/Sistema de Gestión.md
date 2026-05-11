@@ -3,7 +3,7 @@ estado: borrador
 tipo: norma_legal
 vigencia: por_verificar
 depende_de: "[[Ley 20.920 - Artículo 3]]"
-se_descompone_en: []
+se_descompone_en: ["[[Sistema de Gestión Colectivo]]", "[[Sistema de Gestión Individual]]"]
 se_relaciona_con: ["[[Consumidor Industrial]]", "[[Delegado de Protección de Datos]]", "[[Productor]]", "[[Planilla REP Consumidores Industriales]]", "[[Generador]]", "[[Decreto Supremo 8 - Artículo 15]]", "[[Comercializador]]", "[[Ley 20.920 - Artículo 26]]", "[[Ley 20.285]]", "[[Código Sanitario]]", "[[Servicio de Impuestos Internos]]", "[[Convenio de Basilea]]"]
 cssclasses: [kb-node]
 ---
@@ -22,13 +22,13 @@ Este concepto se deriva de [[Ley 20.920 - Artículo 3]] porque la definición le
 
 ## Lógica de descomposición
 
-Este concepto es atómico y no requiere mayor descomposición.
+Se descompone en dos modalidades mutuamente exclusivas y colectivamente exhaustivas: [[Sistema de Gestión Colectivo]] (varios productores agrupados) y [[Sistema de Gestión Individual]] (un solo productor operando autónomamente, solo permitido para Cat B). La distinción es legal (Art. 3 numeral 27 de la Ley 20.920) y determina diferencias en escala, reportabilidad y coordinación logística.
 
 ## Relaciones Horizontales
 
 - [[Productor]]: **Acoplamiento de Negocio:** El Productor no puede internar neumáticos al país si no acredita su adhesión formal a un Sistema de Gestión autorizado.
-- [[Delegado de Protección de Datos]]: **Mitigación de Riesgos:** Al procesar información de miles de actores, un GRANSIC se convierte en un procesador a gran escala, haciendo vital la designación de un DPO.
-- [[Consumidor Industrial]]: **Imputación de Metas:** La valorización lograda de forma autónoma por una minera puede y debe asociarse legalmente a un GRANSIC.
+- [[Delegado de Protección de Datos]]: **Mitigación de Riesgos:** Al procesar información de miles de actores, un Sistema de Gestión Colectivo se convierte en un procesador a gran escala, haciendo vital la designación de un DPO.
+- [[Consumidor Industrial]]: **Imputación de Metas:** La valorización lograda de forma autónoma por una minera puede y debe asociarse legalmente a un Sistema de Gestión Colectivo.
 - [[Planilla REP Consumidores Industriales]]: **Crédito de Tonelajes:** Interacción indirecta donde la posesión o representación legal de los residuos fluye bidireccionalmente entre el SG y el Consumidor Industrial.
 - [[Generador]]: **Responsabilidad Inversa:** El Sistema de Gestión debe retirar los NFU del punto de generación, estableciendo una relación operativa directa con cada generador de su red.
 - [[Decreto Supremo 8 - Artículo 15]]: **Obligación institucional:** La ley impone mandatos ineludibles directos sobre el SG para la carga de convenios y métricas de avance ante el RETC.

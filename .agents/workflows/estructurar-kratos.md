@@ -60,7 +60,7 @@ For each factual unit:
 
 **Objective:** Create or update the Kratos node(s).
 
-1. For new nodes: copy `.agents/templates/kratos-nodo.md` into `knowledge-base/kratos/` with a human-readable filename in Spanish. **Naming rule (Anti-solapamiento):** Filenames must be clean and concise. Do not prefix conceptual child nodes with their parent's name (e.g., use `Producto Prioritario.md`, not `Ley 20.920 - Producto Prioritario.md`). **Exception:** Structural nodes (Articles, Chapters) MUST include the parent prefix to ensure global uniqueness in the vault (e.g., `Ley 20.920 - Artículo 3.md`, NOT `Artículo 3.md`). Hierarchy is maintained strictly via `depende_de`.
+1. For new nodes: copy `.agents/templates/kratos-nodo.md` into `knowledge-base/kratos/` with a human-readable filename in Spanish. **Naming rule (Namespacing Ontológico):** Filenames must be nouns or nominal phrases representing entities, laws, or immutable facts (e.g., `Generador`, `ClaveÚnica`), NEVER actions or capabilities. Filenames must be clean and concise. Do not prefix conceptual child nodes with their parent's name (e.g., use `Producto Prioritario.md`, not `Ley 20.920 - Producto Prioritario.md`). **Exception:** Structural nodes (Articles, Chapters) MUST include the parent prefix to ensure global uniqueness in the vault (e.g., `Ley 20.920 - Artículo 3.md`, NOT `Artículo 3.md`). Hierarchy is maintained strictly via `depende_de`.
 2. Populate YAML frontmatter: `estado: borrador`, `tipo: [classified type]`, `vigencia: por_verificar`, `depende_de: [[parent]]`, `se_descompone_en: []`, `se_relaciona_con: []`, `cssclasses: [kb-node]` (mandatory for formatting).
 3. **Formatting rule (INVIOLABLE):** NEVER wrap wikilinks in backticks (e.g., `[[Node]]`). Backticks format the text as inline code, breaking Obsidian's bidirectional graph detection. All links must be plain `[[Node]]`.
 4. Populate `## Qué dice` with the factual claim in natural language. This is a synthesis, not a verbatim quote.
@@ -79,7 +79,8 @@ Verify before completing:
 | Fidelity | Does `que_dice` faithfully reflect the information provided by the human? |
 | Evidence | Is `evidencia` linked to a REAL concrete source (not an internal report), or explicitly left blank if none exists? |
 | Type | Is `tipo` correctly classified? |
-| Naming | Is the filename human-readable and self-explanatory in Spanish? |
+| Naming | Is the filename a noun/nominal phrase reflecting an entity, NOT an action? Is it in Spanish? |
+| Phantom Nodes | Was the node created using the proper template and NOT as an empty 0-byte file? |
 | Hierarchy (Orphans) | Is the node linked to a parent via `depende_de` (unless it is a legitimate root entity)? |
 | Hierarchy (Bidirectional) | If child node: is parent's `se_descompone_en` updated to include this node? |
 | Lateral Relations (Outgoing) | Are all new `se_relaciona_con` entries captured in YAML and explained in `## Relaciones Horizontales`? |
@@ -89,7 +90,7 @@ If any check fails, correct before proceeding.
 
 ## Extended Operations (Working Document Pattern)
 
-When processing large volumes (e.g., structuring the entire `external-research/` dump), Antigravity generates a working document (`kratos_structuring_working.md`) that tracks:
+When processing large volumes (e.g., structuring an entire research report from `info/gemini-deep-research/`), Antigravity generates a working document (`kratos_structuring_working.md`) that tracks:
 
 | Column | Purpose |
 |---|---|

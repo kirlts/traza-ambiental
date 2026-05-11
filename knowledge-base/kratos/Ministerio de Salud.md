@@ -3,7 +3,7 @@ estado: borrador
 tipo: factor_externo
 vigencia: por_verificar
 depende_de: 
-se_descompone_en: ["[[Código Sanitario]]", "[[Decreto Supremo 148]]", "[[Decreto Supremo 189]]", "[[Secretaría Regional Ministerial de Salud]]", "[[Decreto Supremo 29]]"]
+se_descompone_en: ["[[Código Sanitario]]", "[[Decreto Supremo 148]]", "[[Decreto Supremo 189]]", "[[Secretaría Regional Ministerial de Salud]]"]
 se_relaciona_con: []
 cssclasses: [kb-node]
 ---
@@ -20,7 +20,7 @@ Esta es una institución autónoma de primer nivel. No se deriva de ningún otro
 
 ## Lógica de descomposición
 
-Se descompone en cinco conceptos: [[Código Sanitario]] (la norma general de salud pública que sustenta las autorizaciones), [[Decreto Supremo 148]] (la regulación específica de residuos peligrosos), [[Decreto Supremo 189]] (las condiciones sanitarias generales de manejo de residuos), [[Decreto Supremo 29]] (reglamento sobre carga y transporte), y [[Secretaría Regional Ministerial de Salud]] (el brazo operativo que otorga las autorizaciones sanitarias en terreno). Los cinco cubren dimensiones distintas — normativa general, regulación de peligrosidad, condiciones sanitarias, transporte, y ejecución regional — sin solapamiento.
+Se descompone en cuatro conceptos: [[Código Sanitario]] (la norma general de salud pública que sustenta las autorizaciones), [[Decreto Supremo 148]] (la regulación específica de residuos peligrosos), [[Decreto Supremo 189]] (las condiciones sanitarias generales de manejo de residuos), y [[Secretaría Regional Ministerial de Salud]] (el brazo operativo que otorga las autorizaciones sanitarias en terreno). Los cuatro cubren dimensiones distintas — normativa general, regulación de peligrosidad, condiciones sanitarias, y ejecución regional — sin solapamiento.
 
 
 ## Relaciones Horizontales

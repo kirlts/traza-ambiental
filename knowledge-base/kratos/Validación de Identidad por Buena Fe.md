@@ -4,7 +4,7 @@ tipo: decision_del_humano
 vigencia: vigente
 depende_de: ""
 se_descompone_en: []
-se_relaciona_con: ["[[Inexistencia de Validación de Identidad en Middlewares]]"]
+se_relaciona_con: ["[[Inexistencia de Validación de Identidad en Middlewares]]", "[[Resolución Exenta 144]]", "[[Ingreso Manual de Folio DTE]]"]
 cssclasses: [kb-node]
 ---
 
@@ -25,6 +25,8 @@ Este concepto es atómico y no requiere mayor descomposición.
 ## Relaciones Horizontales
 
 - [[Inexistencia de Validación de Identidad en Middlewares]]: **Aplicación Práctica:** Es la implementación operativa de la ausencia de responsabilidad legal impuesta por el Estado sobre los sistemas privados.
+- [[Resolución Exenta 144]]: **Fundamento Normativo:** La Res. 144 confirma que el MMA valida al "Encargado de Establecimiento" mediante ClaveÚnica, no mediante mecanismos impuestos al middleware. Esto refuerza la decisión de asumir buena fe en el onboarding.
+- [[Ingreso Manual de Folio DTE]]: **Coherencia de Principio:** Ambas decisiones aplican el mismo principio de buena fe electrónica: el sistema confía en la declaración del usuario (identidad o folio DTE) y delega la responsabilidad de veracidad mediante Términos y Condiciones, sin requerir integración con sistemas externos.
 
 ## Fuente original
 

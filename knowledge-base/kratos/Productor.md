@@ -4,7 +4,7 @@ tipo: norma_legal
 vigencia: por_verificar
 depende_de: "[[Ley 20.920 - Artículo 3]]"
 se_descompone_en: []
-se_relaciona_con: ["[[Resolución Exenta 134]]", "[[Sistema de Gestión]]", "[[Equivalencia SKU-Peso]]", "[[Certificado de Valorización]]"]
+se_relaciona_con: ["[[Resolución Exenta 134]]", "[[Sistema de Gestión]]", "[[Equivalencia SKU-Peso]]", "[[Certificado de Valorización]]", "[[Sistema de Gestión Colectivo]]"]
 cssclasses: [kb-node]
 ---
 
@@ -28,6 +28,7 @@ Este concepto es atómico y no requiere mayor descomposición.
 - [[Resolución Exenta 134]]: **Bloqueo Operativo:** El importador (Productor) se ve imposibilitado de continuar su cadena de suministro si Aduanas le aplica esta resolución en frontera.
 - [[Equivalencia SKU-Peso]]: **Obligación Específica de Introducción:** Al momento de internar e introducir nuevos productos al mercado, el Productor está sujeto a reportar en el Anexo Neumáticos la tabla de equivalencias estricta entre el SKU del producto y su peso fraccional, a diferencia de las etapas logísticas posteriores donde prima la tonelada métrica macroscópica.
 - [[Certificado de Valorización]]: **Extinción del Pasivo:** El Productor requiere imperativamente la acreditación final mediante este certificado para considerar saldada su meta de recuperación ante el Estado.
+- [[Sistema de Gestión Colectivo]]: **Adhesión Obligatoria:** El Productor debe acreditar adhesión formal a un Sistema de Gestión Colectivo para operar en el mercado, siendo esta la modalidad obligatoria para Cat A y opcional para Cat B.
 
 ## Fuente original
 

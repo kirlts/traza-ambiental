@@ -31,7 +31,7 @@ Este concepto es atómico y no requiere mayor descomposición.
 
 ## Fuente original
 
-Informe Técnico de Auditoría 2026.
+Resolución Exenta N° 144/2020 (MMA) y arquitectura de acceso del RETC.
 
 ## Evidencia
 

@@ -4,7 +4,7 @@ tipo: factor_externo
 vigencia: por_verificar
 depende_de: "[[Ministerio del Medio Ambiente]]"
 se_descompone_en: ["[[SINADER]]", "[[Inexistencia de Validación de Identidad en Middlewares]]", "[[Inexistencia de SLA de Disponibilidad RETC]]", "[[Inexistencia de Política de Change Management RETC]]"]
-se_relaciona_con: ["[[Decreto Supremo 1]]", "[[Ley 19.799]]"]
+se_relaciona_con: ["[[Decreto Supremo 1]]", "[[Ley 19.799]]", "[[Resolución Exenta 144]]"]
 cssclasses: [kb-node]
 ---
 
@@ -12,7 +12,7 @@ cssclasses: [kb-node]
 
 ## Qué dice
 
-Registro de Emisiones y Transferencias de Contaminantes. Es el registro central administrado por el Ministerio del Medio Ambiente, accesible vía el Portal de Ventanilla Única. Es la instancia encargada de recibir, evaluar y aprobar los Planes de Gestión de los Sistemas de Gestión colectivos (GRANSIC) en su etapa inicial, antes de que pasen al control operativo de la SMA.
+Registro de Emisiones y Transferencias de Contaminantes. Es el registro central administrado por el Ministerio del Medio Ambiente, accesible vía el Portal de Ventanilla Única. Es la instancia encargada de recibir, evaluar y aprobar los Planes de Gestión de los Sistemas de Gestión Colectivos en su etapa inicial, antes de que pasen al control operativo de la SMA.
 
 La plataforma adolece de una carencia absoluta de interfaces transaccionales públicas (API). Esto imposibilita a los sistemas de software privados interactuar sincrónicamente mediante integraciones Máquina a Máquina (M2M) para inyectar declaraciones directamente en sus bases de datos, forzando la ingesta de datos asíncrona mediante plantillas u operadores.
 
@@ -29,6 +29,7 @@ Se descompone en cuatro conceptos: [[SINADER]], el subsistema sectorial de decla
 
 - [[Decreto Supremo 1]]: **Reglamento base habilitante:** El D.S. 1/2013 es el instrumento jurídico que aprueba el reglamento del RETC, dotándolo de facultades exclusivas de recolección estadística.
 - [[Ley 19.799]]: **Delegación Operativa sin FEA:** El modelo de delegación del RETC permite la gestión de accesos (Agentes, Encargados) mediante asignación de roles directos por el Representante Legal (RBAC), sin que la normativa exija el uso de Firmas Electrónicas Avanzadas a los digitadores operativos para la carga mensual de planillas.
+- [[Resolución Exenta 144]]: **Norma de Acceso:** La Res. 144 establece que el acceso al RETC se realiza exclusivamente mediante ClaveÚnica de persona natural designada como "Encargado de Establecimiento", confirmando el mecanismo de autenticación oficial.
 
 ## Fuente original
 

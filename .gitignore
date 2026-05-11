@@ -4,3 +4,11 @@ knowledge-base/.obsidian/*
 # Preserve CSS snippets (version-controlled styling)
 !knowledge-base/.obsidian/snippets/
 !knowledge-base/.obsidian/snippets/*
+
+# Internal Kairós infrastructure
+.agents/
+
+# Internal documentation
+work/
+info/
+

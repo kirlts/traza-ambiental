@@ -4,7 +4,7 @@ tipo: decision_del_humano
 vigencia: vigente
 depende_de: ""
 se_descompone_en: []
-se_relaciona_con: ["[[Inexistencia de Catastro Público de Generadores]]"]
+se_relaciona_con: ["[[Inexistencia de Catastro Público de Generadores]]", "[[Rol Operativo de Administrador del Sistema]]"]
 cssclasses: [kb-node]
 ---
 
@@ -25,6 +25,7 @@ Este concepto es atómico y no requiere mayor descomposición.
 ## Relaciones Horizontales
 
 - [[Inexistencia de Catastro Público de Generadores]]: **Complementariedad de Negocio:** La falta de un catastro público por parte del Estado valida y potencia la necesidad de esta estrategia comercial B2B.
+- [[Rol Operativo de Administrador del Sistema]]: **Iteración de Pricing:** El Administrador del Sistema es responsable de definir y ajustar el modelo de suscripción del SaaS, materializando la ejecución operativa de la estrategia comercial B2B.
 
 ## Fuente original
 

@@ -3,7 +3,7 @@ estado: borrador
 tipo: norma_legal
 vigencia: por_verificar
 depende_de: "[[Superintendencia del Medio Ambiente]]"
-se_descompone_en: ["[[SISREP]]"]
+se_descompone_en: ["[[SISREP]]", "[[Formato Dinámico Anexo Neumáticos]]"]
 se_relaciona_con: ["[[Decreto Supremo 8]]", "[[Servicio de Impuestos Internos]]", "[[Resolución Exenta 2279]]"]
 cssclasses: [kb-node]
 ---
@@ -18,13 +18,15 @@ La centralización de los reportes transaccionales de los Sistemas de Gestión r
 
 Adicionalmente, el Artículo 14 impone la obligación draconiana de retención de datos: los regulados deben conservar la documentación de respaldo y trazabilidad financiera-logística (costo y DTE) de manera inmutable por un período continuo de 6 años para efectos de fiscalización. En caso de discrepancias entre los datos del anexo Excel y el informe PDF, prevalecen los datos entregados en el anexo.
 
+La resolución también faculta a la SMA para requerir que los informes de cumplimiento sean certificados por un auditor externo. **Brecha técnica:** La estructura fina de las columnas del Anexo Neumáticos no se publica estáticamente en el Diario Oficial; la resolución establece que la SMA pondrá a disposición un formato de anexo, el cual será publicado oportunamente en la página web institucional. El modelo de datos de la SMA es dinámico y discrecional.
+
 ## Por qué existe
 
 Este concepto se deriva de [[Superintendencia del Medio Ambiente]] porque es una resolución exenta emitida por la SMA en ejercicio de sus facultades fiscalizadoras. Mientras el DS 8 establece las metas de cumplimiento, la Res 2084 establece *cómo* los regulados deben demostrar ese cumplimiento: qué reportar, en qué formato, con qué frecuencia, y durante cuánto tiempo conservar los registros. Para Trazambiental, esta resolución define los requisitos técnicos exactos que los documentos generados por el software deben satisfacer.
 
 ## Lógica de descomposición
 
-Se descompone en: [[SISREP]], el sistema de reporte que esta resolución crea y hace obligatorio. El SISREP es el instrumento operativo que materializa las exigencias metodológicas de la resolución.
+Se descompone en: [[SISREP]] (el sistema de reporte que esta resolución crea y hace obligatorio) y [[Formato Dinámico Anexo Neumáticos]] (el hecho de que la estructura técnica del anexo es publicada dinámicamente por la SMA, no estáticamente en ley). El SISREP materializa las exigencias metodológicas de la resolución; el formato dinámico documenta la brecha tecnológica que impone vigilancia activa.
 
 ## Relaciones Horizontales
 
@@ -38,6 +40,8 @@ Resolución Exenta Núm. 2.084 (Superintendencia del Medio Ambiente, publicada e
 
 ## Evidencia
 
+https://www.bcn.cl/leychile/navegar?idNorma=1199515
+https://portal.sma.gob.cl/index.php/ley-rep/instructivo-y-reporte/ (Portal SMA — formatos de reporte dinámicos)
 
 
 ## Justificación de estado

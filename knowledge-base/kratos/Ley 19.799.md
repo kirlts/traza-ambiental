@@ -16,7 +16,7 @@ Ley sobre Documentos Electrónicos, Firma Electrónica y Servicios de Certificac
 
 ## Por qué existe
 
-Este concepto se deriva de [[Ministerio de Economía]] porque es una ley promulgada bajo la tutela de dicho ministerio. La Ley 19.799 es relevante para Trazambiental porque establece la infraestructura jurídica de la firma electrónica avanzada, sin la cual los documentos ambientales generados por el software no tendrían validez legal. Los anexos del SISREP, los informes de cumplimiento ante el MMA, y los DTEs del SII requieren FEA para su validez.
+Este concepto se deriva de [[Ministerio de Economía]] porque es una ley promulgada bajo la tutela de dicho ministerio. La Ley 19.799 es relevante para Trazambiental porque establece la infraestructura jurídica de la firma electrónica avanzada, necesaria para la emisión de DTEs ante el SII y para la validez de contratos entre actores de la cadena. Si bien se determinó que la FEA no es obligatoria para los reportes ambientales al SISREP o SINADER (cuyo mecanismo de autenticación es ClaveÚnica vía Ventanilla Única), es el sustrato legal para la validez de los contratos entre Sistemas de Gestión y valorizadores, así como para las Guías de Despacho electrónicas.
 
 ## Lógica de descomposición
 
@@ -32,6 +32,7 @@ Ley N° 19.799, "Sobre Documentos Electrónicos, Firma Electrónica y Servicios 
 
 ## Evidencia
 
+https://www.bcn.cl/leychile/navegar?idNorma=201668
 
 
 ## Justificación de estado

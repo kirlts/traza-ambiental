@@ -24,7 +24,7 @@ Este concepto es atómico y no requiere mayor descomposición.
 
 ## Relaciones Horizontales
 
-- [[Firma Electrónica Avanzada]]: **Complementariedad Técnica:** La Ley 21.719 exige una Base de Licitud para tratar datos sensibles (ej. biometría en terreno); el uso de FEA provee el soporte legal de no repudio requerido.
+- [[Firma Electrónica Avanzada]]: **Interacción Indirecta vía DTEs:** El Artículo 13 letra b) permite tratar datos sin consentimiento bajo obligación legal. La FEA, utilizada exclusivamente para la emisión de DTEs ante el SII (no para reportes ambientales), opera bajo esta misma base de licitud cuando los datos del folio DTE se indexan en la trazabilidad ambiental. La biometría fue descartada del MVP (UD-017).
 - [[Ministerio de Economía - Caso TOC S.A.]]: **Fricción Biométrica:** El Artículo 13 exige base de licitud para biometría, mientras que el Caso TOC demuestra que el Estado rechaza enrolamiento remoto no presencial.
 
 ## Fuente original

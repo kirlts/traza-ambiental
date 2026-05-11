@@ -16,7 +16,7 @@ cssclasses: [kb-node]
 
 ## Por qué existe
 
-Esta es una institución autónoma de primer nivel. No se deriva de ningún otro concepto porque representa un ministerio cuya existencia es un hecho externo. Su relevancia para el MVP radica en que la Ley 19.799, que regula la firma electrónica avanzada (FEA), es un pilar tecnológico para la validación de documentos ambientales: sin FEA no se pueden firmar los anexos de reportabilidad ante el MMA ni emitir DTEs ante el SII. El caso TOC S.A. además establece un precedente jurisprudencial sobre tratamiento de datos.
+Esta es una institución autónoma de primer nivel. No se deriva de ningún otro concepto porque representa un ministerio cuya existencia es un hecho externo. Su relevancia para el MVP radica en que la Ley 19.799, que regula la firma electrónica avanzada (FEA), es el sustrato legal para la emisión de DTEs ante el SII y la validez de contratos entre actores de la cadena. La FEA NO es obligatoria para los reportes ambientales al MMA (SISREP/SINADER), cuyo mecanismo de autenticación es ClaveÚnica. El caso TOC S.A. además establece un precedente jurisprudencial sobre tratamiento de datos.
 
 ## Lógica de descomposición
 

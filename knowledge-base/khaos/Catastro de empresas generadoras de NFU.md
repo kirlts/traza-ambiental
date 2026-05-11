@@ -1,6 +1,6 @@
 ---
 cssclasses: [kb-node]
-estado: completo
+estado: con_vacios
 depende_de: "[[Trazambiental MVP]]"
 se_descompone_en: []
 se_relaciona_con: []
@@ -38,6 +38,10 @@ Este concepto no posee relaciones horizontales directas modeladas en el sistema.
 
 ## Qué falta
 
+**Hipótesis de vacíos operativos:**
+1. **Actualización de Datos:** No está definido el mecanismo de actualización del catastro cuando un Generador cambia de categoría (A→B) o cuando un Gestor pierde su RCA. ¿Se actualiza automáticamente por integración con el [[Registro Público de Sistemas de Gestión]] o se mantiene manualmente?
+2. **Privacidad de Datos:** La exposición pública de datos comerciales de empresas en el catastro B2B debe evaluarse contra la [[Ley 21.719]] para determinar qué campos pueden ser visibles sin consentimiento explícito del titular.
+
 ## Justificación de estado
 
-Avanza a `completo` porque todas las celdas de Sustento están vinculadas correctamente a decisiones estratégicas en Kratos y no presenta vacíos operativos detectados para el alcance del MVP.
+Retrocede a `con_vacios` porque se identificaron hipótesis de vacíos operativos (actualización de datos de actores, evaluación de privacidad bajo Ley 21.719) que no habían sido consideradas previamente. Los compromisos siguen íntegramente sustentados en Kratos.

@@ -12,7 +12,7 @@ cssclasses: [kb-node]
 
 ## Qué dice
 
-Precedente jurisprudencial donde el Estado rechazó el enrolamiento biométrico remoto no presencial para firma electrónica avanzada, estableciendo que la verificación de identidad para FEA requiere presencia física del titular. Esto impacta cualquier estrategia de onboarding digital que dependa de biometría remota.
+Precedente donde la Entidad Acreditadora del Estado (Ministerio de Economía) **revocó** la acreditación de TOC S.A. como Prestador de Servicios de Certificación de firma electrónica avanzada (acreditación R.A.EX. 202100976, originalmente concedida en junio 2021). Adicionalmente, el caso estableció que el Estado rechaza el enrolamiento biométrico remoto no presencial para FEA, requiriendo verificación de identidad con presencia física del titular. Esto impacta cualquier estrategia de onboarding digital que dependa de biometría remota.
 
 ## Por qué existe
 
@@ -32,6 +32,7 @@ Caso TOC S.A. ante el Ministerio de Economía.
 
 ## Evidencia
 
+https://www.entidadacreditadora.gob.cl/entidades/
 
 
 ## Justificación de estado

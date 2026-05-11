@@ -27,6 +27,7 @@ Este concepto es atómico y no requiere mayor descomposición.
 | Generador Cat B | Trazar el subproducto generado post-valorización | [[Trazabilidad Extendida Post-Valorización]] |
 | Trazambiental (Sistema) | Trazar descomposición volumétrica (Valorizado vs Merma/Eliminado) | [[Estrategia Comercial B2B]] |
 | Trazambiental (Sistema) | Extender la trazabilidad más allá del fin de la responsabilidad legal (Fin de Condición de Residuo) hacia compradores de subproductos | [[Estrategia Comercial B2B]] |
+| Trazambiental (Sistema) | Registrar parámetros de emisión cuando el NFU Cat B se destina a coprocesamiento (hornos cementeros) | [[Decreto Supremo 29]], [[Categorización de Neumáticos A y B]] |
 
 ## Relaciones Horizontales
 
@@ -40,6 +41,7 @@ Este concepto es atómico y no requiere mayor descomposición.
 
 **Hipótesis de vacíos operativos:**
 1. **Diferenciadores Cat B (UD-014):** Los diferenciadores adicionales para Cat B están aplazados, lo que impide mapear la totalidad de las funcionalidades avanzadas de valorización comercial.
+2. **Transporte de Subproductos Peligrosos:** Si el subproducto post-valorización conserva características de peligrosidad, su transporte cae bajo el [[Decreto Supremo 298]]. El MVP no define cómo la trazabilidad circular marca esta transición de régimen.
 
 ## Justificación de estado
 

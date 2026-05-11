@@ -9,6 +9,7 @@ se_relaciona_con:
 - '[[SINADER]]'
 - '[[Sistema de Gestión]]'
 - '[[Comercializador]]'
+- '[[Sistema de Gestión Colectivo]]'
 cssclasses:
 - kb-node
 ---
@@ -32,6 +33,7 @@ Se descompone en: [[Consumidor Industrial]], que representa el caso especial de 
 - [[SINADER]]: **Obligación de Declaración.** Todo generador industrial que supere umbrales mínimos está obligado a inscribirse y declarar sus toneladas despachadas en la Ventanilla Única del RETC (SINADER).
 - [[Sistema de Gestión]]: **Responsabilidad Inversa.** El generador es el punto de recolección primario del cual el Sistema de Gestión (o sus Gestores contratados) deben retirar el pasivo ambiental.
 - [[Comercializador]]: **Relación Bidireccional:** Vínculo estructurado para mantener la simetría del grafo.
+- [[Sistema de Gestión Colectivo]]: **Coordinación Logística:** El Sistema de Gestión Colectivo coordina con su red de generadores afiliados los retiros de NFU, operando como intermediario logístico entre el generador y los gestores de la cadena.
 
 
 ## Fuente original

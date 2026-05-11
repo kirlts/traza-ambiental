@@ -4,7 +4,7 @@ tipo: factor_externo
 vigencia: por_verificar
 depende_de: "[[SISREP]]"
 se_descompone_en: []
-se_relaciona_con: ["[[SINADER]]", "[[Servicio Nacional de Aduanas]]"]
+se_relaciona_con: ["[[SINADER]]", "[[Servicio Nacional de Aduanas]]", "[[Sistema de Gestión Colectivo]]"]
 cssclasses: [kb-node]
 ---
 
@@ -12,7 +12,7 @@ cssclasses: [kb-node]
 
 ## Qué dice
 
-Registro público administrado por la SMA donde queda expuesto el detalle corporativo de las asociaciones empresariales (Sistemas de Gestión / GRANSIC). Detalla con precisión nominal cuáles son las entidades jurídicas y casas importadoras (RUTs individuales) que concurren societariamente para integrar y proveer de fondos a un sistema colectivo.
+Registro público administrado por la SMA donde queda expuesto el detalle corporativo de las asociaciones empresariales (Sistemas de Gestión Colectivos). Detalla con precisión nominal cuáles son las entidades jurídicas y casas importadoras (RUTs individuales) que concurren societariamente para integrar y proveer de fondos a un sistema colectivo.
 
 ## Por qué existe
 
@@ -26,6 +26,7 @@ Este concepto es atómico y no requiere mayor descomposición.
 
 - [[SINADER]]: **Filtro de Ingreso:** SINADER rechaza cualquier archivo de declaración si el RUT o Código de Establecimiento no está empadronado formalmente en el Registro de la SMA.
 - [[Servicio Nacional de Aduanas]]: **Control de Interoperabilidad en Frontera:** Aduanas no puede autorizar la DIN sin verificar empíricamente que el RUT del Productor figura como activo en este registro.
+- [[Sistema de Gestión Colectivo]]: **Habilitación Operativa:** Todo Sistema de Gestión Colectivo debe estar inscrito en este registro como condición previa para operar y presentar reportes ante SISREP.
 
 ## Fuente original
 

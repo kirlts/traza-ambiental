@@ -11,14 +11,10 @@
             "id": "309170461989265f",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Firma Electrónica Avanzada.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "Firma Electrónica Avanzada"
+              "title": "Nueva pestaña"
             }
           }
         ]
@@ -175,6 +171,7 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "publish:Publicar cambios...": false,
       "switcher:Abrir selector rápido": false,
       "graph:Abrir vista gráfica": false,
       "canvas:Crear nuevo lienzo": false,
@@ -184,15 +181,18 @@
       "bases:Crear nueva base": false
     }
   },
-  "active": "4624245a73e6078e",
+  "active": "309170461989265f",
   "lastOpenFiles": [
+    "Habilitación Etapa 3 Consumidores Industriales.md",
+    "Soporte a Sistemas de Gestión.md",
+    "Trazambiental MVP.md",
+    "KPIs por actor.md",
+    "Sistema de Gestión.md",
     "Catastro de empresas generadoras de NFU.md",
     "Firma Electrónica Avanzada.md",
-    "Trazambiental MVP.md",
     "Trazabilidad detallada.md",
     "Trazabilidad circular hasta valorización.md",
     "Restricciones operativas por empresa.md",
-    "KPIs por actor.md",
     "Generación de documentos para ventanilla única.md",
     "Chatbot conversacional de IA.md",
     "Sin título.base",

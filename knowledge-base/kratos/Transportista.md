@@ -4,7 +4,7 @@ tipo: regla_de_negocio
 vigencia: por_verificar
 depende_de: "[[Decreto Supremo 148]]"
 se_descompone_en: []
-se_relaciona_con: ["[[OIML R76-1]]", "[[Resolución Exenta 154]]"]
+se_relaciona_con: ["[[OIML R76-1]]", "[[Resolución Exenta 154]]", "[[Decreto Supremo 298]]"]
 cssclasses: [kb-node]
 ---
 
@@ -26,6 +26,7 @@ Este concepto es atómico y no requiere mayor descomposición.
 
 - [[OIML R76-1]]: **Divergencia de Pesaje:** El transportista asume un rol crítico en la cadena de custodia física donde suelen surgir discrepancias volumétricas ("pesaje estimativo" en origen vs. "pesaje legal" certificado en planta).
 - [[Resolución Exenta 154]]: **Restricción Tributaria:** Esta resolución prohíbe explícitamente consolidar manifiestos de múltiples orígenes en una sola Guía de Despacho general en ruta.
+- [[Decreto Supremo 298]]: **Regulación de Transporte Peligroso:** Cuando los subproductos del procesamiento de NFU se clasifican como peligrosos, el transportista queda sujeto a este decreto que dicta las normas sobre transporte de cargas peligrosas por calles y caminos.
 
 ## Fuente original
 
