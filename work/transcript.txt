@@ -1,0 +1,62 @@
+00:00:00 Martín
+Comenzamos la sesión de interpretar la tremenda cartulina que hice con Dino, el CEO de Trazo Ambiental.
+00:00:13 Martín
+Esta cartulina es un artefacto que hice en conjunto con él y contiene muchas definiciones de lo que se hará para el MVP.
+00:00:25 Martín
+Es muy importante porque al interpretar esta cartulina vamos a entender cosas como el propósito, el para quién, el alcance, el deseable, etcétera, para el MVP detrás ambiental. Repito que esto es solo una, es un dump de información. Por qué? Porque esto va a quedar en la carpeta caos como el nodo maestro del MVP, ¿cierto? O más bien, el ese nodo maestro se va a nutrir de lo que yo voy a decir.
+00:00:58 Martín
+Puede que algunas de las cosas que yo voy a decir nutran los espacios vacíos ya presentes en ese archivo, en esa carpeta, perdón, que tiene el nodo maestro, o por el contrario, puede que la información que yo estoy dando contradiga el nodo maestro que actualmente se hizo en cualquiera de los casos. Habrá que evaluarlo. Porque también puede ser que algunas de las cosas que digo se descompongan nodos hijos de ese maestro y que esos nodos hijos también tengan nodos hijos.
+00:01:29 Martín
+Quién sabe, todo depende de lo que voy a decir y de cómo los workflows interpreten lo que voy a decir después de esto. Después de todo este proceso, procederé a poblar la carpeta Kratos, pero por ahora voy a hacer el dump de información sobre la cartulina de la que he estado hablando todo este tiempo.
+00:02:41 Martín
+Comenzamos entonces con el dump del MVP.
+00:02:47 Martín
+El propósito del MVP detrás ambiental y en realidad de todo el software de aquí en adelante, es llevar un control ordenado de los residuos enfocado a las empresas que deben cumplir las normativas de la Seremi y el Ministerio del Medio Ambiente. Qué quiere decir esto? El propósito de transambiental no es solamente adecuarse a lo que necesitan los entes de la ley REP, sino que también los entes que están fuera de la ley REP, pero están sujetos a la normativa que exige la Seremi o el Ministerio del Medio Ambiente.
+00:03:24 Martín
+Esto se da en algunos casos de gestión de residuos que no cubre la ley REP, pero que de todas formas transambiental deberá lograr hacer ya. Este es el propósito general de transambiental. No realmente el alcance del MVP. El alcance del MVP lo vamos a ver un poco después. Ahora la siguiente, el siguiente subtítulo, para quién? Para quién es este MVP? El MVP que vamos a hacer ahora es para los generadores según la ley REP de neumáticos fuera de uso, categoría A y categoría B.
+00:04:00 Martín
+Ya empezamos a definir el alcance del MVP. El alcance del MVP que tengo acá declarado es cubrir, como dije, a los generadores de categoría A y categoría B.
+00:04:25 Martín
+Para categoría A, específicamente se listan los siguientes puntos. Puede que haya más puntos que esto, de hecho probablemente habrá más puntos que estos, pero estos son los que tengo escritos para categoría A y que quedan también implícitamente incluidos en categoría B. Por qué? Porque la ley REP distingue entre categoría A y categoría B cuando se trata del neumático fuera de uso.
+00:04:55 Martín
+Para categoría A tenemos número uno. Conocer catastro de empresas que producen residuos neumáticos fuera de uso. Qué quiere decir esto? Que el MVP debe exponer en alguna parte un catastro de empresas que producen residuos neumáticos fuera de uso y que están sujetos a los requerimientos de la ley REP.
+00:05:17 Martín
+Esto es súper importante porque una de las ventajas de traza ambiental va a ser centralizar la gestión de recibos de unas empresas de las empresas. Esto significa también centralizar el lugar de donde contactan o por lo menos donde conocen a su a las otras empresas que la ley REP modula. Ya esto no es para todos los actores, pero está listado en categoría A.
+00:05:44 Martín
+Esto significa que ahora vamos eventualmente a realizar esa búsqueda y ese análisis y lo vamos a mantener actualizado.
+00:05:55 Martín
+Lo vamos a ofrecer como un valor agregado de traza ambiental, este catastro de empresas que producen recibos neumáticos fuera de uso, tanto categoría A como categoría P. Cada actor de traza ambiental, cada usuario o más bien cada empresa va a poder ver sus KPIs que el sistema pueda recolectar. Eso es lo que tengo anotado, cuáles KPIs no está definido. Número 3. La trazabilidad detallada para el sistema individual y el sistema colectivo, inventarios más exactos y cumplimiento de metas REP.
+00:06:34 Martín
+Esto es muy importante porque la ley REP distingue entre sistemas individuales y sistemas colectivos de gestión, y para cada uno de ellos el sistema va a ofrecer trazabilidad detallada.
+00:06:49 Martín
+Esto lo ayudará a tener inventarios de residuos exactos. Y enterarse de cómo va su progreso en el cumplimiento de metas REP para el año, tanto para sistema individual como sistema colectivo.
+00:07:04 Martín
+Cuatro. La planilla autogenerada para los documentos que se suben al Ministerio del Medio Ambiente. El Ministerio del Medio Ambiente expone ventanilla única como una vía para subir tu declaración jurada anual. Subir tu declaración mensual, creo, no estoy seguro de si es que hay que subir eso o no, y otra serie de documentos, supongo. Trazo Ambiental no tiene como acceder a una API del Ministerio del Medio Ambiente. Por lo tanto, puede rellenar una planilla que le entrega al usuario en el momento pertinente y el usuario finalmente sube esa planilla o esos documentos que tenga que subir.
+00:07:43 Martín
+No necesariamente va a ser una planilla, puede ser una serie de documentos número 5. Para el alcance del MVP en la categoría A y por extensión categoría B, existirá un chatbot de inteligencia artificial conversacional que va a servir para orientar a los usuarios, no para que trabaje por ellos, pero los va a orientar con información tanto sobre la IREP como sobre información específica a su contexto. Ya esto quiere decir al contexto del usuario que está ocupando el sistema número 6.
+00:08:19 Martín
+Se modelarán las restricciones propias de cada empresa ya muchas veces y se expondrán a los actores que sean pertinentes, por ejemplo, si un transportista tiene que ir a entregar una carga a cierta empresa y está gestionando este movimiento por tranza ambiental.
+00:08:42 Martín
+Y esa empresa requiere que el conductor, por ejemplo, no se baje del camión en la zona donde se detiene porque necesita cumplir con ciertos elementos de protección personal que no anda trayendo, por ejemplo. Entonces, el sistema debe permitir que esa restricción y ese detalle llegue al transportista antes de que el transportista emprenda el viaje.
+00:09:07 Martín
+Esos son algunos de las funciones comprometidas para. El alcance de categoría A. Ahora para el alcance de categoría B, incluyendo probablemente todos los otros elementos anteriormente mencionados y adicionando la categoría B se encarga de los neumáticos fuera de uso pequeños y grandes.
+00:09:41 Martín
+No solo de minería
+00:10:02 Martín
+El Categoría B puede tener un sistema individual, el categoría A no acepta sistema individual.
+00:10:12 Martín
+A categoría B también le vamos a ofrecer categoría, perdón, vamos a ofrecerle KPIs ambientales, KPIs de eficiencia interna dentro de los datos que Transambiental pueda recopilar y que no se solapen con los KPIs que estas estos usuarios ya tengan por sus propios medios y va a ofrecerle KPIs de operaciones ya, pero lo más importante son los KPIs ambientales. Para una empresa que tiene un alto cumplimiento en normativas de ambientales, como por ejemplo emisión de C o 2 o cumplimiento de metas red u otras cosas así, estos KPI favorables a la mano pueden servir para que otras empresas que decidan hacer negocios con este usuario se vean inclinados a elegir esta empresa porque tiene estos KPIs ambientales en buen estado.
+00:11:05 Martín
+Esto es relevante cuando empresas extranjeras quieren.
+00:11:11 Martín
+Cuando empresas extranjeras quieren meterse a Chile con algún trato con otra empresa, se fijan en estos KPIs y estos KPIs muchas veces no están tan fáciles de acceder. Entonces, ofrecer estos KPIs en general, que no sé exactamente cómo se van a ofrecer, sería un punto de venta importante. Además, a categoría B, le ofrecemos algo muy importante que es la trazabilidad circular de sus residuos, o por lo menos una trazabilidad hasta donde se pueda, de donde denominaron sus residuos según su disposición final.
+00:11:48 Martín
+La distinción acá es que a los generadores de baja escala probablemente no les importa si los neumáticos que enviaron a disposición final se transforman en caucho o si se transforman en aceite o lo que sea, porque son a un bajo volumen, pero a los de categoría B puede que sí les interese saber a dónde van a parar sus residuos, independiente de cuál es su obligación legal. Pero, por ejemplo, si una minera produjo residuos metálicos que eventualmente pasaron a.
+00:12:22 Martín
+A ser recogidos por un transportista que llevó parte de ellos a un vertedero y otra parte lo llevó a un valorizador que los transformó en materiales reutilizables. Entonces nosotros vamos a poder proveer esa trazabilidad hasta que se descompuso el residuo en artículos valorizados, ya en elementos valorizados y en residuo. Ese tipo de trazabilidad, ningún otro software lo ofrece de forma nativa.
+00:12:49 Martín
+Y eventualmente vamos a tener que definir también más diferenciadores para los que son de categoría B, ya que este MVP se enfoca en neumáticos fuera de uso para categoría A y categoría B. Necesitamos elementos diferenciadores y que nos otorguen una ventaja al momento de nosotros vender este software. Entonces, esto queda también como un elemento pendiente a explorar más allá. Es decir, se asume que hay espacios en blanco en lo referente a qué otras cosas se le va a ofrecer a categoría A y a categoría D. Además, deseable para este MVP pero no obligatorio es gestionar API para ministerio del medio ambiente o aduanas, ver si es que existe la posibilidad de que ellos expongan un endpoint de alguna forma para automatizar parte o la totalidad de este proceso de trazabilidad.
+00:13:41 Martín
+Dos, capas de personalización por cliente, existe la posibilidad de que distintos clientes tengan requerimientos únicos o que pocas veces se repiten, y nosotros podríamos cobrar extra por una instanciación personalizada de trazo ambiental. 3. Ayuda para que los sistemas de gestión encuentren neumáticos fuera de uso. Ya los sistemas de gestión, según la ley REP, tienen obligaciones de recolección anual, py valorización, pero tienen el problema de que no siempre tienen cómo llevar esos artículos, esos residuos a.
+00:14:16 Martín
+Alguna parte porque muchas veces no tienen esos residuos. Entonces, actualmente los sistemas de gestión están teniendo esta demanda y está creciendo por residuos para poder cumplir con sus metas o se exponen a multas muy importantes. Así que trazo ambiental debe, de alguna forma que no hemos definido, ayudar a los sistemas de gestión según los modelos de la ley REP a conectar con residuos huérfanos, por así decirlo. Ya esto es. Más información que nos va a servir para empezar a modelar este MVP.

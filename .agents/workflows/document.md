@@ -1,281 +1,111 @@
 ---
-description: /document - Synchronizes the documentary axis (MASTER-SPEC, TODO, MEMORY, USER-DECISIONS, CHANGELOG) with the real state of the project. Enforces structural lint against canonical templates in ALL modes before content synchronization. In sessions with no prior work, also evaluates full structural synchronization against current templates.
+description: /document - Synchronizes the documentary axis (MASTER-SPEC, USER-DECISIONS, MEMORY, REPOMAP) and verifies structural coherence of the Knowledge Base (Kratos/Khaos node compliance, traceability, MECE integrity).
 ---
 
 # Documentary Synchronization
 
-This workflow ensures that all project documentation accurately reflects the current state of the code and architecture.
-
-> **MANDATORY:** Before executing ANY mode, the agent MUST read ALL template files from `.agents/templates/` into working memory. Failure to do so invalidates the synchronization. The templates define the canonical structure; no document can be considered synchronized if its format diverges from its template.
-
-## Mode Detection
-
-- If the session has prior work (modified code, executed tasks): **Normal Mode** (incremental synchronization).
-- If the session has no prior work (the user invoked `/document` as the first action, or it runs as the closure of `/fix`, `/derive`, etc.): **Audit Mode** (full verification against current templates).
+This workflow ensures that project documentation and the Knowledge Base maintain structural coherence. Adapted for a planning repository governed by Kratos/Khaos methodology.
 
 ---
 
-## Step 0: Structural Lint (MANDATORY in both modes)
+## Phase 1: Node-Template Compliance
 
-Runs unconditionally before any content synchronization or audit. Detects format divergence between existing documentation and canonical templates.
+**Objective:** Verify that all instantiated nodes conform to their canonical templates.
 
-### 0.1. Load Canonical Templates
+### 1.1. Khaos Nodes
 
-Read every template file from `.agents/templates/` into working memory:
+For each file in `knowledge-base/khaos/`:
+1. Verify YAML frontmatter contains all mandatory fields: `estado`, `depende_de`, `se_descompone_en`.
+2. Verify Markdown body contains all mandatory sections: `## Qué es`, `## Por qué existe`, `## Compromisos`, `## Se descompone en`, `## Qué falta`.
+3. Verify `## Compromisos` contains a table with columns: Actor, Acción en el sistema, Sustento.
+4. Flag missing sections or malformed structure.
 
-| Template File | Governs |
-|---|---|
-| `.agents/templates/master-spec.md` | `docs/MASTER-SPEC.md` |
-| `.agents/templates/todo.md` | `docs/TODO.md` |
-| `.agents/templates/memory.md` | `docs/MEMORY.md` |
-| `.agents/templates/user-decisions.md` | `docs/USER-DECISIONS.md` |
-| `.agents/templates/changelog.md` | `docs/CHANGELOG.md` |
-| `.agents/templates/TEST.md` | `docs/TEST.md` (if exists) |
-| `.agents/templates/technical-debt.md` | `docs/TECHNICAL-DEBT.md` (if exists) |
+### 1.2. Kratos Nodes
 
-### 0.2. Verify Mandatory Sections
+For each file in `knowledge-base/kratos/` (excluding `external-research/`):
+1. Verify YAML frontmatter contains: `estado`, `tipo`, `vigencia`, `depende_de`, `se_descompone_en`.
+2. Verify `tipo` is one of: `norma_legal`, `decision_del_humano`, `regla_de_negocio`, `requisito_tecnico`, `factor_externo`.
+3. Verify Markdown body contains: `## Qué dice`, `## Fuente original`, `## Evidencia`.
+4. Flag nodes with empty `## Evidencia` as unverified (factualidad 100% constraint).
 
-For each existing document in `docs/`, compare against its canonical template:
-
-1. **Header and identity line:** Does the document start with the canonical header pattern?
-2. **Symbol Legend:** Does the document contain the Kairós Symbol Legend table (if the template defines one)?
-3. **Mandatory sections:** Does the document contain every section defined in the template (e.g., `## §8. Verification Checklist` with canonical numbering)?
-4. **Closing markers:** Is the closing line (e.g., "Fin de la Especificación Maestra" or equivalent) positioned AFTER all canonical sections, not before?
-5. **Summary table structure:** Does the summary table (if template defines one) contain all canonical columns (e.g., `.LLM / .HUM / .MIX` columns in TODO.md)?
-
-### 0.3. Verify Mandatory Fields Per Item
-
-For repeating items (TASKs, checks, heuristics, decisions), verify mandatory fields exist:
-
-| Document | Item Type | Mandatory Field | If Missing |
-|---|---|---|---|
-| TODO.md | TASK | `**Covered checks:**` | Add with `Transversal governance` if no VERIFICATION.md checks apply |
-| VERIFICATION.md | Check (Implemented) | Verification emoji + timestamp | Add `(🤖 Verified by tool; DATE)` format |
-| USER-DECISIONS.md | UD entry | All 5 ADR fields | Flag as incomplete |
-| MEMORY.md | HEU entry | `**Source:**` field | Flag as incomplete |
-
-### 0.4. Retroactive Compliance and Version Porting
-
-When templates have evolved (new sections, new fields, new columns), historical content must be evaluated. This includes **cross-version porting**: when a repository's documentation was created under a prior version of Kairos, the `/document` workflow is responsible for migrating it to the current template version without destroying information.
-
-#### Version Detection
-
-The system detects the Kairos version that generated the existing documentation by examining:
-- Explicit version markers in document headers (if present).
-- Structural fingerprints: which sections exist, what format they use, what fields they contain.
-- Absence of sections that are mandatory in the current template version.
-
-If the detected version differs from the current template version, the full porting logic activates.
-
-#### Porting Algorithm
-
-```
-For each document in docs/:
-  Detect the Kairos version that generated it.
-  Load the current canonical template for this document type.
-
-  For each section in the current template:
-    Does this section exist in the document (even under a legacy name)?
-      YES → Does the section's format match the current template?
-        YES → No action needed.
-        NO  →
-          Is the format migration non-destructive?
-            YES → Migrate format autonomously. Preserve all content.
-            NO  → Catalog as "requires approval". Present diff to user.
-      NO  → Is the section empty in the template (a structural placeholder)?
-        YES → Add the empty section. Non-destructive.
-        NO  → Catalog as "requires approval". Present what would be added.
-
-  For each section in the document that does NOT exist in the current template:
-    This is legacy content with no current equivalent.
-    DO NOT delete. Append to an "Archived Sections" area at the bottom
-    of the document, clearly marked as legacy. Present to user for review.
-
-#### Tactical Porting: MASTER-SPEC §8 → VERIFICATION.md
-If the system detects that `docs/MASTER-SPEC.md` contains a populated `§8. Verification Checklist` (legacy format), the system MUST perform an automatic, non-destructive migration before running lint rules:
-1. Extract the ENTIRE contents of `§8` verbatim.
-2. Initialize `docs/VERIFICATION.md` using its canonical template and deposit the extracted checks.
-3. Remove the entire `§8` section from `MASTER-SPEC.md`.
-4. Scan `docs/TODO.md` and perform a silent find/replace of any string mentioning `MASTER-SPEC §8` (e.g., `Ref: MASTER-SPEC §8`) with `Ref: VERIFICATION.md`.
-
-**Invariant:** Zero bytes of user-written content are deleted without explicit user approval. The porting process adds, restructures, and migrates, but never silently removes.
-
-### 0.5. Structural Lint Report
-
-Generate a lint report BEFORE proceeding to Audit or Normal Mode:
-
-| Document | Divergence | Type | Severity | Action | Status |
-|---|---|---|---|---|---|
-| [file] | [what diverges from template] | Missing Section / Legacy Format / Stale Content / Missing Field | High / Medium | [what was done/proposed] | ✅ Fixed / ⏳ Pending approval |
-
-If the report contains zero divergences, log: `Structural Lint: PASS (0 divergences)`.
-
-If the report contains divergences, all autonomous fixes are applied before proceeding. Pending-approval items are presented to the user and the workflow pauses until resolved.
+**Output:** Compliance report table.
 
 ---
 
-## Audit Mode (cold-start)
+## Phase 2: Traceability Khaos → Kratos
 
-Executes when `/document` is invoked without prior work context. Its purpose is to detect structural divergence between existing documentation and current templates embedded in `.agents/templates/`.
+**Objective:** Verify that all cross-references between Khaos and Kratos are valid.
 
-### Step 1: Inventory Existing Documentation
+1. Extract all wikilinks from Khaos nodes that point to Kratos nodes (typically in `## Por qué existe` and `## Compromisos` Sustento column).
+2. For each wikilink, verify the target file exists in `knowledge-base/kratos/`.
+3. Extract all wikilinks from `depende_de` and `se_descompone_en` fields in both Khaos and Kratos.
+4. Verify all parent/child references are bidirectional (parent lists child, child references parent).
 
-The system scans `docs/` looking for the documentary axis files:
-
-| File | Canonical Template | Mandatory |
+| Type | Detection | Severity |
 |---|---|---|
-| `docs/MASTER-SPEC.md` | `.agents/templates/master-spec.md` | Yes |
-| `docs/TODO.md` | `.agents/templates/todo.md` | Yes |
-| `docs/MEMORY.md` | `.agents/templates/memory.md` | Yes |
-| `docs/USER-DECISIONS.md` | `.agents/templates/user-decisions.md` | Yes |
-| `docs/CHANGELOG.md` | `.agents/templates/changelog.md` | Yes |
-| `docs/TEST.md` | `.agents/templates/TEST.md` | No (created via /test) |
-| `docs/TECHNICAL-DEBT.md` | `.agents/templates/technical-debt.md` | No (created via /fix) |
+| Broken Kratos reference | Khaos node references a Kratos node that doesn't exist | High — missing factual backing |
+| Orphan Khaos node | Node with no `depende_de` and is not the root | Medium — disconnected from hierarchy |
+| Unidirectional link | Parent lists child but child doesn't reference parent (or vice versa) | Medium — graph integrity |
+| Orphan Kratos node | Kratos node exists but no Khaos node references it | Low — unused fact (may be fine) |
 
-### Step 2: Catalog Discrepancies
-
-The system compares each existing file against its canonical template and classifies each discrepancy:
-
-| Type | Description | Example |
-|---|---|---|
-| **Missing File** | A mandatory file does not exist | `docs/USER-DECISIONS.md` does not exist |
-| **Missing Section** | File exists but lacks template sections | MASTER-SPEC without §1.Identity, or without "Problem it solves" fields |
-| **Legacy Format** | File exists but uses incompatible format | TODO without `[EPIC-NNN]`/`[TASK-NNN]` taxonomy, MEMORY without `[HEU-NNN]` |
-| **Stale Content** | File exists, proper format, but contradicts code | MASTER-SPEC lists an obsolete module |
-| **Slop Detected** | File contains AI writing patterns (see Slop Detection) | Section containing "cutting-edge solution" |
-
-### Step 3: Action Decision Logic
-
-Decision algorithm for each cataloged discrepancy:
-
-```
-Does the file exist?
-  NO → Create from template. Autonomous action.
-  YES →
-    Does the correction destroy content written by the user?
-      NO (e.g. adding missing section, new field, injecting taxonomy):
-        → Execute Soft-Update autonomously. Do not request approval.
-      YES (e.g. restructuring existing sections, renaming IDs, archiving/rebuilding):
-        → Catalog as "requires approval". Present diff to user.
-    Does the correction modify IDs referenced by other files?
-      YES → Requires approval. Present impact map.
-      NO → Autonomous if non-destructive.
-```
-
-### Step 4: Execute Corrections
-
-1. The system executes all autonomous corrections simultaneously.
-2. The user is presented with the list of corrections requiring approval with concrete diffs.
-3. The system awaits user confirmation for destructive actions.
-
-### Step 5: Reporting
-
-Generate consolidated table:
-
-| Document | Discrepancy | Type | Action | Status |
-|---|---|---|---|---|
-| [file] | [what diverges] | [missing/legacy/stale/slop] | [what was done/proposed] | [x] Corrected / [ ] Pending approval |
+**Output:** Traceability report with broken links and orphans.
 
 ---
 
-## Normal Mode (incremental synchronization)
+## Phase 3: MECE Integrity
 
-Executes directly without prior user validation.
+**Objective:** Verify structural soundness of the Khaos hierarchy.
 
-### Code Synchronization
+For each Khaos node that has children (`se_descompone_en` is non-empty):
+1. **Mutual Exclusivity:** Do any two sibling nodes cover overlapping responsibilities? Flag overlaps.
+2. **Collective Exhaustiveness:** Does the sum of children's responsibilities cover the parent's responsibility? Flag gaps.
+3. **Estado consistency:** If all children are `completo`, is the parent also `completo`? If any child is `con_vacios`, is the parent at most `con_vacios`?
 
-The system mathematically verifies the coherence of each document with the project's current state:
+**Output:** MECE integrity report.
 
-- Does the MASTER-SPEC reflect the real implemented architecture?
-- Does the TODO reflect real progress with correct timestamps?
-- Are there decisions in the codebase missing in USER-DECISIONS.md?
-- Are there product changes missing in CHANGELOG.md?
-- Are MASTER-SPEC §4 constraints strictly synchronized with `.agents/rules/03-constraints.md`?
+---
 
-### Slop and Mock Detection
+## Phase 4: USER-DECISIONS Currency
 
-The system verifies that no deliverables marked as "complete" contain:
+**Objective:** Verify that operational memory is current.
 
-| Category | Detection Patterns |
-|---|---|
-| **Corporate-Motivational Copy** | "Unlock your potential", "Seamless experience", "Cutting-edge solution", "Empower your workflow", "Transform your business", "Innovative platform", adjectives empty of specific content |
-| **Mocked Data** | Hardcoded constants simulating real data, dummy arrays disconnected from data sources, mocked HTTP responses presented as real integration |
-| **RLHF Documentation Patterns** | "It's worth noting that", "Cabe destacar que", "Es importante señalar", negative parallelisms ("not just X, but Y"), servile positivity |
-| **Em dashes** | Any instance of the character (—). Zero tolerance |
+1. Read `docs/USER-DECISIONS.md`.
+2. For each deferral (⏸️), check if its reopening condition has been met based on current KB state.
+3. For each active decision (💡), verify it's not contradicted by current node content.
+4. Flag expired deferrals and contradicted decisions.
 
-If slop or mocks are detected in "completed" features, the system reports them in the gap table and creates a purge TASK in TODO.md.
+**Output:** Memory currency report.
 
-### VERIFICATION.md ↔ TODO Traceability Coherence
+---
 
-Mandatory cross-verification:
+## Phase 5: MASTER-SPEC Coherence
 
-1. **Checks without TASK:** Are there unimplemented checks in VERIFICATION.md without an associated TASK? → Create the missing TASKs.
-2. **TASKs without check:** Are there TASKs referencing non-existent IDs in VERIFICATION.md? → Correct references or delete TASKs.
-3. **Ghost checks:** Are there checks marked as implemented whose code no longer exists? → Unmark and create reimplementation TASK.
-4. **Coverage count per actor:** For each actor in VERIFICATION.md, count implemented vs. pending checks. Log in TODO summary table.
+**Objective:** Verify that MASTER-SPEC reflects the actual state of the Knowledge Base.
 
-### Cross-Coherence Validation
+1. Does §7.1 (Kratos state) reflect the actual contents of `knowledge-base/kratos/`?
+2. Does §7.2 (Khaos state) reflect the actual contents of `knowledge-base/khaos/`?
+3. Are §4 constraints consistent with `.agents/rules/05-constraints.md`?
+4. Do §5 trade-offs reflect current USER-DECISIONS?
 
-The system verifies no internal contradictions exist:
+**Output:** Coherence report.
 
-- Intentions/Purposes in MASTER-SPEC §1 ↔ Epics in TODO.md
-- Constraints in MASTER-SPEC §4 ↔ Rules in `.agents/rules/03-constraints.md`
-- Decisions in USER-DECISIONS.md ↔ Trade-offs in MASTER-SPEC §5
-- Checks in VERIFICATION.md ↔ TASKs in TODO.md (bidirectional)
+---
 
-### Verificability Coherence (LLM/HUM/MIX)
+## Phase 6: REPOMAP Synchronization
 
-Deterministic 6-step algorithm:
+The `/repomap` workflow executes and overwrites `docs/REPOMAP.md` to match the repository's current physical state.
 
-**STEP 0. INPUT VALIDATION (mandatory field audit):** Before running the coherence algorithm, scan ALL TASKs in TODO.md:
+---
 
-```
-For each TASK in TODO.md:
-  Does it have a "Covered checks:" field?
-    NO → [WARNING] MISSING MANDATORY FIELD.
-          If the TASK relates to governance or has no VERIFICATION.md checks:
-            → Add: **Covered checks:** Transversal governance
-          Else:
-            → Flag for manual assignment.
-  Is the field empty or contains only generic terms ("active", "N/A")?
-    YES → [WARNING] INVALID FIELD VALUE. Flag for correction.
-```
+## Consolidated Report
 
-This step ensures the subsequent inventory does not silently skip TASKs lacking the field.
+Generate a single summary:
 
-**STEP 1. INVENTORY:** Read `docs/VERIFICATION.md`. Extract all checks with their classifier (.LLM/.HUM/.MIX). Build internal memory: `{Check_ID, Verifier, Status}`.
-
-**STEP 2. CROSS-REFERENCE:** Read TODO.md. Extract all tasks and covered checks. Build internal memory: `{Task_ID, [Check_IDs], Task_Status, Has_Human_Closure_Restriction}`.
-
-**STEP 3. COHERENCE VALIDATION:** For each check where Verifier = .HUM or .MIX:
-- Find the corresponding task in TODO.md.
-- Does the task have a human-closure restriction? → NO: [WARNING] CONFLICT.
-- If the task is marked as completed: Does it have a human verification timestamp? → NO: [WARNING] CONFLICT.
-- **Context Verification (Hard-Fault):** Audit the chat history. Was the validation explicit? An implicit approval (e.g., "ok to all") to visual changes DOES NOT validate irreversible architectural alterations. Upon irreconcilable doubt regarding intentionality, declare [WARNING] CONFLICT and require direct human confirmation.
-
-**STEP 4. TIMESTAMP VALIDATION:** For each check marked as Implemented:
-- Does it include a timestamp? → NO: [WARNING] CONFLICT.
-- Does the verification type (LLM/HUM/MIX) match the check's classifier? → NO: [WARNING] CONFLICT.
-
-**STEP 5. REPORTING:** Generate quantitative summary:
-
-```
-Total checks: N
-  - .LLM: X (Y implemented, Z pending)
-  - .HUM: X (Y implemented, Z pending human validation)
-  - .MIX: X (Y implemented, Z pending)
-  - Coherence conflicts: N [list]
-  - TASKs missing "Covered checks:" field: N [list]
-```
-
-If checks without verificability suffix (legacy) are detected, classify them retroactively using the Decision Tree in `derive-working.md`. If non-destructive (adding suffixes), execute autonomously. If destructive (renaming IDs), require human approval.
-
-### Routing Matrix Sync (REPOMAP)
-
-Executes silently as the final step of Normal Mode and Audit Mode. No user action required.
-
-1. The system implicitly executes the `/repomap` workflow to update the topological routing matrix.
-2. The `/repomap` workflow overwrites `docs/REPOMAP.md` ensuring the routing matrix matches the repository's physical state.
-3. Add one line to the `/document` sync report: "REPOMAP synchronized."
-
-> **CRITICAL ISOLATION RULE:** The `/document` workflow MUST NEVER read, write, or touch `docs/LIVING-DOCUMENT.md`. The Living Document is strictly isolated and can ONLY be modified via the `/narrate` workflow.
+| Area | Status | Issues |
+|---|---|---|
+| Node-template compliance | ✅ / ⚠️ | [count] non-compliant nodes |
+| Traceability Khaos→Kratos | ✅ / ⚠️ | [count] broken links, [count] orphans |
+| MECE integrity | ✅ / ⚠️ | [count] ME overlaps, [count] CE gaps |
+| USER-DECISIONS currency | ✅ / ⚠️ | [count] expired deferrals |
+| MASTER-SPEC coherence | ✅ / ⚠️ | [count] discrepancies |
+| REPOMAP | ✅ | Synchronized |

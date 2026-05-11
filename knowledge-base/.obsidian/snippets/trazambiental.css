@@ -1,0 +1,27 @@
+/*
+ * Trazambiental KB — Estilo de lectura para Obsidian
+ * Activado por cssclasses: [kb-node] en el frontmatter YAML
+ * Requisitos: Settings > Appearance > CSS Snippets > trazambiental > ON
+ */
+
+/* Texto justificado sin hyphenation — solo en nodos con cssclasses: [kb-node] */
+.kb-node .markdown-rendered p,
+.kb-node .markdown-rendered li {
+    text-align: justify;
+    text-justify: inter-word;
+    hyphens: none;
+    -webkit-hyphens: none;
+}
+
+/* Live Preview — mismo estilo mientras se edita */
+.kb-node .markdown-source-view.mod-cm6 .cm-line {
+    text-align: justify;
+    text-justify: inter-word;
+    hyphens: none;
+    -webkit-hyphens: none;
+}
+
+/* Tablas mantienen alineación izquierda — justificar celdas degrada la legibilidad */
+.kb-node .markdown-rendered td {
+    text-align: left;
+}

@@ -1,116 +1,213 @@
-# USER-DECISIONS
+# USER-DECISIONS: Memoria Operativa del Humano
 
-Este archivo registra todas las decisiones que el usuario haya tomado o las correcciones que haya hecho durante el desarrollo del proyecto, asegurando la trazabilidad de las decisiones de diseño, arquitectura y requerimientos.
+> Registro de soberanía del humano sobre el sistema. Antigravity DEBE leer este documento
+> al inicio de toda sesión y consultarlo antes de escalar vacíos al humano.
+>
+> Este documento registra: decisiones tomadas, decisiones aplazadas, y preferencias operativas.
+> Es la memoria que sobrevive entre sesiones caóticas, paralelas y sin cierre formal.
 
-## Plantilla de Decisión
-
-## [ADR-001] Arquitectura Documental Bimodal (Post-OpenTech)
-
-- **Contexto:** Auditoría y Consolidación masiva de la Documentación OpenTech.
-- **Decisión:** Implementar una arquitectura documental bifurcada: 4 documentos monolíticos limpios para la capa activa y resguardar el historial completo del legacy en una capa pasiva (`docs/archive-opentech`). Purgar documentos "fantasma" que describen características no implementadas.
-- **Alternativas Descartadas:** Mantener la estructura original (demasiado ruidosa) o borrar todo el legacy (pérdida de contexto legal/RETC).
-- **Consecuencias:** Mayor velocidad de onboarding y eliminación de errores técnicos por asunciones falsas. Dependencia de la IA para mantener la coherencia entre capas.
-- **Condiciones de Reversión:** Si la Ley REP cambia drásticamente y los manuales activos quedan obsoletos sin tiempo para su actualización inmediata.
-
----
-
-## [ADR-002] Purga Técnica y Sellado de Tipos
-
-- **Contexto:** Auditoría y purga técnica del Root (Nivel 2) y entorno Next.js.
-- **Decisión:** Eliminar residuales (Vite, SQLite legacy) y forzar la severidad de TypeScript/ESLint en `next.config.ts`. Congelar temporalmente los tests legacy.
-- **Alternativas Descartadas:** Mantener el modo laxo para acelerar el desarrollo inmediato (acumula deuda técnica invisible).
-- **Consecuencias:** El build de CI/CD fallará ante cualquier error de tipos. Detección temprana de bugs estructurales.
-- **Condiciones de Reversión:** Solo si un bloqueo técnico crítico en producción requiere un hotfix inmediato que el linter impide desplegar (temporal).
+| Símbolo | Significado |
+|---|---|
+| 💡 | Decisión activa |
+| ⏸️ | Decisión aplazada |
+| ⚙️ | Preferencia operativa |
 
 ---
 
-## [ADR-003] Soberanía Operativa: Docker-Only y Middleware Opt-Out
+## [UD-001] 💡 El repositorio planifica el MVP, no lo construye
 
-- **Contexto:** Auditoría de Código Exhaustiva Kairós y Diseño de Infraestructura base.
-- **Decisión:**
-  1. Estándar Docker-Only para toda dependencia.
-  2. Middleware "Opt-Out" (denegar por defecto) para rutas API.
-  3. Diferir refactorizaciones N+1 de Prisma para priorizar `AuditLog`.
-- **Alternativas Descartadas:** Instalaciones locales manuales (caos de versiones). Middleware "Opt-In" (riesgo de seguridad por omisión).
-- **Consecuencias:** Entorno de desarrollo reproducible 100%. Seguridad perimetral robusta. Aceptación temporal de deuda técnica controlada.
-- **Condiciones de Reversión:** Migración a un PaaS que prohíba Docker (poco probable) o requerimientos de latencia extrema que obliguen a abandonar el middleware de Next.
-
----
-
-## [ADR-005] Redención de Deuda y Purgado Documental
-
-- **Contexto:** Finalización de la EPIC-005 (Sanación del Core 2026).
-- **Decisión:** Se eliminó físicamente el archivo `docs/DEUDA-TECNICA.md` tras resolver los 3 puntos críticos de deuda (tipado estricto en frontend, contratos de API y optimización N+1). Aceptar `any` residuales en áreas no críticas (logs, crons) para evitar sobre-ingeniería.
-- **Alternativas Descartadas:** Mantener el archivo de deuda abierto para ítems menores (genera ruido cognitivo). Erradicar el 100% de los `any` (costo/beneficio desequilibrado en esta fase).
-- **Consecuencias:** Documentación alineada con la realidad material del código. "Build Verde" certificado.
-- **Condiciones de Reversión:** Si la acumulación de `any` en áreas secundarias empieza a degradar la mantenibilidad del sistema.
+**Fecha:** 2026-05-10
+**Contexto:** Sesión fundacional de diseño del sistema Kratos/Khaos/Antigravity.
+**Decisión:** Este repositorio contiene exclusivamente la Knowledge Base de planificación del MVP de Trazambiental. No se escribe código ejecutable aquí. El MVP se construirá en otro repositorio a partir de la planificación producida.
+**Alternativas descartadas:**
+- Repositorio mixto (planificación + código): descartado por contaminación cruzada entre artefactos de planificación y código ejecutable.
+**Consecuencias:**
+- Todo el contenido del repositorio son nodos Markdown, no código.
+- Se necesita un segundo repositorio para la implementación del MVP.
+**Condiciones de reversión:** Solo si se decide abandonar la metodología Kratos/Khaos.
 
 ---
 
-## [ADR-006] Sanación Integral de Tipos y Bypass de Linter
+## [UD-002] 💡 Nodos nombrados en lenguaje natural autoexplicativo
 
-- **Contexto:** Detección de errores circulares en ESLint 9 y uso extensivo de `any` en contratos de API y Sesiones.
-- **Decisión:**
-  1. Extender `next-auth.d.ts` para cubrir `role`, `roles` y `rut` nativamente, eliminando la necesidad de casteos manuales.
-  2. Implementar configuración de ESLint v9 mediante bypass directo a reglas críticas para romper recursión en NextAuth v5 / Next 16.
-  3. Forzar tipado en API Routes mediante `Prisma.WhereInput`.
-- **Alternativas Descartadas:** Mantener los `@ts-ignore` (degrada la calidad del sistema de tipos). Intentar arreglar `FlatCompat` (bloqueo externo de la librería).
-- **Consecuencias:** Eliminación de ruido en logs de compilación. Autocompletado robusto en el frontend. Linter operativo para reglas críticas de React Hooks.
-- **Condiciones de Reversión:** Si Next.js publica una guía oficial de soporte nativo para ESLint 9 que resuelva el error circular de forma transparente.
-
----
-
-## [ADR-007] Purificación de Arquitectura UI (React 19)
-
-- **Contexto:** Detección de ~2000 advertencias de ESLint relacionadas con la pureza y el orden de hooks heredados.
-- **Decisión:**
-  1. Erradicar el uso de `useEffect` para sincronización de estados editables.
-  2. Adoptar el patrón de componente interno con `key` para reinicio de formularios.
-  3. Forzar determinismo en la generación de coordenadas y timestamps durante el render.
-- **Alternativas Descartadas:** Silenciar las advertencias del linter (mantiene la fragilidad estructural). Intentar refactorizar con `useEffect` complejos (aumenta la deuda cognitiva).
-- **Consecuencias:** Estabilidad absoluta de la UI. Cumplimiento total del estándar ESLint 2026. Mejora del rendimiento al reducir renders redundantes.
-- **Condiciones de Reversión:** Incompatible con arquitecturas legacy que no soporten la destrucción/re-creación rápida de componentes (no aplicable en React 19).
+**Fecha:** 2026-05-10
+**Contexto:** Discusión sobre IDs crípticos vs. nomenclatura legible. El humano rechazó identificadores tipo `KR-LEY-REP-ART-24`.
+**Decisión:** Todos los nodos (Kratos y Khaos) se nombran en español, en lenguaje natural autoexplicativo. El nombre del archivo es el wikilink de Obsidian. No se usan códigos taxonómicos.
+**Alternativas descartadas:**
+- IDs taxonómicos (`KH-MOD-001`): descartados por ser ilegibles para el humano y no autoexplicativos.
+**Consecuencias:**
+- Los wikilinks son legibles directamente: `[[Ley REP - Artículo 24 - Obligaciones del Generador]]`.
+- La IA parsea nombres naturales en vez de códigos.
+**Condiciones de reversión:** Si la cantidad de nodos hace inmanejable la nomenclatura natural (improbable para un MVP).
 
 ---
 
-## [ADR-008] Certificación de Integridad de Diamante (Cierre de Deuda)
+## [UD-003] 💡 Un nodo Khaos = una responsabilidad MECE del MVP
 
-- **Contexto:** Última iteración de saneamiento técnico (/fix) tras Fase 11.
-- **Decisión:** Elevar el rigor de ESLint (`any`, `unused-vars`) a nivel de `error` de forma permanente y purgar el 100% de los residuos (logs, `any`, `TODOs`). Marcar la EPIC-005 como COMPLETADA.
-- **Alternativas Descartadas:** Mantener los residuos menores para agilizar (contradice el Norte Estético de Kairós).
-- **Consecuencias:** Repositorio 100% limpio y validado por `tsc`. Blindaje total contra la entropía técnica.
-- **Condiciones de Reversión:** Ninguna. Este es el estándar base innegociable.
-
----
-
-## [ADR-009] Aislamiento Criptográfico de la Capa Pasiva y Purga Efímera
-
-- **Contexto:** Iniciación del seguimiento de versiones (Git) y consolidación post-Fase de Sanación Integral.
-- **Decisión:**
-  1. Integrar el directorio `docs/archive-opentech/` al `.gitignore` y desenlazarlo del árbol de validación de Git.
-  2. Borrar permanente y sistemáticamente todos los reportes sueltos, historiales y scripts de automatización temporal (`*.txt`, `*_errors.json`, `fix-*`), reduciendo la entropía a nivel de entorno base.
-- **Alternativas Descartadas:** Borrar completamente el archivo `archive-opentech` (rechazado por pérdida de memoria institucional original de OpenTech), o subirlo al repo (genera enorme ruido en commits y code reviews).
-- **Consecuencias:** Se establece una base de código "verde" impoluta. La historia legal/administrativa del backend reside en las computadoras locales sin ensuciar la cadena de ramas y _Code Review_ de otros desarrolladores.
-- **Condiciones de Reversión:** Si en el futuro surge la necesidad de auditar públicamente los documentos legacy a través de GitHub/GitLab, se debe re-indexar la carpeta.
+**Fecha:** 2026-05-10
+**Contexto:** Discusión filosófica sobre la ontología de los nodos. ¿Qué es un nodo? ¿Cuándo se crea uno nuevo vs. append?
+**Decisión:** Un nodo Khaos es una unidad de responsabilidad distinguible del MVP. Se crea un nuevo nodo cuando aparece una responsabilidad que no cabe en ningún nodo existente sin romper exclusividad mutua. Se hace append cuando la información elabora la misma responsabilidad.
+**Alternativas descartadas:**
+- Nodos por tema/categoría: descartados porque no tienen criterio de frontera determinista.
+- Nodos por nivel jerárquico (Módulo > Épica > Historia): descartados porque imponen una taxonomía rígida que no respeta MECE.
+**Consecuencias:**
+- La jerarquía emerge de la descomposición de responsabilidades, no de una taxonomía predefinida.
+- La falla de exhaustividad colectiva señala nodos faltantes.
+**Condiciones de reversión:** Ninguna previsible. MECE es el principio estructural del sistema.
 
 ---
 
-## [ADR-010] Motor de Renderizado DOM Pixel-Perfect para Infografías Cliente
+## [UD-004] 💡 La IA no especula durante la construcción de nodos (Fase 1)
 
-- **Contexto:** Constante truncamiento de texto y fallos de Bounding-Box en herramientas de diagramado declarativo como D2 y Mermaid, inaceptable para entregables a Stakeholders no técnicos.
-- **Decisión:**
-  1. Abandonar frameworks declarativos ligeros para entregables UI/UX.
-  2. Implementar motor basado en DOM real (`render_diagrams.js`) que renderiza HTML + TailwindCSS y toma capturas de pantalla exactas utilizando Puppeteer.
-- **Alternativas Descartadas:** Seguir iterando scripts automatizados de post-procesamiento para D2; tolerar entregables con texto ininteligible; pagar licencias restrictivas de software propietario de diagramación.
-- **Consecuencias:** Creación de imágenes PNG con fidelidad absoluta al esquema original de interfaz gráfica, garantizando cero recortes de texto. Documentabilidad procedural estricta en el nuevo pipeline.
-- **Condiciones de Reversión:** Si surge un motor declarativo open-source que solucione radicalmente el truncamiento de texto complejo en nodos estáticos.
+**Fecha:** 2026-05-10
+**Contexto:** El humano detectó que la IA estaba generando contenido placeholder especulativo en nodos Khaos (ej. "Vacío: ¿se requiere validación contra formato SINADER?").
+**Decisión:** Durante la Fase 1 (construcción), la IA actúa exclusivamente como escriba. Transcribe lo que el humano aportó. Todo campo sin información queda estructuralmente vacío. No se generan placeholders, sugerencias, ni preguntas dentro del nodo. Los vacíos son el producto.
+**Alternativas descartadas:**
+- Placeholders descriptivos: descartados porque la IA contamina el nodo con suposiciones y el humano cree que el vacío está "atendido" cuando no lo está.
+**Consecuencias:**
+- Los vacíos son reales e inconfundibles.
+- La Fase 2 (auditoría) es el único mecanismo para resolverlos.
+**Condiciones de reversión:** Ninguna. Esta separación es inviolable.
 
 ---
 
-## [ADR-011] Estrictez de Hidratación en Componentes React 19 (Modo Demo)
+## [UD-005] ⚙️ No usar términos en francés
 
-- **Contexto:** Desarrollo del motor interactivo (`demo-context.tsx`) empleando `React.createContext` y `localStorage` para persistir datos del Modo Demo.
-- **Decisión:** Implementar renderizado condicional de componentes hijos sólo después del montaje en el cliente (`useEffect` + bandera `isClient`) para inyectar el estado recuperado desde `localStorage`.
-- **Alternativas Descartadas:** Intentar sincronizar el estado inicial de React con `localStorage` directamente en la fase de render (genera errores de `Hydration Mismatch` entre servidor y cliente).
-- **Consecuencias:** Prevención de parpadeos y errores de hidratación. La UI interactiva espera un ciclo adicional para volcar los datos reales persistidos.
-- **Condiciones de Reversión:** Adopción de librerías avanzadas de persistencia isomórfica que resuelvan la hidratación de cliente nativamente de forma transparente.
+**Fecha:** 2026-05-10
+**Contexto:** La IA utilizó "raison d'être" como nombre de campo.
+**Preferencia:** No usar terminología en francés en ningún artefacto del repositorio. Los nombres de campos, secciones y conceptos deben ser en español, autoexplicativos.
+**Motivo:** Preferencia personal del humano. Legibilidad.
+
+---
+
+## [UD-006] 💡 La plantilla no es role-aware
+
+**Fecha:** 2026-05-10
+**Contexto:** La IA usó "validado_por_ceo" como estado de nodo.
+**Decisión:** La plantilla de nodos no codifica roles organizacionales. Se usa "validado" en vez de "validado_por_ceo". El campo de estado usa "humano" como concepto genérico, no roles específicos.
+**Alternativas descartadas:**
+- Estados con roles (`validado_por_ceo`, `aprobado_por_legal`): descartados por ser un hardcodeo que no sobrevive cambios organizacionales.
+**Consecuencias:**
+- La plantilla es agnóstica al organigrama.
+**Condiciones de reversión:** Si se introduce un sistema multi-rol con permisos diferenciados.
+
+---
+
+## [UD-007] 💡 Khaos es estructura viva, la mutación es el comportamiento esperado
+
+**Fecha:** 2026-05-10
+**Contexto:** Discusión sobre cómo Antigravity debería manejar nueva información que altera nodos existentes.
+**Decisión:** La mutación (crear, fusionar, dividir, eliminar, reparentar nodos) es una operación normal, no una excepción. No requiere autorización previa. El criterio MECE gobierna la validez de toda mutación. Git registra el historial.
+**Alternativas descartadas:**
+- Nodos inmutables que se "cierran" y reemplazan: descartados por burocracia innecesaria.
+- Autorización humana para cada mutación: descartada porque paralizaría el sistema.
+**Consecuencias:**
+- Antigravity puede reestructurar el árbol Khaos libremente mientras mantenga MECE.
+- El humano puede revertir cualquier cambio via Git.
+**Condiciones de reversión:** Si se detecta que Antigravity está mutando nodos incorrectamente de forma sistemática.
+
+---
+
+## [UD-008] 💡 Eje documental clásico de Kairós deprecado
+
+**Fecha:** 2026-05-10
+**Contexto:** El eje documental estándar de Kairós (TODO, VERIFICATION, TECHNICAL-DEBT, TEST, CHANGELOG, LIVING-DOCUMENT) fue diseñado para repositorios de software. Este repositorio es una Knowledge Base de planificación: no tiene código, tests, deuda técnica, ni releases.
+**Decisión:** Deprecar completamente el eje documental clásico. Solo se conservan MASTER-SPEC, USER-DECISIONS, MEMORY y REPOMAP. Los workflows, rules, skills y templates irrelevantes para el sistema Kratos/Khaos/Antigravity fueron eliminados. El workflow `/document` fue reconceptualizado para verificar coherencia de nodos, trazabilidad Khaos→Kratos e integridad MECE.
+**Alternativas descartadas:**
+- Mantener el eje completo "por si acaso": descartado porque genera ruido, confunde a la IA, y consume contexto.
+**Consecuencias:**
+- 25 archivos de gobernanza eliminados.
+- `/document` ahora verifica la KB en vez de sincronizar documentación de código.
+- El workflow `/update` de Kairós podría restaurar archivos eliminados; se deberá re-deprecar si se ejecuta.
+**Condiciones de reversión:** Si este repositorio evoluciona para contener código ejecutable del MVP.
+
+---
+
+## [UD-009] 💡 La planificación del MVP arranca por el eje Khaos
+
+**Fecha:** 2026-05-10
+**Contexto:** Discusión sobre por dónde comenzar: ¿estructurar Kratos primero (el dump crudo) o desplegar Khaos primero (las responsabilidades del MVP)?
+**Decisión:** Comenzar por Khaos. El humano define las responsabilidades del MVP en conversación. Los vacíos de Khaos revelarán qué hechos de Kratos son necesarios, lo cual guiará la estructuración selectiva del dump crudo en vez de procesarlo completo sin saber qué es relevante.
+**Alternativas descartadas:**
+- Estructurar todo el dump de Kratos primero: descartado porque produce nodos que podrían nunca ser referenciados por Khaos.
+**Consecuencias:**
+- El dump crudo en `external-research/` se estructura bajo demanda, no de golpe.
+- Las primeras sesiones de planificación se centran en responsabilidades del MVP.
+**Condiciones de reversión:** Si el humano necesita una visión completa de Kratos antes de diseñar Khaos.
+
+---
+
+## [UD-010] 💡 Confirmación humana obligatoria antes de modificar la KB
+
+**Fecha:** 2026-05-10
+**Contexto:** El humano solicitó un mecanismo que garantice que la IA no modifique Kratos ni Khaos sin autorización explícita.
+**Decisión:** Antigravity nunca escribe en `knowledge-base/` sin confirmación previa del humano. Antes de cualquier creación, append o mutación de nodos, la IA presenta: el workflow que ejecutará, las modificaciones que hará, y el contenido que escribirá. Solo tras confirmación explícita ("sí", "dale", "ok") se ejecuta la escritura.
+**Alternativas descartadas:**
+- Autonomía total con auditoría posterior: descartada por riesgo de deriva acumulada antes de que el humano revise.
+**Consecuencias:**
+- Cada nodo es un acto de voluntad del humano, no de inferencia de la IA.
+- El proceso es más lento pero elimina modificaciones especulativas.
+- Codificado como regla `KNOWLEDGE BASE MODIFICATION GATE` en `.agents/rules/01-behavior.md`.
+**Condiciones de reversión:** Si el humano confía lo suficiente en el flujo y quiere acelerar, puede relajar esta regla a confirmación por lote.
+
+---
+
+## [UD-011] 💡 Khaos solo referencia Kratos, con rutas relativas y wikilinks nativos
+
+**Fecha:** 2026-05-10
+**Contexto:** El humano detectó que la IA referenciaba documentos fuera de la KB (context.md, conversation.md) desde un nodo Khaos.
+**Decisión:** Los nodos Khaos solo pueden referenciar nodos Kratos como sustento factual. No se permiten referencias a documentos fuera de `knowledge-base/`. Las referencias usan wikilinks (`[[Nombre]]`) para compatibilidad nativa con Obsidian. Si se necesitan enlaces Markdown estándar, se usan rutas relativas (`../kratos/nombre.md`), nunca absolutas. `kratos/` y `khaos/` son siempre directorios hermanos.
+**Alternativas descartadas:**
+- Permitir referencias a docs/: descartado porque rompe la separación entre documentación de gobernanza y Knowledge Base.
+**Consecuencias:**
+- El grafo de Obsidian muestra exclusivamente relaciones KB internas.
+- Codificado como restricciones §4.10 y §4.11 en MASTER-SPEC y en `05-constraints.md`.
+**Condiciones de reversión:** Ninguna previsible.
+
+---
+
+## [UD-012] ⏸️ Deseables del MVP no son obligatorios
+
+**Fecha:** 2026-05-10
+**Contexto:** El humano declaró en el dump de la cartulina que existen funcionalidades deseables pero no obligatorias para el MVP.
+**Decisión aplazada:** Las siguientes funcionalidades son deseables, no comprometidas:
+- Integraciones API con MMA o Aduanas
+- Capas de personalización por cliente (monetización vía cargos extra)
+- Soporte a sistemas de gestión REP para encontrar residuos huérfanos
+**Condiciones de reapertura:** Cuando el MVP comprometido esté planificado y se evalúe la extensión del alcance.
+
+---
+
+## [UD-013] ⏸️ KPIs específicos aún no definidos
+
+**Fecha:** 2026-05-10
+**Contexto:** El humano declaró que el sistema ofrecerá KPIs ambientales, de eficiencia interna y de operaciones, pero los KPIs específicos no están definidos.
+**Decisión aplazada:** La definición de los KPIs concretos y sus mecanismos de oferta queda pendiente.
+**Condiciones de reapertura:** Cuando el humano aporte la lista de KPIs específicos o cuando se estructure en Kratos la normativa que los determina.
+
+---
+
+## [UD-014] ⏸️ Diferenciadores adicionales para Cat B (y A) pendientes
+
+**Fecha:** 2026-05-10
+**Contexto:** El humano declaró que se necesitan elementos diferenciadores adicionales para fortalecer la propuesta de valor del MVP NFU, especialmente para Cat B.
+**Decisión aplazada:** La identificación y definición de diferenciadores adicionales queda como espacio en blanco declarado.
+**Condiciones de reapertura:** Cuando el humano defina los diferenciadores o cuando el análisis competitivo los revele.
+
+---
+
+## [UD-015] 💡 Estrategia de población de Kratos: una sesión por informe de deep research
+
+**Fecha:** 2026-05-10
+**Contexto:** Kratos está vacío. Existen 9 informes de deep research en `info/` que contienen material crudo sobre el dominio legal y operativo.
+**Decisión:** Poblar Kratos secuencialmente, una sesión de chat por cada informe de deep research. Cada sesión lee un informe, lo estructura en nodos Kratos atómicos, y al finalizar se cruza contra Khaos para identificar:
+- Información que subsana brechas existentes (celdas de Sustento vacías)
+- Inexactitudes en Khaos que requieran corrección
+- Información que gatille nuevos nodos o descomposiciones
+**Alternativas descartadas:**
+- Procesar todos los informes en una sola sesión: descartado por riesgo de degradación de contexto y pérdida de precisión.
+- Poblar Kratos sin cruce contra Khaos: descartado porque pierde la interdependencia que es el motor del sistema.
+**Consecuencias:**
+- El proceso requiere ~9 sesiones (una por informe) + sesiones de cruce.
+- Kratos se construye con trazabilidad directa a las fuentes de investigación.
+**Condiciones de reversión:** Si algún informe resulta irrelevante para el MVP, se omite esa sesión.
